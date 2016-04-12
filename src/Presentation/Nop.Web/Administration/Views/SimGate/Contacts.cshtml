@@ -1,0 +1,21 @@
+﻿@{
+    Layout = "~/Administration/Views/Shared/_AdminLayout.cshtml";
+
+    //page title
+    ViewBag.Title = T("Admin.Dashboard").Text;
+
+
+}
+
+
+<div class="content-header clearfix">
+    <h1 class="pull-left">
+        @T("Admin.Customers.Customers.EditCustomerDetails") - <small>@Html.ActionLink("(" + T("Admin.Customers.Customers.BackToList") + ")", "List")</small>
+    </h1>
+@Html.Partial("_SimGateHeader")
+</div>
+<div class="content">
+    <div class="row">
+
+    </div>
+</div>

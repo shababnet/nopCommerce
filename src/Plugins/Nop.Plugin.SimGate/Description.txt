@@ -1,0 +1,8 @@
+﻿Group: SMS providers
+FriendlyName: SimGate SMS providers
+SystemName: Mobile.SMS.SimGate
+Version: 1.10
+SupportedVersions: 3.80
+Author: ShababNet
+DisplayOrder: 1
+FileName: Nop.Plugin.SimGate.dll

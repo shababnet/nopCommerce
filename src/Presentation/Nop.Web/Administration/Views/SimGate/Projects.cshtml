@@ -1,0 +1,95 @@
+﻿@{
+    Layout = "~/Administration/Views/Shared/_AdminLayout.cshtml";
+
+    //page title
+    ViewBag.Title = T("Admin.Dashboard").Text;
+
+    var gridPageSize = 5;
+
+
+
+}
+@Html.AntiForgeryToken()
+
+<div class="content-header clearfix">
+    <h1 class="pull-left">
+        @T("Admin.Customers.Customers.EditCustomerDetails") - <small>@Html.ActionLink("(" + T("Admin.Customers.Customers.BackToList") + ")", "List")</small>
+    </h1>
+    @Html.Partial("_SimGateHeader")
+</div>
+<div class="content">
+    <div class="row">
+
+        <div class="col-md-12">
+            <div class="box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">@T("Admin.SalesReport.Average")</h3>
+                    <div class="box-tools pull-right">
+                        <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div id="bestsellers-byamount-grid"></div>
+
+
+                    <script>
+    $(document).ready(function () {
+        $("#bestsellers-byamount-grid").kendoGrid({
+            dataSource: {
+                type: "json",
+                transport: {
+                    read: {
+                        url: "@Html.Raw(Url.Action("BestsellersBriefReportByAmountList", "Order"))",
+                        type: "POST",
+                        dataType: "json",
+                        data: addAntiForgeryToken
+                    }
+                },
+                schema: {
+                    data: "Data",
+                    total: "Total",
+                    errors: "Errors"
+                },
+                error: function(e) {
+                    display_kendoui_grid_error(e);
+                    // Cancel the changes
+                    this.cancelChanges();
+                },
+                pageSize: @(gridPageSize),
+                serverPaging: true,
+                serverFiltering: true,
+                serverSorting: true
+            },
+            pageable: {
+                refresh: true
+            },
+            editable: {
+                confirmation: false,
+                mode: "inline"
+            },
+            scrollable: false,
+            columns: [{
+                field: "ProductName",
+                title: "@T("Admin.SalesReport.Bestsellers.Fields.Name")"
+            }, {
+                field: "TotalQuantity",
+                title: "@T("Admin.SalesReport.Bestsellers.Fields.TotalQuantity")"
+            }, {
+                field: "TotalAmount",
+                title: "@T("Admin.SalesReport.Bestsellers.Fields.TotalAmount")"
+            }, {
+                field: "ProductId",
+                title: "@T("Admin.Common.View")",
+                width: 100,
+                template: '<a href="@Url.Content("~/Admin/Product/Edit/")#=ProductId#">@T("Admin.Common.View")</a>'
+            }]
+        });
+    });
+                    </script>
+                
+                                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
