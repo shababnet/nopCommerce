@@ -1,0 +1,84 @@
+﻿@model LoginModel
+@using Nop.Web.Models.Customer;
+@using Nop.Core;
+@using Nop.Core.Infrastructure;
+@{
+    Layout = "~/Views/Shared/_ExtrPags_ColumnsOne.cshtml";
+
+    //title
+    Html.AddTitleParts(T("PageTitle.Login").Text);
+
+    //register URL with return URL (if specified)
+    var registerUrl = Url.RouteUrl("Register");
+    if (!String.IsNullOrEmpty(this.Context.Request.QueryString["returnUrl"]))
+    {
+        var webHelper = EngineContext.Current.Resolve<IWebHelper>();
+        registerUrl = webHelper.ModifyQueryString(registerUrl, "returnurl=" + HttpUtility.UrlEncode(this.Context.Request.QueryString["returnUrl"]), null);
+    }
+}
+<div class="row">
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+<div class="well no-padding">
+@using (Html.BeginForm("Login", "Customer", FormMethod.Post, new { @id = "login-form", @class = "smart-form client-form" }))
+{
+    var validationSummary = Html.ValidationSummary(true, T("Account.Login.Unsuccessful").Text);
+                <header>
+                    <strong>@T("Account.Login.ReturningCustomer")</strong>
+                </header>
+                <fieldset>
+                    <section>
+                            @if (!MvcHtmlString.IsNullOrEmpty(validationSummary))
+                            {
+                                <div class="message-error">@validationSummary</div>
+                            }
+                        @if (Model.UsernamesEnabled)
+                        {
+                                @Html.LabelFor(m => m.Username, new { })
+                                <label class="input">
+                                    <i class="icon-append fa fa-user"></i>
+                                    @Html.TextBoxFor(m => m.Username, new { @class = "username", autofocus = "autofocus" })
+                                    @Html.ValidationMessageFor(m => m.Username)
+                                </label>
+                        }
+                        else
+                        {
+                                @Html.LabelFor(m => m.Email, new { })
+                                <label class="input">
+                                    <i class="icon-append fa fa-user"></i>
+                                    @Html.TextBoxFor(m => m.Email, new { @class = "email", autofocus = "autofocus" })
+                                    @Html.ValidationMessageFor(m => m.Email)
+                                </label>
+                        }
+                        </section>
+                        <section>
+                            @Html.LabelFor(m => m.Password, new { })
+                            <label class="input">
+                                <i class="icon-append fa fa-lock"></i>
+                                @Html.PasswordFor(m => m.Password, new { @class = "password" })
+                                @Html.ValidationMessageFor(m => m.Password)
+                            </label>
+                            <div class="note">
+                                @Html.RouteLink(T("Account.Login.ForgotPassword").Text, "PasswordRecovery")
+                            </div>
+                        </section>
+                        <section>
+                            <label class="checkbox">
+                                @Html.CheckBoxFor(m => m.RememberMe)
+                                <i></i>@Html.LabelFor(m => m.RememberMe)
+                            </label>
+                        </section>
+
+                    @if (Model.DisplayCaptcha)
+                    {
+                        <div class="captcha-box">
+                            @Html.Raw(Html.GenerateCaptcha())
+                        </div>
+                    }
+                    </fieldset>
+                    <footer>
+                        <input type="submit" class="btn btn-primary" value="@T("Account.Login.LoginButton")" />
+                    </footer>
+                    }
+            </div>
+        </div>
+    </div>

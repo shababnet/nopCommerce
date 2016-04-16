@@ -1,48 +1,40 @@
-﻿@{
+﻿@model ProjectListModel
+@{
     Layout = "~/Administration/Views/Shared/_AdminLayout.cshtml";
-
     //page title
     ViewBag.Title = T("Admin.Dashboard").Text;
-
     var gridPageSize = 5;
-
-
-
 }
 @Html.AntiForgeryToken()
-
 <div class="content-header clearfix">
     <h1 class="pull-left">
-        @T("Admin.Customers.Customers.EditCustomerDetails") - <small>@Html.ActionLink("(" + T("Admin.Customers.Customers.BackToList") + ")", "List")</small>
+        Projects details
     </h1>
-    @Html.Partial("_SimGateHeader")
+    @Html.Partial("_SimGateHeader", Model)
 </div>
 <div class="content">
     <div class="row">
-
         <div class="col-md-12">
             <div class="box">
-                <div class="box-header with-border">
-                    <h3 class="box-title">@T("Admin.SalesReport.Average")</h3>
-                    <div class="box-tools pull-right">
-                        <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                    </div>
-                </div>
                 <div class="box-body">
-                    <div id="bestsellers-byamount-grid"></div>
-
-
-                    <script>
+                    <div id="simgate-grid"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
     $(document).ready(function () {
-        $("#bestsellers-byamount-grid").kendoGrid({
+        $("#simgate-grid").kendoGrid({
             dataSource: {
                 type: "json",
                 transport: {
                     read: {
-                        url: "@Html.Raw(Url.Action("BestsellersBriefReportByAmountList", "Order"))",
+                        async: true,
+                        url: "@Html.Raw(Url.Action("Projects", "SimGate"))",
                         type: "POST",
                         dataType: "json",
-                        data: addAntiForgeryToken
+                        data: additionalData
                     }
                 },
                 schema: {
@@ -68,28 +60,58 @@
                 mode: "inline"
             },
             scrollable: false,
+            columnMenu: true,
             columns: [{
-                field: "ProductName",
-                title: "@T("Admin.SalesReport.Bestsellers.Fields.Name")"
+                field: "Name",
+                title: "@T("Name")"
             }, {
-                field: "TotalQuantity",
-                title: "@T("Admin.SalesReport.Bestsellers.Fields.TotalQuantity")"
+                field: "TimeZone",
+                title: "@T("Time zone")"
             }, {
-                field: "TotalAmount",
-                title: "@T("Admin.SalesReport.Bestsellers.Fields.TotalAmount")"
+                field: "Contacts",
+                title: "@T("Contacts")"
             }, {
-                field: "ProductId",
-                title: "@T("Admin.Common.View")",
-                width: 100,
-                template: '<a href="@Url.Content("~/Admin/Product/Edit/")#=ProductId#">@T("Admin.Common.View")</a>'
+                field: "Phones",
+                title: "@T("Phones")"
+            }, {
+                field: "Messages",
+                title: "@T("Messages")"
+            }, {
+                field: "Routes",
+                title: "@T("Routes")"
+            }, {
+                field: "Receipts",
+                title: "@T("Receipts")"
+            }, {
+                field: "Active",
+                title: "@T("Active")"
+            }, {
+                field: "UserID",
+                title: "@T("UserID")"
             }]
         });
     });
-                    </script>
-                
-                                </div>
-            </div>
-        </div>
+</script>
+<script type="text/javascript">
+$(document).ready(function() {
+    $('#change-project').click(function() {
+        var grid = $('#simgate-grid').data('kendoGrid');
+        grid.dataSource.page(1);
+        return false;
+    });
 
-    </div>
-</div>
+    $('#SearchProjectId').on('change', function() {
+        var grid = $('#simgate-grid').data('kendoGrid');
+        grid.dataSource.page(1);
+    });
+});
+
+function additionalData() {
+    var data = {
+        SearchProjectId: $('#SearchProjectId').val(),
+        CurrentProjectName: $("#SearchProjectId option:selected").text()
+    };
+    addAntiForgeryToken(data);
+    return data;
+}
+</script>

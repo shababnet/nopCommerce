@@ -1,0 +1,30 @@
+﻿@model HeaderLinksModel
+@using Nop.Web.Models.Common;
+<div  class="pull-right" style="padding :15px 0px;">
+    @*<ul>
+        @if (Model.IsAuthenticated)
+        {
+            <li><a href="@Url.RouteUrl("CustomerInfo")" class="ico-account">@Model.CustomerEmailUsername</a></li>
+            <li><a href="@Url.RouteUrl("Logout")" class="ico-logout">@T("Account.Logout")</a></li>
+            <li>@Html.Action("LanguageSelector", "Common")</li>
+        }
+        else
+        {
+            <li><a href="@Url.RouteUrl("Register")" class="btn btn-dange">@T("Account.Register")</a></li>
+            <li><a href="@Url.RouteUrl("Login")" class="btn btn-dange">@T("Account.Login")</a></li>
+            <li>@Html.Action("LanguageSelector", "Common")</li>
+
+        }
+    </ul>*@
+    <div class="pull-left" style="padding-top :5px;">
+        <a href="@Url.RouteUrl("Register")" class="btn btn-primary">@T("Account.Register")</a>
+
+    </div>
+    <div class="pull-left padding-5">
+        <a href="@Url.RouteUrl("Login")" class="btn btn-primary">@T("Account.Login")</a>
+
+    </div>
+    <div class="pull-left" style="padding-top :5px;">
+        @Html.Action("LanguageSelector", "Common")
+    </div>
+</div>

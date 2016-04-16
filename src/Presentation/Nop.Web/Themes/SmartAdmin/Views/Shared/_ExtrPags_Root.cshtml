@@ -1,0 +1,23 @@
+﻿@using Nop.Core;
+@using Nop.Core.Infrastructure
+@using Nop.Web.Framework.Themes
+@using Nop.Web.Framework.UI
+@{
+    Layout = "~/Views/Shared/_ExtrPags_Root.Head.cshtml";
+    var themeName = EngineContext.Current.Resolve<IThemeContext>().WorkingThemeName;
+}
+@Html.Widget("body_start_html_tag_after")
+@Html.Partial("_Notifications")
+@Html.Action("JavaScriptDisabledWarning", "Common")
+@Html.Partial("OldInternetExplorerWarning")
+
+@Html.Partial("_ExtrPags_Header")
+
+<div id="main" role="main">
+    <div id="content" class="container">
+        @RenderBody()
+    </div>
+    @Html.Action("ExtraPages_Footer", "Common")
+</div>
+@Html.Action("EuCookieLaw", "Common")
+@Html.Widget("body_end_html_tag_before")

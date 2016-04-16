@@ -1,20 +1,118 @@
-﻿@{
+﻿@model ProjectListModel
+@{
     Layout = "~/Administration/Views/Shared/_AdminLayout.cshtml";
-
     //page title
     ViewBag.Title = T("Admin.Dashboard").Text;
-
-
+    var gridPageSize = 25;
 }
+@Html.AntiForgeryToken()
 <div class="content-header clearfix">
     <h1 class="pull-left">
-        @T("Admin.Customers.Customers.EditCustomerDetails") - <small>@Html.ActionLink("(" + T("Admin.Customers.Customers.BackToList") + ")", "List")</small>
+        Groups details - <small id="project-name-small">(@Model.CurrentProjectName)</small>
     </h1>
-    @Html.Partial("_SimGateHeader")
+    @Html.Partial("_SimGateHeader", Model)
 </div>
 <div class="content">
     <div class="row">
-
+        <div class="col-md-12">
+            <div class="box">
+                <div class="box-body">
+                    <div id="simgate-grid"></div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
+<script>
+    $(document).ready(function () {
+        $("#simgate-grid").kendoGrid({
+            dataSource: {
+                type: "json",
+                transport: {
+                    read: {
+                        async: true,
+                        url: "@Html.Raw(Url.Action("Groups", "SimGate"))",
+                        type: "POST",
+                        dataType: "json",
+                        data: additionalData
+                    }
+                },
+                schema: {
+                    data: "Data",
+                    total: "Total",
+                    errors: "Errors"
+                },
+                error: function(e) {
+                    display_kendoui_grid_error(e);
+                    this.cancelChanges();
+                },
+                pageSize: @(gridPageSize),
+                serverPaging: true,
+                serverFiltering: true,
+                serverSorting: true
+            },
+            pageable: {
+                refresh: true
+            },
+            editable: {
+                confirmation: false,
+                mode: "inline"
+            },
+            scrollable: false,
+            columns: [
+            @*{
+                field: "TelerivetID",
+                title: "@T("TelerivetID")"
+            },{
+                field: "ProjectId",
+                title: "@T("ProjectId")"
+            },{
+                field: "Vars",
+                title: "@T("Vars")"
+            }
+                *@
 
+            {
+                field: "Name",
+                title: "@T("Name")"
+            },{
+                field: "TimeCreated",
+                title: "@T("TimeCreated")"
+            },{
+                field: "Dynamic",
+                title: "@T("Dynamic")"
+            },{
+                field: "NumMembers",
+                title: "@T("NumMembers")"
+            }
+            ]
+        });
+    });
+</script>
+
+<script type="text/javascript">
+$(document).ready(function() {
+    $('#change-project').click(function() {
+        var grid = $('#simgate-grid').data('kendoGrid');
+        grid.dataSource.page(1);
+        return false;
+    });
+
+    $('#SearchProjectId').on('change', function() {
+        var grid = $('#simgate-grid').data('kendoGrid');
+        grid.dataSource.page(1);
+    });
+});
+
+function additionalData() {
+    var data = {
+        api_key:"cF04TPqu3oFzetwgU03aPKuXeVFSlfbL",
+        SearchProjectId: $('#SearchProjectId').val(),
+       CurrentProjectName: $("#SearchProjectId option:selected").text()
+    };
+    addAntiForgeryToken(data);
+    $('#project-name-small').html("("+data.CurrentProjectName+")")
+
+    return data;
+}
+</script>

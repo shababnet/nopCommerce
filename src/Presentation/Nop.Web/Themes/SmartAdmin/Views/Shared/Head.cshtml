@@ -1,0 +1,63 @@
+﻿@using Nop.Core;
+@using Nop.Core.Infrastructure
+@using Nop.Web.Framework.Themes
+@using Nop.Web.Framework.UI
+@{
+    var supportRtl = EngineContext.Current.Resolve<IWorkContext>().WorkingLanguage.Rtl;
+    var themeName = EngineContext.Current.Resolve<IThemeContext>().WorkingThemeName;
+
+    //add browser specific CSS files
+    var browser = Request.Browser;
+    if (browser.Browser == "IE" && browser.MajorVersion == 8)
+    {
+        Html.AppendCssFileParts(string.Format("~/Themes/{0}/Content/css/ie8.css", themeName));
+    }
+
+
+    <!-- #GOOGLE FONT -->
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,300,400,700">
+    <!-- #APP SCREEN / ICONS -->
+    <link rel="apple-touch-icon" href="~/Themes/@themeName/Content/img/splash/sptouch-icon-iphone.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="~/Themes/@themeName/Content/img/splash/touch-icon-ipad.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="~/Themes/@themeName/Content/img/splash/touch-icon-iphone-retina.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="~/Themes/@themeName/Content/img/splash/touch-icon-ipad-retina.png">
+
+    <!-- iOS web-app metas : hides Safari UI Components and Changes Status Bar Appearance -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <!-- Startup image for web apps -->
+    <link rel="apple-touch-startup-image" href="~/Themes/@themeName/Content/img/splash/ipad-landscape.png" media="screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:landscape)">
+    <link rel="apple-touch-startup-image" href="~/Themes/@themeName/Content/img/splash/ipad-portrait.png" media="screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:portrait)">
+    <link rel="apple-touch-startup-image" href="~/Themes/@themeName/Content/img/splash/iphone.png" media="screen and (max-device-width: 320px)">
+
+
+
+    Html.AppendCssFileParts(string.Format("~/Themes/{0}/Content/css/custom_style.css", themeName));
+
+    //add main CSS file
+    if (supportRtl)
+    {
+        Html.AppendCssFileParts(string.Format("~/Themes/{0}/Content/css/styles.rtl.css", themeName));
+    }
+    else
+    {
+        Html.AppendCssFileParts(string.Format("~/Themes/{0}/Content/css/styles.css", themeName));
+    }
+
+
+    Html.AppendCssFileParts(string.Format("~/Themes/{0}/Content/css/smartadmin-rtl.min.css", themeName));
+    Html.AppendCssFileParts(string.Format("~/Themes/{0}/Content/css/smartadmin-skins.min.css", themeName));
+    Html.AppendCssFileParts(string.Format("~/Themes/{0}/Content/css/smartadmin-production.min.css", themeName));
+    Html.AppendCssFileParts(string.Format("~/Themes/{0}/Content/css/font-awesome.min.css", themeName));
+    Html.AppendCssFileParts(string.Format("~/Themes/{0}/Content/css/bootstrap.min.css", themeName));
+
+    //add jQuery UI css file
+    Html.AppendCssFileParts("~/Content/jquery-ui-themes/smoothness/jquery-ui-1.10.3.custom.min.css");
+
+    if (browser.Browser == "IE" && browser.MajorVersion == 8)
+    {
+        Html.AddScriptParts("~/Scripts/selectivizr.min.js");
+        Html.AddScriptParts("~/Scripts/respond.min.js");
+    }
+}
