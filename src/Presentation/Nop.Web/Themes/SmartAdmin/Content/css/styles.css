@@ -85,7 +85,7 @@ table {
 input[type="text"],
 input[type="password"],
 textarea, select {
-	height: 36px; /*safari padding fix*/
+	/*height: 36px;*/ /*safari padding fix*/
 	border: 1px solid #ddd;
 	padding: 8px;
 	vertical-align: middle;
@@ -5797,7 +5797,7 @@ pre {
 .inputs input[type="text"],
 .inputs input[type="password"],
 .inputs select {
-	min-height: 40px;
+	/*min-height: 40px;*/
 }
 .inputs .option-list li {
 	margin: 0 10px 0 0;
