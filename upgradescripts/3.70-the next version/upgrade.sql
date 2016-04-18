@@ -365,6 +365,9 @@ set @resources='
   <LocaleResource Name="Admin.Catalog.Products.ProductAttributes.Attributes.AlreadyExists">
     <Value>This attribute is already added to this product</Value>
   </LocaleResource>
+  <LocaleResource Name="Admin.Header.LoggedInAs">
+    <Value></Value>
+  </LocaleResource>
 </Language>
 '
 
@@ -1369,3 +1372,11 @@ BEGIN
 	EXEC(@create_index_text)
 END
 GO
+
+--new setting
+ IF NOT EXISTS (SELECT 1 FROM [Setting] WHERE [name] = N'taxsettings.logerrors')
+ BEGIN
+ 	INSERT [Setting] ([Name], [Value], [StoreId])
+ 	VALUES (N'taxsettings.logerrors', N'True', 0)
+ END
+ GO

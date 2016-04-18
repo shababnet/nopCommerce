@@ -228,13 +228,14 @@ namespace Nop.Services.Tax
             }
             return result;
         }
-        
+
         /// <summary>
         /// Gets tax rate
         /// </summary>
         /// <param name="product">Product</param>
         /// <param name="taxCategoryId">Tax category identifier</param>
         /// <param name="customer">Customer</param>
+        /// <param name="price">Price (taxable value)</param>
         /// <param name="taxRate">Calculated tax rate</param>
         /// <param name="isTaxable">A value indicating whether a request is taxable</param>
         protected virtual void GetTaxRate(Product product, int taxCategoryId, 
@@ -275,13 +276,14 @@ namespace Nop.Services.Tax
                 
                 taxRate = calculateTaxResult.TaxRate;
             }
-            else
-            {
-                foreach (var error in calculateTaxResult.Errors)
+            else 
+                if (_taxSettings.LogErrors)
                 {
-                    _logger.Error(string.Format("{0} - {1}", activeTaxProvider.PluginDescriptor.FriendlyName, error), null, customer);
-                }
-            }   
+                    foreach (var error in calculateTaxResult.Errors)
+                    {
+                        _logger.Error(string.Format("{0} - {1}", activeTaxProvider.PluginDescriptor.FriendlyName, error), null, customer);
+                    }
+                }   
         }
         
 
