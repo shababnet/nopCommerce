@@ -18,7 +18,7 @@
 </div>
 <div class="content">
     <div class="row">
-        <div class="col-md-10">
+        <div class="col-md-12">
             @Html.Widget("admin_dashboard_top")
             @if (!Model.IsLoggedInAsVendor && canManageOrders)
             {
@@ -132,12 +132,6 @@
                         </div>
                     </div>
                 </div>
-            }
-        </div>
-        <div class="col-md-2">
-            @if (!Model.IsLoggedInAsVendor)
-            {
-                @Html.Action("NopCommerceNews", "Home")
             }
         </div>
         @Html.Widget("admin_dashboard_bottom")

@@ -12,8 +12,6 @@
     {
         Html.AppendCssFileParts(string.Format("~/Themes/{0}/Content/css/ie8.css", themeName));
     }
-
-
     <!-- #GOOGLE FONT -->
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,300,400,700">
     <!-- #APP SCREEN / ICONS -->
@@ -31,10 +29,7 @@
     <link rel="apple-touch-startup-image" href="~/Themes/@themeName/Content/img/splash/ipad-portrait.png" media="screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:portrait)">
     <link rel="apple-touch-startup-image" href="~/Themes/@themeName/Content/img/splash/iphone.png" media="screen and (max-device-width: 320px)">
 
-
-
     Html.AppendCssFileParts(string.Format("~/Themes/{0}/Content/css/custom_style.css", themeName));
-
     //add main CSS file
     if (supportRtl)
     {
@@ -44,7 +39,6 @@
     {
         Html.AppendCssFileParts(string.Format("~/Themes/{0}/Content/css/styles.css", themeName));
     }
-
 
     Html.AppendCssFileParts(string.Format("~/Themes/{0}/Content/css/smartadmin-rtl.min.css", themeName));
     Html.AppendCssFileParts(string.Format("~/Themes/{0}/Content/css/smartadmin-skins.min.css", themeName));

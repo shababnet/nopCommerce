@@ -1,0 +1,98 @@
+﻿@model LanguageSelectorModel
+@using Nop.Web.Models.Common;
+@using Nop.Core;
+@using Nop.Core.Infrastructure;
+    
+
+    @if (Model.AvailableLanguages.Count > 1)
+    {
+
+        var webHelper = EngineContext.Current.Resolve<IWebHelper>();
+
+        if (Model.UseImages)
+        {
+
+                    var currentLang = Model.AvailableLanguages.Where(l => l.Id == Model.CurrentLanguageId).Single();
+
+
+            <ul class="header-dropdown-list">
+
+                <li>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <img src="~/Themes/SmartAdmin/content/img/blank.gif" class="flag flag-@currentLang.FlagImageFileName.ToString().Replace(".png", "")" alt="@currentLang.Name"> <span> @currentLang.Name (@currentLang.FlagImageFileName.ToString().Replace(".png", "")) </span> <i class="fa fa-angle-down"></i>
+                    </a>
+                    <ul class="dropdown-menu pull-right">
+
+                        @foreach (var lang in Model.AvailableLanguages)
+                    {
+                            @*<li>
+                        <a href="@webHelper.ModifyQueryString(Url.RouteUrl("ChangeLanguage", new { langid = lang.Id }), "returnurl=" + HttpUtility.UrlEncode(HttpContext.Current.Request.RawUrl), null)" title="@lang.Name">
+                            <img title='@lang.Name' alt='@lang.Name' @(lang.Id == Model.CurrentLanguageId ? " class=selected" : null)
+                                 src="@Url.Content("~/Content/Images/flags/" + @lang.FlagImageFileName) " />
+                        </a>
+                    </li>*@
+
+                            <li @(lang.Id == Model.CurrentLanguageId ? " class=active" : null)>
+                                <a href="@webHelper.ModifyQueryString(Url.RouteUrl("ChangeLanguage", new { langid = lang.Id }), "returnurl=" + HttpUtility.UrlEncode(HttpContext.Current.Request.RawUrl), null)" title="@lang.Name">
+                                    <img src="~/Themes/SmartAdmin/content/img/blank.gif" class="flag flag-@lang.FlagImageFileName.ToString().Replace(".png","")" alt="@lang.Name">  <span> @lang.Name (@lang.FlagImageFileName.ToString().Replace(".png", "")) </span>
+                                </a>
+                            </li>
+
+
+
+                        }
+                    </ul>
+                </li>
+                    </ul>
+                    }
+                    else
+                    {
+                    var languages = Model.AvailableLanguages.Select(lang => new SelectListItem
+                    {
+                    Text = lang.Name,
+                    Value = webHelper.ModifyQueryString(Url.RouteUrl("ChangeLanguage", new { langid = lang.Id }), "returnurl=" + HttpUtility.UrlEncode(HttpContext.Current.Request.RawUrl), null),
+                    Selected = lang.Id.Equals(Model.CurrentLanguageId)
+                    });
+
+                    @Html.DropDownList("customerlanguage", languages, new { onchange = "setLocation(this.value);" })
+                    }
+                    }
+
+                    <!-- multiple lang dropdown : find all flags in the flags page -->
+                    @*<ul class="header-dropdown-list">
+                            <li>
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <img src="~/Themes/SmartAdmin/Content/img/blank.gif" class="flag flag-us" alt="United States"> <span> English (US) </span> <i class="fa fa-angle-down"></i> </a>
+                                <ul class="dropdown-menu pull-right">
+                                    <li class="active">
+                                        <a href="javascript:void(0);"><img src="~/Themes/SmartAdmin/Content/img/blank.gif" class="flag flag-us" alt="United States"> English (US)</a>
+                                    </li>
+                                    <li><a href="javascript:void(0);"><img src="~/Themes/SmartAdmin/Content/img/blank.gif" class="flag flag-fr" alt="France"> Français</a> </li>
+                                    <li>
+                                        <a href="javascript:void(0);"><img src="~/Themes/SmartAdmin/Content/img/blank.gif" class="flag flag-es" alt="Spanish"> Español</a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0);"><img src="~/Themes/SmartAdmin/Content/img/blank.gif" class="flag flag-de" alt="German"> Deutsch</a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0);"><img src="~/Themes/SmartAdmin/Content/img/blank.gif" class="flag flag-jp" alt="Japan"> 日本語</a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0);"><img src="~/Themes/SmartAdmin/Content/img/blank.gif" class="flag flag-cn" alt="China"> 中文</a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0);"><img src="~/Themes/SmartAdmin/Content/img/blank.gif" class="flag flag-it" alt="Italy"> Italiano</a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0);"><img src="~/Themes/SmartAdmin/Content/img/blank.gif" class="flag flag-pt" alt="Portugal"> Portugal</a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0);"><img src="~/Themes/SmartAdmin/Content/img/blank.gif" class="flag flag-ru" alt="Russia"> Русский язык</a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0);"><img src="~/Themes/SmartAdmin/Content/img/blank.gif" class="flag flag-kr" alt="Korea"> 한국어</a>
+                                    </li>
+
+                                </ul>
+                            </li>
+                        </ul>*@
+                    <!-- end multiple lang -->

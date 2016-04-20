@@ -401,8 +401,13 @@
     <Compile Include="Models\ShoppingCart\ShoppingCartModel.cs" />
     <Compile Include="Models\Topics\TopicModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SimGateApp\Class\Settings.cs" />
+    <Compile Include="SimGateApp\Class\StringExtensions.cs" />
     <Compile Include="SimGateApp\Controllers\CommonController.cs" />
+    <Compile Include="SimGateApp\Controllers\SimGateController.cs" />
     <Compile Include="SimGateApp\Controllers\HomeController.cs" />
+    <Compile Include="SimGateApp\Class\HtmlHelperExtensions.cs" />
+    <Compile Include="SimGateApp\Extensions\CustomerExtensions.cs" />
     <Compile Include="Validators\Blogs\BlogPostValidator.cs" />
     <Compile Include="Validators\Boards\EditForumPostValidator.cs" />
     <Compile Include="Validators\Boards\EditForumTopicValidator.cs" />
@@ -2058,6 +2063,7 @@
     <Content Include="Themes\SmartAdmin\Content\images\view-list.png" />
     <Content Include="Themes\SmartAdmin\Content\images\watch.png" />
     <Content Include="Themes\SmartAdmin\Content\images\wishlist-button.png" />
+    <Content Include="Themes\SmartAdmin\Content\img\blank.gif" />
     <Content Include="Themes\SmartAdmin\Content\img\logo.png" />
     <Content Include="Themes\SmartAdmin\Content\img\mybg.png" />
     <Content Include="Themes\SmartAdmin\Content\img\SgLogo.png" />
@@ -2148,10 +2154,24 @@
     <Content Include="Themes\SmartAdmin\Views\Common\HeaderLinks.cshtml" />
     <Content Include="Themes\SmartAdmin\Views\Common\ExtraPages_HeaderLinks.cshtml" />
     <Content Include="Themes\SmartAdmin\Views\Common\ExtraPages_Footer.cshtml" />
+    <Content Include="Themes\SmartAdmin\Views\Shared\_Dashboard_Root.cshtml" />
+    <Content Include="Themes\SmartAdmin\Views\Shared\_Dashboard_Root.Head.cshtml" />
+    <Content Include="Themes\SmartAdmin\Views\Shared\_Dashboard_Header.cshtml" />
+    <Content Include="Themes\SmartAdmin\Views\Shared\_TopRight.cshtml" />
+    <Content Include="Themes\SmartAdmin\Views\Shared\_Aside.cshtml" />
+    <Content Include="Themes\SmartAdmin\Views\Shared\_CurrentUser.cshtml" />
+    <Content Include="Themes\SmartAdmin\Views\Shared\_Scripts.cshtml" />
+    <Content Include="Themes\SmartAdmin\Views\Shared\_Ribbon.cshtml" />
+    <Content Include="Themes\SmartAdmin\Views\Shared\_Footer.cshtml" />
+    <Content Include="Themes\SmartAdmin\Views\Shared\_Tiles.cshtml" />
+    <Content Include="Themes\SmartAdmin\Views\Common\LanguageSelector.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\Roxy_Fileman\tmp\" />
     <Folder Include="Plugins\bin\" />
+    <Folder Include="Themes\SmartAdmin\Content\img\avatars\" />
+    <Folder Include="Themes\SmartAdmin\Content\img\flags\" />
+    <Folder Include="Themes\SmartAdmin\Content\Scripts\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Libraries\Nop.Core\Nop.Core.csproj">
