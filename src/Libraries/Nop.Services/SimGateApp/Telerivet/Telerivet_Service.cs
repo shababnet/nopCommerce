@@ -1,0 +1,281 @@
+﻿using Nop.Core;
+using Nop.Core.Data;
+using Nop.Core.SimGateApp.Domain.Telerivet;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Nop.Services.SimGateApp.Telerivet
+{
+    public partial class Telerivet_RouteService : ITelerivet_RouteService
+    {
+        private readonly IRepository<Telerivet_Route> _itemRepository;
+        public Telerivet_RouteService(IRepository<Telerivet_Route> itemRepository)
+        {
+            this._itemRepository = itemRepository;
+        }
+
+        public void Delete(Telerivet_Route item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IPagedList<Telerivet_Route> GetAll(int pageIndex = 0, int pageSize = int.MaxValue)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IList<Telerivet_Route> GetAllByProjectId(string projectId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Telerivet_Route GetById(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Telerivet_Route GetByTelerivetID(string telerivetID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Insert(Telerivet_Route item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Update(Telerivet_Route item)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public partial class Telerivet_MessageService : ITelerivet_MessageService
+    {
+        private readonly IRepository<Telerivet_Message> _itemRepository;
+        public Telerivet_MessageService(IRepository<Telerivet_Message> itemRepository)
+        {
+            this._itemRepository = itemRepository;
+        }
+        public void Delete(Telerivet_Message item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IPagedList<Telerivet_Message> GetAll(int pageIndex = 0, int pageSize = int.MaxValue)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IList<Telerivet_Message> GetAllByProjectId(string projectId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Telerivet_Message GetById(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Telerivet_Message GetByTelerivetID(string telerivetID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Insert(Telerivet_Message item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Update(Telerivet_Message item)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public partial class Telerivet_ProjectService : ITelerivet_ProjectService
+    {
+
+        private readonly IRepository<Telerivet_Project> _itemRepository;
+        public Telerivet_ProjectService(IRepository<Telerivet_Project> itemRepository)
+        {
+            this._itemRepository = itemRepository;
+        }
+
+        public void Delete(Telerivet_Project item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IPagedList<Telerivet_Project> GetAll(int pageIndex = 0, int pageSize = int.MaxValue)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IList<Telerivet_Project> GetAllByProjectId(string projectId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Telerivet_Project GetById(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Telerivet_Project GetByTelerivetID(string telerivetID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Insert(Telerivet_Project item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Update(Telerivet_Project item)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public partial class Telerivet_PhoneService : ITelerivet_PhoneService
+    {
+
+        private readonly IRepository<Telerivet_Phone> _itemRepository;
+        public Telerivet_PhoneService(IRepository<Telerivet_Phone> itemRepository)
+        {
+            this._itemRepository = itemRepository;
+        }
+
+        public void Delete(Telerivet_Phone item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IPagedList<Telerivet_Phone> GetAll(int pageIndex = 0, int pageSize = int.MaxValue)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IList<Telerivet_Phone> GetAllByProjectId(string projectId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Telerivet_Phone GetById(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Telerivet_Phone GetByTelerivetID(string telerivetID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Insert(Telerivet_Phone item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Update(Telerivet_Phone item)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public partial class Telerivet_GroupService : ITelerivet_GroupService
+    {
+
+        private readonly IRepository<Telerivet_Group> _itemRepository;
+        public Telerivet_GroupService(IRepository<Telerivet_Group> itemRepository)
+        {
+            this._itemRepository = itemRepository;
+        }
+
+
+        public void Delete(Telerivet_Group item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IPagedList<Telerivet_Group> GetAll(int pageIndex = 0, int pageSize = int.MaxValue)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IList<Telerivet_Group> GetAllByProjectId(string projectId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Telerivet_Group GetById(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Telerivet_Group GetByTelerivetID(string telerivetID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Insert(Telerivet_Group item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Update(Telerivet_Group item)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public partial class Telerivet_ContactService : ITelerivet_ContactService
+    {
+
+        private readonly IRepository<Telerivet_Contact> _itemRepository;
+        public Telerivet_ContactService(IRepository<Telerivet_Contact> itemRepository)
+        {
+            this._itemRepository = itemRepository;
+        }
+
+        public void Delete(Telerivet_Contact item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IPagedList<Telerivet_Contact> GetAll(int pageIndex = 0, int pageSize = int.MaxValue)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IList<Telerivet_Contact> GetAllByProjectId(string projectId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Telerivet_Contact GetById(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Telerivet_Contact GetByTelerivetID(string telerivetID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Insert(Telerivet_Contact item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Update(Telerivet_Contact item)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+
+}

@@ -100,6 +100,7 @@
     <Compile Include="Mapping\Shipping\ShipmentMap.cs" />
     <Compile Include="Mapping\Shipping\ShipmentItemMap.cs" />
     <Compile Include="Mapping\Tasks\ScheduleTaskMap.cs" />
+    <Compile Include="SimGateApp\Mapping\TelerivetMap.cs" />
     <Compile Include="SqlServerDataProvider.cs" />
     <Compile Include="SqlCeDataProvider.cs" />
     <Compile Include="IDbContext.cs" />
@@ -192,9 +193,7 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="SimGateApp\Mapping\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>

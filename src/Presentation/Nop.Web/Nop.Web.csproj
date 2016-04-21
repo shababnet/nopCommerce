@@ -2169,6 +2169,7 @@
   <ItemGroup>
     <Folder Include="Content\Roxy_Fileman\tmp\" />
     <Folder Include="Plugins\bin\" />
+    <Folder Include="SimGateApp\Infrastructure\" />
     <Folder Include="Themes\SmartAdmin\Content\img\avatars\" />
     <Folder Include="Themes\SmartAdmin\Content\img\flags\" />
     <Folder Include="Themes\SmartAdmin\Content\Scripts\" />
