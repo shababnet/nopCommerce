@@ -1,6 +1,9 @@
 ﻿using Nop.Core;
 using Nop.Core.Data;
+using Nop.Core.Domain.Customers;
+using Nop.Core.Events;
 using Nop.Core.SimGateApp.Domain.Telerivet;
+using Nop.Services.Events;
 using System;
 using System.Collections.Generic;
 using System.Linq;

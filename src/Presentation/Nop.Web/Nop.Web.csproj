@@ -408,6 +408,7 @@
     <Compile Include="SimGateApp\Controllers\HomeController.cs" />
     <Compile Include="SimGateApp\Class\HtmlHelperExtensions.cs" />
     <Compile Include="SimGateApp\Extensions\CustomerExtensions.cs" />
+    <Compile Include="SimGateApp\MyConsumer.cs" />
     <Compile Include="Validators\Blogs\BlogPostValidator.cs" />
     <Compile Include="Validators\Boards\EditForumPostValidator.cs" />
     <Compile Include="Validators\Boards\EditForumTopicValidator.cs" />
@@ -2165,6 +2166,7 @@
     <Content Include="Themes\SmartAdmin\Views\Shared\_Footer.cshtml" />
     <Content Include="Themes\SmartAdmin\Views\Shared\_Tiles.cshtml" />
     <Content Include="Themes\SmartAdmin\Views\Common\LanguageSelector.cshtml" />
+    <Content Include="Themes\SmartAdmin\Views\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\Roxy_Fileman\tmp\" />

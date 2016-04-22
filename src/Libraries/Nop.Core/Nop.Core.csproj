@@ -354,6 +354,7 @@
     <Compile Include="Domain\Catalog\TierPrice.cs" />
     <Compile Include="Domain\Customers\PasswordFormat.cs" />
     <Compile Include="NopVersion.cs" />
+    <Compile Include="SimGateApp\Domain\Telerivet\SystemCustomerAttributeNames.cs" />
     <Compile Include="SimGateApp\Domain\Telerivet\Telerivet.cs" />
     <Compile Include="WebHelper.cs" />
     <Compile Include="Domain\Customers\Customer.cs" />
