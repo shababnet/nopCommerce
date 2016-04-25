@@ -27,16 +27,16 @@
         Html.AppendHeadCustomParts(string.Format("<meta http-equiv=\"X-UA-Compatible\" content=\"{0}\"/>", commonSettings.XuaCompatibleValue));
     }
 
-    ViewBag.PageClass = ViewBag.PageClass + " animated fadeInDown ";
 
     if (Request.IsAuthenticated)
     {
 
-        // ViewBag.PageClass = ViewBag.PageClass + " fixed-header fixed-navigation fixed-ribbon";
+        ViewBag.PageClass = ViewBag.PageClass + " fixed-header fixed-navigation fixed-ribbon ";
     }
     else
     {
-        // ViewBag.PageClass = " container fixed-header menu-on-top ";
+        ViewBag.PageClass = ViewBag.PageClass + " animated fadeInDown ";
+        // ViewBag.PageClass = " fixed-header fixed-navigation fixed-ribbon menu-on-top ";
     }
 
     if (supportRtl)

@@ -1,0 +1,54 @@
+﻿@model CustomerNavigationModel           
+@using Nop.Web.Models.Customer;
+
+<aside id="left-panel">
+    @{ Html.RenderPartial("_CurrentUser"); }
+    <nav>
+        <ul>
+            <li class="@Html.RouteIf("index", "active")"><a href="@Url.Action("index", "home")" title="Dashboard"><i class="fa fa-lg fa-fw fa-home"></i> <span class="menu-item-parent">Dashboard</span></a></li>
+            @if (!Model.HideInfo)
+            {
+                <li class="@string.Concat((Model.SelectedTab == CustomerNavigationEnum.Info) ? "active" : "inactive")"><a href="@Url.RouteUrl("CustomerInfo")"><i class="fa fa-lg fa-fw fa-home"></i> @T("Account.CustomerInfo")</a></li>
+            }
+            @if (!Model.HideAddresses)
+            {
+                <li class="@string.Concat((Model.SelectedTab == CustomerNavigationEnum.Addresses) ? "active" : "inactive")"><a href="@Url.RouteUrl("CustomerAddresses")"><i class="fa fa-lg fa-fw fa-home"></i> @T("Account.CustomerAddresses")</a></li>
+            }
+            @if (!Model.HideOrders)
+            {
+                <li class="@string.Concat((Model.SelectedTab == CustomerNavigationEnum.Orders) ? "active" : "inactive")"><a href="@Url.RouteUrl("CustomerOrders")"><i class="fa fa-lg fa-fw fa-home"></i> @T("Account.CustomerOrders")</a></li>
+            }
+            @if (!Model.HideReturnRequests)
+            {
+                <li class="@string.Concat((Model.SelectedTab == CustomerNavigationEnum.ReturnRequests) ? "active" : "inactive")"><a href="@Url.RouteUrl("CustomerReturnRequests")"><i class="fa fa-lg fa-fw fa-home"></i>@T("Account.CustomerReturnRequests")</a></li>
+            }
+            @if (!Model.HideDownloadableProducts)
+            {
+                <li class="@string.Concat((Model.SelectedTab == CustomerNavigationEnum.DownloadableProducts) ? "active" : "inactive")"><a href="@Url.RouteUrl("CustomerDownloadableProducts")"><i class="fa fa-lg fa-fw fa-home"></i>@T("Account.DownloadableProducts")</a></li>
+            }
+            @if (!Model.HideBackInStockSubscriptions)
+            {
+                <li class="@string.Concat((Model.SelectedTab == CustomerNavigationEnum.BackInStockSubscriptions) ? "active" : "inactive")"><a href="@Url.RouteUrl("CustomerBackInStockSubscriptions")"><i class="fa fa-lg fa-fw fa-home"></i>@T("Account.BackInStockSubscriptions")</a></li>
+            }
+            @if (!Model.HideRewardPoints)
+            {
+                <li class="@string.Concat((Model.SelectedTab == CustomerNavigationEnum.RewardPoints) ? "active" : "inactive")"><a href="@Url.RouteUrl("CustomerRewardPoints")"><i class="fa fa-lg fa-fw fa-home"></i>@T("Account.RewardPoints")</a></li>
+            }
+            @if (!Model.HideChangePassword)
+            {
+                <li class="@string.Concat((Model.SelectedTab == CustomerNavigationEnum.ChangePassword) ? "active" : "inactive")"><a href="@Url.RouteUrl("CustomerChangePassword")"><i class="fa fa-lg fa-fw fa-home"></i>@T("Account.ChangePassword")</a></li>
+            }
+            @if (!Model.HideAvatar)
+            {
+                <li class="@string.Concat((Model.SelectedTab == CustomerNavigationEnum.Avatar) ? "active" : "inactive")"><a href="@Url.RouteUrl("CustomerAvatar")"><i class="fa fa-lg fa-fw fa-home"></i>@T("Account.Avatar")</a></li>
+            }
+            @if (!Model.HideForumSubscriptions)
+            {
+                <li class="@string.Concat((Model.SelectedTab == CustomerNavigationEnum.ForumSubscriptions) ? "active" : "inactive")"><a href="@Url.RouteUrl("CustomerForumSubscriptions")"><i class="fa fa-lg fa-fw fa-home"></i>@T("Account.ForumSubscriptions")</a></li>
+            }
+        </ul>
+    </nav>
+    <span class="minifyme" data-action="minifyMenu">
+        <i class="fa fa-arrow-circle-left hit"></i>
+    </span>
+</aside>

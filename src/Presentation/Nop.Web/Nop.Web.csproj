@@ -2167,6 +2167,18 @@
     <Content Include="Themes\SmartAdmin\Views\Shared\_Tiles.cshtml" />
     <Content Include="Themes\SmartAdmin\Views\Common\LanguageSelector.cshtml" />
     <Content Include="Themes\SmartAdmin\Views\Home\Index.cshtml" />
+    <Content Include="Themes\SmartAdmin\Views\Customer\Info.cshtml" />
+    <Content Include="Themes\SmartAdmin\Views\Shared\_ColumnsTwo.cshtml" />
+    <Content Include="Themes\SmartAdmin\Views\Customer\CustomerNavigation.cshtml" />
+    <Content Include="Themes\SmartAdmin\Views\Customer\Addresses.cshtml" />
+    <Content Include="Themes\SmartAdmin\Views\Customer\AddressAdd.cshtml" />
+    <Content Include="Themes\SmartAdmin\Views\Customer\AddressEdit.cshtml" />
+    <Content Include="Themes\SmartAdmin\Views\Customer\Avatar.cshtml" />
+    <Content Include="Themes\SmartAdmin\Views\Customer\ChangePassword.cshtml" />
+    <Content Include="Themes\SmartAdmin\Views\Customer\DownloadableProducts.cshtml" />
+    <Content Include="Themes\SmartAdmin\Views\Order\CustomerOrders.cshtml" />
+    <Content Include="Themes\SmartAdmin\Views\Order\CustomerRewardPoints.cshtml" />
+    <Content Include="Themes\SmartAdmin\Views\BackInStockSubscription\CustomerSubscriptions.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\Roxy_Fileman\tmp\" />

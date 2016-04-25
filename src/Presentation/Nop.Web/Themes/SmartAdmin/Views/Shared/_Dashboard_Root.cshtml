@@ -15,10 +15,34 @@
 
 @if (Request.IsAuthenticated)
 {
+
+    if (IsSectionDefined("PageMenu"))
+    {
+        @RenderSection("PageMenu")
+    }
+    else
+    {
     @Html.Partial("_Aside")
+    }
 }
 <div id="main" role="main">
-    @{ Html.RenderPartialIf("_Ribbon", Request.IsAuthenticated); }
+
+
+    @if (IsSectionDefined("Breadcrumb"))
+    {
+        <div id="ribbon">
+            @RenderSection("Breadcrumb")
+        </div>
+    }
+
+
+
+    @*@{ Html.RenderPartialIf("_Ribbon", Request.IsAuthenticated); }*@
+
+
+
+
+
     @RenderBody()
 </div>
 
