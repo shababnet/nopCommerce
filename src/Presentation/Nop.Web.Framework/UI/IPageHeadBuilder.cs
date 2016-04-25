@@ -2,6 +2,9 @@
 
 namespace Nop.Web.Framework.UI
 {
+    /// <summary>
+    /// Page head builder
+    /// </summary>
     public partial interface IPageHeadBuilder
     {
         void AddTitleParts(string part);
@@ -23,8 +26,7 @@ namespace Nop.Web.Framework.UI
         void AddCssFileParts(ResourceLocation location, string part);
         void AppendCssFileParts(ResourceLocation location, string part);
         string GenerateCssFiles(UrlHelper urlHelper, ResourceLocation location, bool? bundleFiles = null);
-
-
+        
         void AddCanonicalUrlParts(string part);
         void AppendCanonicalUrlParts(string part);
         string GenerateCanonicalUrls();
@@ -32,5 +34,12 @@ namespace Nop.Web.Framework.UI
         void AddHeadCustomParts(string part);
         void AppendHeadCustomParts(string part);
         string GenerateHeadCustom();
+        
+        void AddHeadCssClassParts(string part);
+        void AppendHeadCssClassParts(string part);
+        string GenerateHeadCssClasses();
+
+        void AddEditPageUrl(string url);
+        string GetEditPageUrl();
     }
 }

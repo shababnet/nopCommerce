@@ -1385,7 +1385,7 @@ namespace Nop.Admin.Controllers
             SuccessNotification(_localizationService.GetResource("Admin.Configuration.Updated"));
 
             //selected tab
-            SaveSelectedTabIndex();
+            SaveSelectedTabName();
 
             return RedirectToAction("Catalog");
         }
@@ -1743,7 +1743,7 @@ namespace Nop.Admin.Controllers
             }
 
             //selected tab
-            SaveSelectedTabIndex();
+            SaveSelectedTabName();
 
             return RedirectToAction("Order");
         }
@@ -1757,9 +1757,8 @@ namespace Nop.Admin.Controllers
 
             //we just redirect a user to the order settings page
 
-            //select second tab
-            const int customerFormFieldIndex = 1;
-            SaveSelectedTabIndex(customerFormFieldIndex);
+            //select "return request" tab
+            SaveSelectedTabName("tab-returnrequest");
             return RedirectToAction("Order", "Setting");
         }
         [HttpPost]
@@ -1848,7 +1847,7 @@ namespace Nop.Admin.Controllers
                 if (continueEditing)
                 {
                     //selected tab
-                    SaveSelectedTabIndex();
+                    SaveSelectedTabName();
 
                     return RedirectToAction("ReturnRequestReasonEdit", new { id = rrr.Id });
                 }
@@ -1883,9 +1882,8 @@ namespace Nop.Admin.Controllers
 
             //we just redirect a user to the order settings page
 
-            //select second tab
-            const int customerFormFieldIndex = 1;
-            SaveSelectedTabIndex(customerFormFieldIndex);
+            //select "return request" tab
+            SaveSelectedTabName("tab-returnrequest");
             return RedirectToAction("Order", "Setting");
         }
         [HttpPost]
@@ -1974,7 +1972,7 @@ namespace Nop.Admin.Controllers
                 if (continueEditing)
                 {
                     //selected tab
-                    SaveSelectedTabIndex();
+                    SaveSelectedTabName();
 
                     return RedirectToAction("ReturnRequestActionEdit", new { id = rra.Id });
                 }
@@ -2349,7 +2347,7 @@ namespace Nop.Admin.Controllers
             SuccessNotification(_localizationService.GetResource("Admin.Configuration.Updated"));
 
             //selected tab
-            SaveSelectedTabIndex();
+            SaveSelectedTabName();
 
             return RedirectToAction("CustomerUser");
         }
@@ -2793,7 +2791,7 @@ namespace Nop.Admin.Controllers
             SuccessNotification(_localizationService.GetResource("Admin.Configuration.Updated"));
 
             //selected tab
-            SaveSelectedTabIndex();
+            SaveSelectedTabName();
 
             return RedirectToAction("GeneralCommon");
         }
@@ -2877,7 +2875,7 @@ namespace Nop.Admin.Controllers
             }
 
             //selected tab
-            SaveSelectedTabIndex();
+            SaveSelectedTabName();
 
             return RedirectToAction("GeneralCommon");
         }
@@ -2920,7 +2918,7 @@ namespace Nop.Admin.Controllers
             }
 
             //selected tab
-            SaveSelectedTabIndex();
+            SaveSelectedTabName();
 
             return RedirectToAction("GeneralCommon");
         }
