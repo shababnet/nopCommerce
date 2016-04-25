@@ -50,17 +50,17 @@ namespace Nop.Admin.Controllers
         /// <summary>
         /// Save selected TAB name
         /// </summary>
-        /// <param name="tabName">Name to save; null to automatically detect it</param>
+        /// <param name="tabName">Tab name to save; empty to automatically detect it</param>
         /// <param name="persistForTheNextRequest">A value indicating whether a message should be persisted for the next request</param>
         protected void SaveSelectedTabName(string tabName = "", bool persistForTheNextRequest = true)
         {
             //keep this method synchronized with
-            //"GetSelectedTabName" method of \Nop.Web.Framework\ViewEngines\Razor\WebViewPage.cs
+            //"GetSelectedTabName" method of \Nop.Web.Framework\HtmlExtensions.cs
             if (string.IsNullOrEmpty(tabName))
             {
                 tabName = this.Request.Form["selected-tab-name"];
             }
-
+            
             if (!string.IsNullOrEmpty(tabName))
             {
                 const string dataKey = "nop.selected-tab-name";
@@ -71,46 +71,6 @@ namespace Nop.Admin.Controllers
                 else
                 {
                     ViewData[dataKey] = tabName;
-                }
-            }
-        }
-
-        /// <summary>
-        /// Save selected TAB index (or name)
-        /// </summary>
-        /// <param name="index">Index to save; null to automatically detect it</param>
-        /// <param name="tabName">Name to save; empty to automatically detect it</param>
-        /// <param name="persistForTheNextRequest">A value indicating whether a message should be persisted for the next request</param>
-        protected void SaveSelectedTabIndex(int? index = null, string tabName = "", bool persistForTheNextRequest = true)
-        {
-            //keep this method synchronized with
-            //"GetSelectedTabIndex" method of \Nop.Web.Framework\ViewEngines\Razor\WebViewPage.cs
-            if (!index.HasValue)
-            {
-                int tmp;
-                if (int.TryParse(this.Request.Form["selected-tab-index"], out tmp))
-                {
-                    index = tmp;
-                }
-            }
-
-            if (string.IsNullOrEmpty(tabName))
-            {
-                tabName = this.Request.Form["selected-tab-name"];
-            }
-
-            var value = index.HasValue ? index.ToString() : tabName;
-
-            if (!string.IsNullOrEmpty(value))
-            {
-                const string dataKey = "nop.selected-tab-index";
-                if (persistForTheNextRequest)
-                {
-                    TempData[dataKey] = value;
-                }
-                else
-                {
-                    ViewData[dataKey] = value;
                 }
             }
         }
