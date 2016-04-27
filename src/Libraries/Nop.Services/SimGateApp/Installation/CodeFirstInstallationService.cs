@@ -37,7 +37,7 @@ namespace Nop.Services.Installation
             var arlanguage = _languageRepository.Table.Single(l => l.Name == "اللغة العربية");
 
             //save resoureces
-            foreach (var filePath in System.IO.Directory.EnumerateFiles(CommonHelper.MapPath("~/SimGateCo/App_Data/Localization/ar/"), "*.xml", SearchOption.TopDirectoryOnly))
+            foreach (var filePath in System.IO.Directory.EnumerateFiles(CommonHelper.MapPath("~/SimGateApp/App_Data/Localization/ar/"), "*.xml", SearchOption.TopDirectoryOnly))
             {
                 var localesXml = File.ReadAllText(filePath);
                 var localizationService = EngineContext.Current.Resolve<ILocalizationService>();
