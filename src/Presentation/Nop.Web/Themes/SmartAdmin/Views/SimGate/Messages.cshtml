@@ -1,0 +1,1180 @@
+﻿@using Nop.Web.Models.SimGate
+@using Nop.Web.Framework.Kendoui;
+
+@model DataSourceResult
+
+@{
+
+
+    Layout = "~/Views/Shared/_ColumnsOne.cshtml";
+
+
+}
+
+@section Breadcrumb
+{
+    <span class="ribbon-button-alignment"><span class="btn btn-ribbon"><i class="fa-fw fa fa-user"></i></span></span>
+    <ol class="breadcrumb">
+        <li>@T("Account.MyAccount")</li>
+        <li>@T("Account.CustomerAddresses.AddNew")</li>
+    </ol>
+}
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class="inbox-nav-bar no-content-padding">
+
+        <h1 class="page-title txt-color-blueDark hidden-tablet">
+            <i class="fa fa-fw fa-inbox"></i> Inbox &nbsp;
+            <span class="btn-group">
+                <a href="#" data-toggle="dropdown" class="btn btn-default btn-xs dropdown-toggle"><span class="caret single"></span></a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a href="#">Action</a>
+                    </li>
+                    <li>
+                        <a href="#">Another action</a>
+                    </li>
+                    <li>
+                        <a href="#">Something else here</a>
+                    </li>
+                    <li class="divider"></li>
+                    <li>
+                        <a href="#">Separated link</a>
+                    </li>
+                </ul>
+            </span>
+        </h1>
+
+
+
+        <div class="inbox-checkbox-triggered">
+
+            <div class="btn-group checkbox">
+                <div class="btn btn-default ">
+                    <label style="margin-bottom:-1px;">
+                        <input class="checkbox style-2" type="checkbox" />
+                        <span></span>
+                    </label>
+                            <a class="dropdown-toggle" href="javascript:void(0);" data-toggle="dropdown">
+                                <i class="fa fa-caret-down"></i>
+                            </a>
+                            <ul class="dropdown-menu">
+    <li><a href="javascript:void(0);">Action</a></li>
+    <li><a href="javascript:void(0);">Another action</a></li>
+    <li><a href="javascript:void(0);">Something else here</a></li>
+    <li class="divider"></li>
+    <li><a href="javascript:void(0);">Separated link</a></li>
+</ul>
+</div>
+</div>
+
+
+
+            <div class="btn-group">
+                @*<a href="javascript:void(0);" rel="tooltip" title="" data-placement="bottom" data-original-title="Mark Important" class="btn btn-default"><strong><i class="fa fa-exclamation fa-lg text-danger"></i></strong></a>
+    <a href="javascript:void(0);" rel="tooltip" title="" data-placement="bottom" data-original-title="Move to folder" class="btn btn-default"><strong><i class="fa fa-folder-open fa-lg"></i></strong></a>*@
+                <a href="javascript:void(0);" rel="tooltip" title="" data-placement="bottom" data-original-title="Delete" class="deletebutton btn btn-default"><strong><i class="fa fa-trash-o fa-lg"></i></strong></a>
+
+
+
+            </div>
+
+            <div class="btn-group">
+                <a href="javascript:void(0);" rel="tooltip" title="" data-placement="bottom" data-original-title="Delete" class="deletebutton btn btn-default"><strong><i class="fa fa-envelope fa-lg"></i></strong></a>
+
+            </div>
+
+
+                <div class="btn-group hidden-desktop visible-tablet">
+                    <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                        Inbox <i class="fa fa-caret-down"></i>
+                    </button>
+                    <ul class="dropdown-menu pull-left">
+                        <li>
+                            <a href="javascript:void(0);" class="inbox-load">All messages (@Model.Total) <i class="fa fa-check"></i></a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);">Incoming</a>
+                        </li>
+                        <li><a href="javascript:void(0);">Outgoing</a></li>
+                        <li><a href="javascript:void(0);">Starred</a></li>
+                        <li class="divider"></li>
+                        <li><a href="javascript:void(0);">Queued</a></li>
+                        <li><a href="javascript:void(0);">Sent</a></li>
+                        <li><a href="javascript:void(0);">Delivered</a></li>
+                        <li><a href="javascript:void(0);">Cancelled</a></li>
+                        <li><a href="javascript:void(0);">Failed</a></li>
+                        <li><a href="javascript:void(0);">Retrying</a></li>
+                        <li><a href="javascript:void(0);">Not Delivered</a></li>
+                        <li class="divider"></li>
+                        <li><a href="javascript:void(0);">SMS</a></li>
+                        <li><a href="javascript:void(0);">Call</a></li>
+                        <li><a href="javascript:void(0);">USSD</a></li>
+                    </ul>
+
+                </div>
+
+
+
+
+                <div class="btn-group">
+                    <a href="javascript:void(0);" class="btn btn-default"><strong><i class="fa fa-chevron-left"></i></strong></a>
+                    <a href="javascript:void(0);" class="btn btn-default"><span class="pull-right"><strong>1-30</strong> of <strong>@Model.Total</strong></span></a>
+                    <a href="javascript:void(0);" class="btn btn-default"><strong><i class="fa fa-chevron-right"></i></strong></a>
+                </div>
+
+
+            </div>
+
+        @*<a href="javascript:void(0);" id="compose-mail-mini" class="btn btn-primary pull-right hidden-desktop visible-tablet"> <strong><i class="fa fa-file fa-lg"></i></strong> </a>*@
+
+
+
+    </div>
+
+    <div id="inbox-content" class="inbox-body no-content-padding">
+
+        <div class="inbox-side-bar">
+            <ul class="inbox-menu-lg">
+                <li class="active">
+                    <a href="javascript:void(0);"> All messages (@Model.Total) </a>
+                </li>
+                <li>
+                    <a href="javascript:void(0);">Incoming</a>
+                </li>
+                <li>
+                    <a href="javascript:void(0);">Outgoing</a>
+                </li>
+                <li>
+                    <a href="javascript:void(0);">Starred</a>
+                </li>
+            </ul>
+            <section id="widget-grid" class="">
+                <div class="row">
+                    <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-collapsed="true">
+                            <header>
+                                <h2><strong><i>Status </i></strong></h2>
+                            </header>
+                            <div>
+                                <div class="widget-body">
+                                    <ul class="inbox-menu-lg">
+                                        <li><a href="javascript:void(0);">Queued</a></li>
+                                        <li><a href="javascript:void(0);">Sent</a></li>
+                                        <li><a href="javascript:void(0);">Delivered</a></li>
+                                        <li><a href="javascript:void(0);">Cancelled</a></li>
+                                        <li><a href="javascript:void(0);">Failed</a></li>
+                                        <li><a href="javascript:void(0);">Retrying</a></li>
+                                        <li><a href="javascript:void(0);">Not Delivered</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="jarviswidget" id="wid-id-1" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false" data-widget-collapsed="true">
+                            <header>
+                                <h2><strong><i>Type</i></strong></h2>
+                            </header>
+                            <div>
+                                <div class="widget-body">
+                                    <ul class="inbox-menu-lg">
+                                        <li><a href="javascript:void(0);">SMS</a></li>
+                                        <li><a href="javascript:void(0);">Call</a></li>
+                                        <li><a href="javascript:void(0);">USSD</a></li>
+                                    </ul>
+                                </div>
+
+
+                            </div>
+
+                        </div>
+                    </article>
+                </div>
+            </section>
+            <div class="air air-bottom inbox-space">
+                3.5GB of <strong>10GB</strong><a href="javascript:void(0);" rel="tooltip" title="" data-placement="top" data-original-title="Empty Spam" class="pull-right txt-color-darken"><i class="fa fa-trash-o fa-lg"></i></a>
+                <div class="progress progress-micro">
+                    <div class="progress-bar progress-primary" style="width: 34%;"></div>
+                </div>
+            </div>
+        </div>
+
+        <div style="opacity: 1;" class="table-wrap custom-scroll animated fast fadeInRight">
+            <table id="inbox-table" class="table table-striped table-hover">
+                <tbody>
+
+                    @foreach (MessageModel item in Model.Data)
+                            {
+                       <tr id = "msg1" class="unread">
+                        <td class="inbox-table-icon">
+                            <div class="checkbox">
+                                <label>
+                                    <input class="checkbox style-2" type="checkbox">
+                                    <span></span>
+                                </label>
+                            </div>
+                        </td>
+                        <td class="inbox-data-from hidden-xs hidden-sm">
+                            <div>
+                                @item.FromNumber
+                            </div>
+                        </td>
+
+                           <td class="inbox-data-attachment">
+                               <div>
+                                   <span style="color:aliceblue;"><i class="fa fa-star fa-lg"></i></span>
+                               </div>
+                           </td>
+
+                        <td  class="inbox-data-message">
+                                @if (item.MessageType == "call")
+                                {
+                                    <div class="row no-margin hidden-lg show-xs show-sm">
+                                        <span class="show-xs show-sm pull-left">@item.FromNumber</span>
+                                        <span class="show-xs show-sm pull-right">@Html.UnixTimeStampToDateTime(@item.TimeCreated).ToString("d/M h:m tt").ToLower()</span>
+                                    </div>
+                                        <div class="row no-margin">
+                                            @String.Concat("Incoming Call ", "(", @item.RingTime, " sec ring)")
+                                        </div>
+                                }
+                                else if (item.MessageType == "sms")
+                                {
+                                    <div class="row no-margin hidden-lg show-xs show-sm">
+                                        <span class="show-xs show-sm pull-left">@item.FromNumber</span>
+                                        <span class="show-xs show-sm pull-right">@Html.UnixTimeStampToDateTime(@item.TimeCreated).ToString("d/M h:m tt").ToLower()</span>
+                                    </div>
+                                    <div class="row no-margin">
+                                        @item.Content
+                                    </div>
+                                }
+
+                        </td>
+                        <td class="inbox-data-date hidden-xs hidden-sm text-nowrap">
+                            <div>
+                                @Html.UnixTimeStampToDateTime(@item.TimeCreated).ToString("d/M h:m tt").ToLower()
+                            </div>
+                        </td>
+                    </tr>
+
+
+
+                    }
+
+
+
+
+
+                    @*<tr id="msg2" class="unread">
+                        <td class="inbox-table-icon">
+                            <div class="checkbox">
+                                <label>
+                                    <input class="checkbox style-2" type="checkbox">
+                                    <span></span>
+                                </label>
+                            </div>
+                        </td>
+                        <td class="inbox-data-from hidden-xs hidden-sm">
+                            <div>
+                                Sadi Orlaf
+                            </div>
+                        </td>
+                        <td class="inbox-data-message">
+                            <div>
+                                <span><span class="label bg-color-teal">HOME</span> SmartAdmin.com</span> Sed ut perspiciatis unde....
+                            </div>
+                        </td>
+                        <td class="inbox-data-attachment hidden-xs">
+                            <div>
+                                <a href="javascript:void(0);" rel="tooltip" data-placement="left" data-original-title="rocketlaunch.jpg, timelogs.xsl" class="txt-color-darken"><i class="fa fa-paperclip fa-lg"></i></a>
+                            </div>
+                        </td>
+                        <td class="inbox-data-date hidden-xs">
+                            <div>
+                                10:23 am
+                            </div>
+                        </td>
+                    </tr>
+                    <tr id="msg3">
+                        <td class="inbox-table-icon">
+                            <div class="checkbox">
+                                <label>
+                                    <input class="checkbox style-2" type="checkbox">
+                                    <span></span>
+                                </label>
+                            </div>
+                        </td>
+                        <td class="inbox-data-from hidden-xs hidden-sm">
+                            <div>
+                                Arik Lamora
+                            </div>
+                        </td>
+                        <td class="inbox-data-message">
+                            <div>
+                                <span>Facebook.com</span> Sed ut perspiciatis unde omnis iste natus error...
+                            </div>
+                        </td>
+                        <td class="inbox-data-attachment hidden-xs">
+                            <div>
+
+                            </div>
+                        </td>
+                        <td class="inbox-data-date hidden-xs">
+                            <div>
+                                10:23 am
+                            </div>
+                        </td>
+                    </tr>
+                    <tr id="msg4">
+                        <td class="inbox-table-icon">
+                            <div class="checkbox">
+                                <label>
+                                    <input class="checkbox style-2" type="checkbox">
+                                    <span></span>
+                                </label>
+                            </div>
+                        </td>
+                        <td class="inbox-data-from hidden-xs hidden-sm">
+                            <div>
+                                Robin Hood
+                            </div>
+                        </td>
+                        <td class="inbox-data-message">
+                            <div>
+                                <span>10 Jobs</span> Sed ut perspiciatis unde omnis iste natus error...
+                            </div>
+                        </td>
+                        <td class="inbox-data-attachment hidden-xs">
+                            <div>
+
+                            </div>
+                        </td>
+                        <td class="inbox-data-date hidden-xs">
+                            <div>
+                                10:23 am
+                            </div>
+                        </td>
+                    </tr>
+                    <tr id="msg5">
+                        <td class="inbox-table-icon">
+                            <div class="checkbox">
+                                <label>
+                                    <input class="checkbox style-2" type="checkbox">
+                                    <span></span>
+                                </label>
+                            </div>
+                        </td>
+                        <td class="inbox-data-from hidden-xs hidden-sm">
+                            <div>
+                                John Limar
+                            </div>
+                        </td>
+                        <td class="inbox-data-message">
+                            <div>
+                                <span>Project Date</span> Sed ut perspiciatis unde omnis iste natus...
+                            </div>
+                        </td>
+                        <td class="inbox-data-attachment hidden-xs">
+                            <div>
+                                <a href="javascript:void(0);" rel="tooltip" data-placement="left" data-original-title="payscale-changes.pdf" class="txt-color-darken"><i class="fa fa-paperclip fa-lg"></i></a>
+                            </div>
+                        </td>
+                        <td class="inbox-data-date hidden-xs">
+                            <div>
+                                10:23 am
+                            </div>
+                        </td>
+                    </tr>
+                    <tr id="msg6">
+                        <td class="inbox-table-icon">
+                            <div class="checkbox">
+                                <label>
+                                    <input class="checkbox style-2" type="checkbox">
+                                    <span></span>
+                                </label>
+                            </div>
+                        </td>
+                        <td class="inbox-data-from hidden-xs hidden-sm">
+                            <div>
+                                Jeff Hopkin <span class="text-danger">Draft</span>
+                            </div>
+                        </td>
+                        <td class="inbox-data-message">
+                            <div>
+                                <span>Hey John!</span> Sed ut perspiciatis unde omnis...
+                            </div>
+                        </td>
+                        <td class="inbox-data-attachment hidden-xs">
+                            <div>
+
+                            </div>
+                        </td>
+                        <td class="inbox-data-date hidden-xs">
+                            <div>
+                                10:23 am
+                            </div>
+                        </td>
+                    </tr>
+                    <tr id="msg7">
+                        <td class="inbox-table-icon">
+                            <div class="checkbox">
+                                <label>
+                                    <input class="checkbox style-2" type="checkbox">
+                                    <span></span>
+                                </label>
+                            </div>
+                        </td>
+                        <td class="inbox-data-from hidden-xs hidden-sm">
+                            <div>
+                                Toronto News
+                            </div>
+                        </td>
+                        <td class="inbox-data-message">
+                            <div>
+                                <span>Mayor Rod Fierd!</span> Sed ut perspiciatis unde sit...
+                            </div>
+                        </td>
+                        <td class="inbox-data-attachment hidden-xs">
+                            <div>
+
+                            </div>
+                        </td>
+                        <td class="inbox-data-date hidden-xs">
+                            <div>
+                                10:23 am
+                            </div>
+                        </td>
+                    </tr>
+                    <tr id="msg8">
+                        <td class="inbox-table-icon">
+                            <div class="checkbox">
+                                <label>
+                                    <input class="checkbox style-2" type="checkbox">
+                                    <span></span>
+                                </label>
+                            </div>
+                        </td>
+                        <td class="inbox-data-from hidden-xs hidden-sm">
+                            <div>
+                                Michael Bleigh
+                            </div>
+                        </td>
+                        <td class="inbox-data-message">
+                            <div>
+                                <span>Past due</span> Sed ut perspiciatis unde omnis iste na
+                            </div>
+                        </td>
+                        <td class="inbox-data-attachment hidden-xs">
+                            <div>
+
+                            </div>
+                        </td>
+                        <td class="inbox-data-date hidden-xs">
+                            <div>
+                                10:23 am
+                            </div>
+                        </td>
+                    </tr>
+                    <tr id="msg9">
+                        <td class="inbox-table-icon">
+                            <div class="checkbox">
+                                <label>
+                                    <input class="checkbox style-2" type="checkbox">
+                                    <span></span>
+                                </label>
+                            </div>
+                        </td>
+                        <td class="inbox-data-from hidden-xs hidden-sm">
+                            <div>
+                                Me, Navin
+                            </div>
+                        </td>
+                        <td class="inbox-data-message">
+                            <div>
+                                <span><span class="label bg-color-teal">HOME</span> John!</span> Sed ut perspiciatis...
+                            </div>
+                        </td>
+                        <td class="inbox-data-attachment hidden-xs">
+                            <div>
+
+                            </div>
+                        </td>
+                        <td class="inbox-data-date hidden-xs">
+                            <div>
+                                10:23 am
+                            </div>
+                        </td>
+                    </tr>
+                    <tr id="msg10">
+                        <td class="inbox-table-icon">
+                            <div class="checkbox">
+                                <label>
+                                    <input class="checkbox style-2" type="checkbox">
+                                    <span></span>
+                                </label>
+                            </div>
+                        </td>
+                        <td class="inbox-data-from hidden-xs hidden-sm">
+                            <div>
+                                Trello Laka
+                            </div>
+                        </td>
+                        <td class="inbox-data-message">
+                            <div>
+                                <span>Project development</span> @@Sed ut perspiciatis unde omnis...
+                            </div>
+                        </td>
+                        <td class="inbox-data-attachment hidden-xs">
+                            <div>
+
+                            </div>
+                        </td>
+                        <td class="inbox-data-date hidden-xs">
+                            <div>
+                                10:23 am
+                            </div>
+                        </td>
+                    </tr>
+                    <tr id="msg11">
+                        <td class="inbox-table-icon">
+                            <div class="checkbox">
+                                <label>
+                                    <input class="checkbox style-2" type="checkbox">
+                                    <span></span>
+                                </label>
+                            </div>
+                        </td>
+                        <td class="inbox-data-from hidden-xs hidden-sm">
+                            <div>
+                                Doug Baird
+                            </div>
+                        </td>
+                        <td class="inbox-data-message">
+                            <div>
+                                <span>Pora korta casta ricka?</span> Sed ut perspiciatis unde omnis iste...
+                            </div>
+                        </td>
+                        <td class="inbox-data-attachment hidden-xs">
+                            <div>
+
+                            </div>
+                        </td>
+                        <td class="inbox-data-date hidden-xs">
+                            <div>
+                                10:23 am
+                            </div>
+                        </td>
+                    </tr>
+                    <tr id="msg12">
+                        <td class="inbox-table-icon">
+                            <div class="checkbox">
+                                <label>
+                                    <input class="checkbox style-2" type="checkbox">
+                                    <span></span>
+                                </label>
+                            </div>
+                        </td>
+                        <td class="inbox-data-from hidden-xs hidden-sm">
+                            <div>
+                                Michael Ray, P. Eng
+                            </div>
+                        </td>
+                        <td class="inbox-data-message">
+                            <div>
+                                <span>John, please add me to your linkedin</span> Linked in request pending.
+                            </div>
+                        </td>
+                        <td class="inbox-data-attachment hidden-xs">
+                            <div>
+
+                            </div>
+                        </td>
+                        <td class="inbox-data-date hidden-xs">
+                            <div>
+                                10:23 am
+                            </div>
+                        </td>
+                    </tr>
+                    <tr id="msg13">
+                        <td class="inbox-table-icon">
+                            <div class="checkbox">
+                                <label>
+                                    <input class="checkbox style-2" type="checkbox">
+                                    <span></span>
+                                </label>
+                            </div>
+                        </td>
+                        <td class="inbox-data-from hidden-xs hidden-sm">
+                            <div>
+                                Doug Baird
+                            </div>
+                        </td>
+                        <td class="inbox-data-message">
+                            <div>
+                                <span>Pora korta casta ricka?</span> Sed ut perspiciatis unde omnis iste...
+                            </div>
+                        </td>
+                        <td class="inbox-data-attachment hidden-xs">
+                            <div>
+
+                            </div>
+                        </td>
+                        <td class="inbox-data-date hidden-xs">
+                            <div>
+                                10:23 am
+                            </div>
+                        </td>
+                    </tr>
+                    <tr id="msg14">
+                        <td class="inbox-table-icon">
+                            <div class="checkbox">
+                                <label>
+                                    <input class="checkbox style-2" type="checkbox">
+                                    <span></span>
+                                </label>
+                            </div>
+                        </td>
+                        <td class="inbox-data-from hidden-xs hidden-sm">
+                            <div>
+                                Doug Baird
+                            </div>
+                        </td>
+                        <td class="inbox-data-message">
+                            <div>
+                                <span>Pora korta casta ricka?</span> Sed ut perspiciatis unde omnis iste...
+                            </div>
+                        </td>
+                        <td class="inbox-data-attachment hidden-xs">
+                            <div>
+
+                            </div>
+                        </td>
+                        <td class="inbox-data-date hidden-xs">
+                            <div>
+                                10:23 am
+                            </div>
+                        </td>
+                    </tr>
+                    <tr id="msg15" class="unread">
+                        <td class="inbox-table-icon">
+                            <div class="checkbox">
+                                <label>
+                                    <input class="checkbox style-2" type="checkbox">
+                                    <span></span>
+                                </label>
+                            </div>
+                        </td>
+                        <td class="inbox-data-from hidden-xs hidden-sm">
+                            <div>
+                                <i class="fa fa-warning text-warning"></i> System Email
+                            </div>
+                        </td>
+                        <td class="inbox-data-message">
+                            <div>
+                                <span><span class="label bg-color-orange">WORK</span> Sustem Update</span> 2:00PM to 2PM
+                            </div>
+                        </td>
+                        <td class="inbox-data-attachment hidden-xs">
+                            <div>
+
+                            </div>
+                        </td>
+                        <td class="inbox-data-date hidden-xs">
+                            <div>
+                                10:23 am
+                            </div>
+                        </td>
+                    </tr>
+                    <tr id="msg16">
+                        <td class="inbox-table-icon">
+                            <div class="checkbox">
+                                <label>
+                                    <input class="checkbox style-2" type="checkbox">
+                                    <span></span>
+                                </label>
+                            </div>
+                        </td>
+                        <td class="inbox-data-from hidden-xs hidden-sm">
+                            <div>
+                                Amazon.ca
+                            </div>
+                        </td>
+                        <td class="inbox-data-message">
+                            <div>
+                                <span>Baby deal of the week!</span> Two new items on your cart...
+                            </div>
+                        </td>
+                        <td class="inbox-data-attachment hidden-xs">
+                            <div>
+
+                            </div>
+                        </td>
+                        <td class="inbox-data-date hidden-xs">
+                            <div>
+                                10:23 am
+                            </div>
+                        </td>
+                    </tr>
+                    <tr id="msg17">
+                        <td class="inbox-table-icon">
+                            <div class="checkbox">
+                                <label>
+                                    <input class="checkbox style-2" type="checkbox">
+                                    <span></span>
+                                </label>
+                            </div>
+                        </td>
+                        <td class="inbox-data-from hidden-xs hidden-sm">
+                            <div>
+                                New server for datacenter needed New server for datacenter ne...
+                            </div>
+                        </td>
+                        <td class="inbox-data-message">
+                            <div>
+                                <span>Header blha blah</span> New server for datacenter needed
+                            </div>
+                        </td>
+                        <td class="inbox-data-attachment hidden-xs">
+                            <div>
+
+                            </div>
+                        </td>
+                        <td class="inbox-data-date hidden-xs">
+                            <div>
+                                10:23 am
+                            </div>
+                        </td>
+                    </tr>
+                    <tr id="msg18">
+                        <td class="inbox-table-icon">
+                            <div class="checkbox">
+                                <label>
+                                    <input class="checkbox style-2" type="checkbox">
+                                    <span></span>
+                                </label>
+                            </div>
+                        </td>
+                        <td class="inbox-data-from hidden-xs hidden-sm">
+                            <div>
+                                New server for datacenter needed New server for datacenter ne...
+                            </div>
+                        </td>
+                        <td class="inbox-data-message">
+                            <div>
+                                <span>Header blha blah</span> New server for datacenter needed
+                            </div>
+                        </td>
+                        <td class="inbox-data-attachment hidden-xs">
+                            <div>
+
+                            </div>
+                        </td>
+                        <td class="inbox-data-date hidden-xs">
+                            <div>
+                                10:23 am
+                            </div>
+                        </td>
+                    </tr>
+                    <tr id="msg19">
+                        <td class="inbox-table-icon">
+                            <div class="checkbox">
+                                <label>
+                                    <input class="checkbox style-2" type="checkbox">
+                                    <span></span>
+                                </label>
+                            </div>
+                        </td>
+                        <td class="inbox-data-from hidden-xs hidden-sm">
+                            <div>
+                                System
+                            </div>
+                        </td>
+                        <td class="inbox-data-message">
+                            <div>
+                                <span>SmartAdmin</span> You have a new friend request!
+                            </div>
+                        </td>
+                        <td class="inbox-data-attachment hidden-xs">
+                            <div>
+
+                            </div>
+                        </td>
+                        <td class="inbox-data-date hidden-xs">
+                            <div>
+                                10:23 am
+                            </div>
+                        </td>
+                    </tr>
+                    <tr id="msg20">
+                        <td class="inbox-table-icon">
+                            <div class="checkbox">
+                                <label>
+                                    <input class="checkbox style-2" type="checkbox">
+                                    <span></span>
+                                </label>
+                            </div>
+                        </td>
+                        <td class="inbox-data-from hidden-xs hidden-sm">
+                            <div>
+                                System
+                            </div>
+                        </td>
+                        <td class="inbox-data-message">
+                            <div>
+                                <span>SmartAdmin</span> You have a new friend request!
+                            </div>
+                        </td>
+                        <td class="inbox-data-attachment hidden-xs">
+                            <div>
+
+                            </div>
+                        </td>
+                        <td class="inbox-data-date hidden-xs">
+                            <div>
+                                10:23 am
+                            </div>
+                        </td>
+                    </tr>
+                    <tr id="msg21">
+                        <td class="inbox-table-icon">
+                            <div class="checkbox">
+                                <label>
+                                    <input class="checkbox style-2" type="checkbox">
+                                    <span></span>
+                                </label>
+                            </div>
+                        </td>
+                        <td class="inbox-data-from hidden-xs hidden-sm">
+                            <div>
+                                System
+                            </div>
+                        </td>
+                        <td class="inbox-data-message">
+                            <div>
+                                <span>SmartAdmin</span> You have a new friend request!
+                            </div>
+                        </td>
+                        <td class="inbox-data-attachment hidden-xs">
+                            <div>
+
+                            </div>
+                        </td>
+                        <td class="inbox-data-date hidden-xs">
+                            <div>
+                                10:23 am
+                            </div>
+                        </td>
+                    </tr>
+                    <tr id="msg22">
+                        <td class="inbox-table-icon">
+                            <div class="checkbox">
+                                <label>
+                                    <input class="checkbox style-2" type="checkbox">
+                                    <span></span>
+                                </label>
+                            </div>
+                        </td>
+                        <td class="inbox-data-from hidden-xs hidden-sm">
+                            <div>
+                                System
+                            </div>
+                        </td>
+                        <td class="inbox-data-message">
+                            <div>
+                                <span>SmartAdmin</span> You have a new friend request!
+                            </div>
+                        </td>
+                        <td class="inbox-data-attachment hidden-xs">
+                            <div>
+
+                            </div>
+                        </td>
+                        <td class="inbox-data-date hidden-xs">
+                            <div>
+                                10:23 am
+                            </div>
+                        </td>
+                    </tr>
+                    <tr id="msg23">
+                        <td class="inbox-table-icon">
+                            <div class="checkbox">
+                                <label>
+                                    <input class="checkbox style-2" type="checkbox">
+                                    <span></span>
+                                </label>
+                            </div>
+                        </td>
+                        <td class="inbox-data-from hidden-xs hidden-sm">
+                            <div>
+                                Sunny
+                            </div>
+                        </td>
+                        <td class="inbox-data-message">
+                            <div>
+                                <span>Important question!</span> Hey John, I hope you are okay...
+                            </div>
+                        </td>
+                        <td class="inbox-data-attachment hidden-xs">
+                            <div>
+
+                            </div>
+                        </td>
+                        <td class="inbox-data-date hidden-xs">
+                            <div>
+                                10:23 am
+                            </div>
+                        </td>
+                    </tr>
+                    <tr id="msg24">
+                        <td class="inbox-table-icon">
+                            <div class="checkbox">
+                                <label>
+                                    <input class="checkbox style-2" type="checkbox">
+                                    <span></span>
+                                </label>
+                            </div>
+                        </td>
+                        <td class="inbox-data-from hidden-xs hidden-sm">
+                            <div>
+                                System
+                            </div>
+                        </td>
+                        <td class="inbox-data-message">
+                            <div>
+                                <span>SmartAdmin</span> You have a new friend request!
+                            </div>
+                        </td>
+                        <td class="inbox-data-attachment hidden-xs">
+                            <div>
+
+                            </div>
+                        </td>
+                        <td class="inbox-data-date hidden-xs">
+                            <div>
+                                10:23 am
+                            </div>
+                        </td>
+                    </tr>
+                    <tr id="msg25">
+                        <td class="inbox-table-icon">
+                            <div class="checkbox">
+                                <label>
+                                    <input class="checkbox style-2" type="checkbox">
+                                    <span></span>
+                                </label>
+                            </div>
+                        </td>
+                        <td class="inbox-data-from hidden-xs hidden-sm">
+                            <div>
+                                Dogue Biryrd
+                            </div>
+                        </td>
+                        <td class="inbox-data-message">
+                            <div>
+                                <span>Hey whats up?</span> Just checking up on ya...
+                            </div>
+                        </td>
+                        <td class="inbox-data-attachment hidden-xs">
+                            <div>
+
+                            </div>
+                        </td>
+                        <td class="inbox-data-date hidden-xs">
+                            <div>
+                                10:23 am
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr id="msg26">
+                        <td class="inbox-table-icon">
+                            <div class="checkbox">
+                                <label>
+                                    <input class="checkbox style-2" type="checkbox">
+                                    <span></span>
+                                </label>
+                            </div>
+                        </td>
+                        <td class="inbox-data-from hidden-xs hidden-sm">
+                            <div>
+                                System
+                            </div>
+                        </td>
+                        <td class="inbox-data-message">
+                            <div>
+                                <span>SmartAdmin</span> You have a new friend request!
+                            </div>
+                        </td>
+                        <td class="inbox-data-attachment hidden-xs">
+                            <div>
+
+                            </div>
+                        </td>
+                        <td class="inbox-data-date hidden-xs">
+                            <div>
+                                10:23 am
+                            </div>
+                        </td>
+                    </tr>
+                    <tr id="msg27">
+                        <td class="inbox-table-icon">
+                            <div class="checkbox">
+                                <label>
+                                    <input class="checkbox style-2" type="checkbox">
+                                    <span></span>
+                                </label>
+                            </div>
+                        </td>
+                        <td class="inbox-data-from hidden-xs hidden-sm">
+                            <div>
+                                System
+                            </div>
+                        </td>
+                        <td class="inbox-data-message">
+                            <div>
+                                <span>SmartAdmin</span> You have a new friend request!
+                            </div>
+                        </td>
+                        <td class="inbox-data-attachment hidden-xs">
+                            <div>
+
+                            </div>
+                        </td>
+                        <td class="inbox-data-date hidden-xs">
+                            <div>
+                                10:23 am
+                            </div>
+                        </td>
+                    </tr>
+                    <tr id="msg28">
+                        <td class="inbox-table-icon">
+                            <div class="checkbox">
+                                <label>
+                                    <input class="checkbox style-2" type="checkbox">
+                                    <span></span>
+                                </label>
+                            </div>
+                        </td>
+                        <td class="inbox-data-from hidden-xs hidden-sm">
+                            <div>
+                                System
+                            </div>
+                        </td>
+                        <td class="inbox-data-message">
+                            <div>
+                                <span>SmartAdmin</span> You have a new friend request!
+                            </div>
+                        </td>
+                        <td class="inbox-data-attachment hidden-xs">
+                            <div>
+
+                            </div>
+                        </td>
+                        <td class="inbox-data-date hidden-xs">
+                            <div>
+                                10:23 am
+                            </div>
+                        </td>
+                    </tr>
+                    <tr id="msg29">
+                        <td class="inbox-table-icon">
+                            <div class="checkbox">
+                                <label>
+                                    <input class="checkbox style-2" type="checkbox">
+                                    <span></span>
+                                </label>
+                            </div>
+                        </td>
+                        <td class="inbox-data-from hidden-xs hidden-sm">
+                            <div>
+                                System
+                            </div>
+                        </td>
+                        <td class="inbox-data-message">
+                            <div>
+                                <span>SmartAdmin</span> You have a new friend request!
+                            </div>
+                        </td>
+                        <td class="inbox-data-attachment hidden-xs">
+                            <div>
+
+                            </div>
+                        </td>
+                        <td class="inbox-data-date hidden-xs">
+                            <div>
+                                10:23 am
+                            </div>
+                        </td>
+                    </tr>
+                    <tr id="msg30">
+                        <td class="inbox-table-icon">
+                            <div class="checkbox">
+                                <label>
+                                    <input class="checkbox style-2" type="checkbox">
+                                    <span></span>
+                                </label>
+                            </div>
+                        </td>
+                        <td class="inbox-data-from hidden-xs hidden-sm">
+                            <div>
+                                System
+                            </div>
+                        </td>
+                        <td class="inbox-data-message">
+                            <div>
+                                <span>SmartAdmin</span> You have a new friend request!
+                            </div>
+                        </td>
+                        <td class="inbox-data-attachment hidden-xs">
+                            <div>
+
+                            </div>
+                        </td>
+                        <td class="inbox-data-date hidden-xs">
+                            <div>
+                                10:23 am
+                            </div>
+                        </td>
+                    </tr>*@
+
+
+                </tbody>
+            </table>
+        </div>
+
+        <div class="inbox-footer">
+
+            <div class="row">
+
+                <div class="col-xs-6 col-sm-1">
+
+                    <div class="txt-color-white hidden-desktop visible-mobile">
+                        3.5GB of <strong>10GB</strong>
+
+                        <div class="progress progress-micro">
+                            <div class="progress-bar progress-primary" style="width: 34%;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xs-6 col-sm-11 text-right">
+                    <div class="txt-color-white inline-block">
+                        <i class="txt-color-blueLight hidden-mobile">Last account activity <i class="fa fa-clock-o"></i> 52 mins ago |</i> Displaying <strong>44 of 259</strong>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+

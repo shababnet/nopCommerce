@@ -8,17 +8,26 @@
     var supportRtl = EngineContext.Current.Resolve<IWorkContext>().WorkingLanguage.Rtl;
     var currentThemeName = EngineContext.Current.Resolve<IThemeContext>().WorkingThemeName;
 
-    Html.AppendScriptParts("~/Scripts/public.ajaxcart.js");
-    Html.AppendScriptParts("~/Scripts/public.common.js");
-    Html.AppendScriptParts("~/Scripts/jquery-migrate-1.2.1.min.js");
-    Html.AppendScriptParts("~/Scripts/jquery-ui-1.10.3.custom.min.js");
-    Html.AppendScriptParts("~/Scripts/jquery.validate.unobtrusive.min.js");
-    Html.AppendScriptParts("~/Scripts/jquery.validate.min.js");
-    Html.AppendScriptParts("~/Scripts/jquery-1.10.2.min.js");
 
-    Html.AppendScriptParts(ResourceLocation.Foot, "~/Themes/" + @currentThemeName + "/content/scripts/app.seed.min.js", true);
-    Html.AppendScriptParts(ResourceLocation.Foot, "~/Themes/" + @currentThemeName + "/content/scripts/bootstrap/bootstrap.min.js", true);
-    Html.AppendScriptParts(ResourceLocation.Foot, "~/Themes/" + @currentThemeName + "/content/scripts/app.config.seed.min.js", true);
+
+
+    //Html.AppendScriptParts("~/Scripts/public.ajaxcart.js");
+    Html.AppendScriptParts("~/Scripts/public.common.js");
+    //Html.AppendScriptParts("~/Scripts/jquery-migrate-1.2.1.min.js");
+    //Html.AppendScriptParts("~/Scripts/jquery-ui-1.10.3.custom.min.js");
+    //Html.AppendScriptParts("~/Scripts/jquery.validate.unobtrusive.min.js");
+    //Html.AppendScriptParts("~/Scripts/jquery.validate.min.js");
+    //Html.AppendScriptParts("~/Scripts/jquery-1.10.2.min.js");
+
+    //Html.AppendScriptParts(ResourceLocation.Foot, "~/Themes/" + @currentThemeName + "/content/scripts/app.min.js", true);
+    //Html.AppendScriptParts(ResourceLocation.Foot, "~/Themes/" + @currentThemeName + "/content/scripts/app.config.js", true);
+    //Html.AppendScriptParts(ResourceLocation.Foot, "~/Themes/" + @currentThemeName + "/Content/Scripts/smartwidgets/jarvis.widget.min.js", true);
+    //Html.AppendScriptParts(ResourceLocation.Foot, "~/Themes/" + @currentThemeName + "/content/scripts/bootstrap/bootstrap.min.js", true);
+
+
+
+
+
 
     //X-UA-Compatible tag
     var commonSettings = EngineContext.Current.Resolve<CommonSettings>();
@@ -48,7 +57,7 @@
     }
 }
 <!DOCTYPE html>
-<html @Html.Partial("LanguageAttributes")>
+<html lang="en-us" @Html.Partial("LanguageAttributes")>
 <head>
     <title>@Html.NopTitle(true)</title>
     <meta http-equiv="Content-type" content="text/html;charset=UTF-8" />

@@ -37,8 +37,6 @@ namespace Nop.Admin.Controllers
 
 
         private readonly TelerivetAPI _telerivetAPI;
-
-
         private String apiKey = "cF04TPqu3oFzetwgU03aPKuXeVFSlfbL";
 
 
@@ -302,6 +300,7 @@ namespace Nop.Admin.Controllers
         public async Task<ActionResult> Messages(DataSourceRequest command, ProjectListModel model)
         {
             SetCurrentProject(model);
+
             int offset = (command.Page - 1) * command.PageSize;
 
             Project project = _telerivetAPI.InitProjectById(model.SearchProjectId);

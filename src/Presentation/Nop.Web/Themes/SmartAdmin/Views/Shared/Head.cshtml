@@ -33,16 +33,17 @@
     //add main CSS file
     if (supportRtl)
     {
-        Html.AppendCssFileParts(string.Format("~/Themes/{0}/Content/css/styles.rtl.css", themeName));
+        //Html.AppendCssFileParts(string.Format("~/Themes/{0}/Content/css/styles.rtl.css", themeName));
     }
     else
     {
-        Html.AppendCssFileParts(string.Format("~/Themes/{0}/Content/css/styles.css", themeName));
+        //Html.AppendCssFileParts(string.Format("~/Themes/{0}/Content/css/styles.css", themeName));
     }
 
     Html.AppendCssFileParts(string.Format("~/Themes/{0}/Content/css/smartadmin-rtl.min.css", themeName));
     Html.AppendCssFileParts(string.Format("~/Themes/{0}/Content/css/smartadmin-skins.min.css", themeName));
     Html.AppendCssFileParts(string.Format("~/Themes/{0}/Content/css/smartadmin-production.min.css", themeName));
+    Html.AppendCssFileParts(string.Format("~/Themes/{0}/Content/css/smartadmin-production-plugins.min.css", themeName));
     Html.AppendCssFileParts(string.Format("~/Themes/{0}/Content/css/font-awesome.min.css", themeName));
     Html.AppendCssFileParts(string.Format("~/Themes/{0}/Content/css/bootstrap.min.css", themeName));
 

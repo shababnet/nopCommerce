@@ -408,6 +408,10 @@
     <Compile Include="SimGateApp\Controllers\HomeController.cs" />
     <Compile Include="SimGateApp\Class\HtmlHelperExtensions.cs" />
     <Compile Include="SimGateApp\Extensions\CustomerExtensions.cs" />
+    <Compile Include="SimGateApp\Models\BaseTelerivetModel.cs" />
+    <Compile Include="SimGateApp\Models\PhoneModel.cs" />
+    <Compile Include="SimGateApp\Models\ProjectListModel.cs" />
+    <Compile Include="SimGateApp\Models\ProjectModel.cs" />
     <Compile Include="SimGateApp\MyConsumer.cs" />
     <Compile Include="Validators\Blogs\BlogPostValidator.cs" />
     <Compile Include="Validators\Boards\EditForumPostValidator.cs" />
@@ -2009,16 +2013,20 @@
     <Content Include="Scripts\public.common.js" />
     <Content Include="Themes\DefaultClean\Content\css\print.css" />
     <Content Include="Themes\SmartAdmin\Content\css\bootstrap.min.css" />
+    <Content Include="Themes\SmartAdmin\Content\css\demo.min.css" />
     <Content Include="Themes\SmartAdmin\Content\css\font-awesome.min.css" />
     <Content Include="Themes\SmartAdmin\Content\css\ie8.css" />
+    <Content Include="Themes\SmartAdmin\Content\css\invoice.min.css" />
     <Content Include="Themes\SmartAdmin\Content\css\lockscreen.min.css" />
     <Content Include="Themes\SmartAdmin\Content\css\print.css" />
+    <Content Include="Themes\SmartAdmin\Content\css\smartadmin-production-plugins.min.css" />
     <Content Include="Themes\SmartAdmin\Content\css\smartadmin-production.min.css" />
     <Content Include="Themes\SmartAdmin\Content\css\smartadmin-rtl.min.css" />
     <Content Include="Themes\SmartAdmin\Content\css\smartadmin-skins.min.css" />
     <Content Include="Themes\SmartAdmin\Content\css\styles.css" />
     <Content Include="Themes\SmartAdmin\Content\css\styles.rtl.css" />
     <Content Include="Themes\SmartAdmin\Content\css\custom_style.css" />
+    <Content Include="Themes\SmartAdmin\Content\css\your_style.css" />
     <Content Include="Themes\SmartAdmin\Content\fonts\fontawesome-webfont.svg" />
     <Content Include="Themes\SmartAdmin\Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Themes\SmartAdmin\Content\images\ajax-loader-small.gif" />
@@ -2076,6 +2084,12 @@
     <Content Include="Themes\SmartAdmin\Content\img\splash\touch-icon-ipad-retina.png" />
     <Content Include="Themes\SmartAdmin\Content\img\splash\touch-icon-ipad.png" />
     <Content Include="Themes\SmartAdmin\Content\img\splash\touch-icon-iphone-retina.png" />
+    <Content Include="Themes\SmartAdmin\Content\Scripts\app.config.js" />
+    <Content Include="Themes\SmartAdmin\Content\Scripts\app.min.js" />
+    <Content Include="Themes\SmartAdmin\Content\Scripts\bootstrap\bootstrap.min.js" />
+    <Content Include="Themes\SmartAdmin\Content\Scripts\demo.min.js" />
+    <Content Include="Themes\SmartAdmin\Content\Scripts\libs\jquery-2.1.1.min.js" />
+    <Content Include="Themes\SmartAdmin\Content\Scripts\libs\jquery-ui-1.10.3.min.js" />
     <Content Include="Themes\SmartAdmin\preview.jpg" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -2180,14 +2194,28 @@
     <Content Include="Themes\SmartAdmin\Views\Order\CustomerOrders.cshtml" />
     <Content Include="Themes\SmartAdmin\Views\Order\CustomerRewardPoints.cshtml" />
     <Content Include="Themes\SmartAdmin\Views\BackInStockSubscription\CustomerSubscriptions.cshtml" />
+    <Content Include="Themes\SmartAdmin\Views\SimGate\Messages.cshtml" />
+    <Content Include="Themes\SmartAdmin\Content\Scripts\libs\jquery-2.1.1.min.map" />
+    <Content Include="Themes\SmartAdmin\Content\fonts\summernote.eot" />
+    <Content Include="Themes\SmartAdmin\Content\fonts\summernote.ttf" />
+    <Content Include="Themes\SmartAdmin\Content\fonts\summernote.woff" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\Roxy_Fileman\tmp\" />
     <Folder Include="Plugins\bin\" />
     <Folder Include="SimGateApp\Infrastructure\" />
+    <Folder Include="Themes\SmartAdmin\Content\fonts\font-awesome\" />
+    <Folder Include="Themes\SmartAdmin\Content\fonts\fontawesome4.2\" />
+    <Folder Include="Themes\SmartAdmin\Content\fonts\fontawesome4.5\" />
     <Folder Include="Themes\SmartAdmin\Content\img\avatars\" />
+    <Folder Include="Themes\SmartAdmin\Content\img\demo\" />
     <Folder Include="Themes\SmartAdmin\Content\img\flags\" />
-    <Folder Include="Themes\SmartAdmin\Content\Scripts\" />
+    <Folder Include="Themes\SmartAdmin\Content\img\pattern\" />
+    <Folder Include="Themes\SmartAdmin\Content\Scripts\notification\" />
+    <Folder Include="Themes\SmartAdmin\Content\Scripts\plugin\" />
+    <Folder Include="Themes\SmartAdmin\Content\Scripts\smart-chat-ui\" />
+    <Folder Include="Themes\SmartAdmin\Content\Scripts\smartwidgets\" />
+    <Folder Include="Themes\SmartAdmin\Content\Scripts\speech\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Libraries\Nop.Core\Nop.Core.csproj">
@@ -2201,6 +2229,10 @@
     <ProjectReference Include="..\..\Libraries\Nop.Services\Nop.Services.csproj">
       <Project>{210541AD-F659-47DA-8763-16F36C5CD2F4}</Project>
       <Name>Nop.Services</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Libraries\TelerivetAPIClient\TelerivetAPIClient.csproj">
+      <Project>{bf4a8e93-f744-4efa-8398-94d5a6726f0f}</Project>
+      <Name>TelerivetAPIClient</Name>
     </ProjectReference>
     <ProjectReference Include="..\Nop.Web.Framework\Nop.Web.Framework.csproj">
       <Project>{75FD4163-333C-4DD5-854D-2EF294E45D94}</Project>

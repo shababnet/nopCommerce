@@ -38,6 +38,19 @@ namespace Nop.Web.Extensions
             return helper.Raw(_displayVersion);
         }
 
+
+        public static DateTime UnixTimeStampToDateTime(this HtmlHelper helper , long? unixTimeStamp)
+        {
+            double unixTimeStampD = 0;
+
+            Double.TryParse(unixTimeStamp.ToString(), out unixTimeStampD);
+            // Unix timestamp is seconds past epoch
+            System.DateTime dtDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc);
+            dtDateTime = dtDateTime.AddSeconds(unixTimeStampD).ToLocalTime();
+            return dtDateTime;
+        }
+
+
         /// <summary>
         ///     Compares the requested route with the given <paramref name="value" /> value, if a match is found the
         ///     <paramref name="attribute" /> value is returned.
