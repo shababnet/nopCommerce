@@ -15,7 +15,6 @@
 
 @if (Request.IsAuthenticated)
 {
-
     if (IsSectionDefined("PageMenu"))
     {
         @RenderSection("PageMenu")
@@ -34,15 +33,6 @@
             @RenderSection("Breadcrumb")
         </div>
     }
-
-
-
-    @*@{ Html.RenderPartialIf("_Ribbon", Request.IsAuthenticated); }*@
-
-
-
-
-
     @RenderBody()
 </div>
 
@@ -51,6 +41,6 @@
     Html.RenderPartial("_Footer");
     Html.RenderPartialIf("_Tiles", true);
 }
-@{ Html.RenderPartial("_Scripts", RenderSection("pagespecific", false)); }
+@{ Html.RenderPartial("_Scripts", RenderSection("PageScripts", false)); }
 @Html.Action("EuCookieLaw", "Common")
 @Html.Widget("body_end_html_tag_before")

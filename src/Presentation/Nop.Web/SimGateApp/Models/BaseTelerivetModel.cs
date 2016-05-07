@@ -84,6 +84,7 @@ namespace Nop.Web.Models.SimGate
         public int IncomingMessageCount { get; set; }
         public int OutgoingMessageCount { get; set; }
         public bool SendBlocked { get; set; }
+        public int Id { get;  set; }
     }
 
     

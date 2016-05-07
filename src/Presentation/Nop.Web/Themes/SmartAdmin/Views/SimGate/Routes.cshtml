@@ -1,0 +1,75 @@
+﻿@using Nop.Web.Models.SimGate
+@using Nop.Web.Framework.Kendoui;
+@model DataSourceResult
+@{
+    Layout = "~/Views/Shared/_ColumnsOne.cshtml";
+}
+
+@section Breadcrumb
+{
+    <span class="ribbon-button-alignment"><span class="btn btn-ribbon"><i class="fa-fw fa fa-user"></i></span></span>
+    <ol class="breadcrumb">
+        <li>@T("Account.MyAccount")</li>
+        <li>@T("Account.CustomerAddresses.AddNew")</li>
+    </ol>
+}
+
+<div class="inbox-nav-bar no-content-padding">
+    <h1 class="page-title txt-color-blueDark hidden-tablet">
+        <i class="fa fa-fw fa-phone"></i> <strong>Routes &nbsp;</strong>
+    </h1>
+    <div class="inbox-checkbox-triggered">
+        <div class="btn-group hidden-desktop visible-tablet pull-left">
+            <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">Routes <i class="fa fa-caret-down"></i></button>
+            <ul class="dropdown-menu pull-left">
+                <li><a href="@Url.Action("Phones", "SimGate")">Phones</a></li>
+                <li><a href="@Url.Action("Phones", "SimGate")" class="inbox-load">Routes <i class="fa fa-check"></i></a></li>
+            </ul>
+        </div>
+        <div class="btn-group pull-right">
+            <a href="javascript:void(0);" class="btn btn-default disabled"><strong><i class="fa fa-chevron-left"></i></strong></a>
+            <a href="javascript:void(0);" class="btn btn-default disabled"><span class="pull-right"><strong>1-@Model.Total</strong> of <strong>@Model.Total</strong></span></a>
+            <a href="javascript:void(0);" class="btn btn-default disabled"><strong><i class="fa fa-chevron-right"></i></strong></a>
+        </div>
+    </div>
+</div>
+<div id="inbox-content" class="inbox-body no-content-padding" style="min-height: 130px;">
+    <div class="inbox-side-bar">
+        <ul class="inbox-menu-lg">
+            <li>
+                <a href="@Url.Action("Phones", "SimGate")">phones</a>
+            </li>
+            <li class="active">
+                <a href="@Url.Action("Routes", "SimGate")">Routes</a>
+            </li>
+        </ul>
+        <div class="air air-bottom inbox-space">
+            3 of <strong>5 Phones</strong>
+            <div class="progress progress-micro">
+                <div class="progress-bar progress-primary" style="width: 60%;"></div>
+            </div>
+        </div>
+    </div>
+    <div style="opacity: 1;" class="table-wrap custom-scroll animated fast fadeInRight">
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (RouteModel item in Model.Data)
+                    {
+                        <tr>
+                            <td>@item.Name</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+@section PageScripts
+{
+}

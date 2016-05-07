@@ -2,6 +2,8 @@
 using Nop.Data.Mapping;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity.Infrastructure.Annotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -67,6 +69,19 @@ namespace Nop.Data.SimGateApp.Mapping
         {
             this.ToTable("Telerivet_Contact");
             this.HasKey(c => c.Id);
+        }
+    }
+
+
+
+
+    public partial class Telerivet_Messages_By_DayMap : NopEntityTypeConfiguration<Telerivet_Messages_By_Day>
+    {
+        public Telerivet_Messages_By_DayMap()
+        {
+            this.ToTable("Telerivet_Messages_By_Day");
+            this.HasKey(c => c.Id);
+            // Property(c => c.ProjectId).HasColumnAnnotation("index", new IndexAnnotation(new IndexAttribute("IX_ProjectId") { IsUnique = false }));
         }
     }
 

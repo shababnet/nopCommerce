@@ -10558,7 +10558,7 @@ tr.highlight td,tr.unread.highlight td {
 }
 
 .inbox-checkbox-triggered {
-    display: inline-block
+    display: inline
 }
 
 .inbox-checkbox-triggered>.btn-group {

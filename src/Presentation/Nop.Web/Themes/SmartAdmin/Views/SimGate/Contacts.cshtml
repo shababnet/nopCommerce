@@ -1,0 +1,297 @@
+﻿@using Nop.Core;
+@using Nop.Web.Models.SimGate
+@using Nop.Core.Infrastructure;
+@using Nop.Web.Framework.Kendoui;
+@model DataSourceResult
+@{
+    Layout = "~/Views/Shared/_ColumnsOne.cshtml";
+    var gridPageSize = 25;
+    var supportRtl = EngineContext.Current.Resolve<IWorkContext>().WorkingLanguage.Rtl;
+
+
+}
+
+@section Breadcrumb
+{
+    <span class="ribbon-button-alignment"><span class="btn btn-ribbon"><i class="fa-fw fa fa-user"></i></span></span>
+    <ol class="breadcrumb">
+        <li>@T("Account.MyAccount")</li>
+        <li>@T("Account.CustomerAddresses.AddNew")</li>
+    </ol>
+}
+
+    <div class="inbox-nav-bar no-content-padding">
+
+        <h1 class="page-title txt-color-blueDark hidden-tablet">
+            <i class="fa fa-fw fa-users"></i><strong> Contacts</strong>  &nbsp;
+            <span class="btn-group">
+                <a href="#" data-toggle="dropdown" class="btn btn-default btn-xs dropdown-toggle"><span class="caret single"></span></a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a href="#">Action</a>
+                    </li>
+                    <li>
+                        <a href="#">Another action</a>
+                    </li>
+                    <li>
+                        <a href="#">Something else here</a>
+                    </li>
+                    <li class="divider"></li>
+                    <li>
+                        <a href="#">Separated link</a>
+                    </li>
+                </ul>
+            </span>
+        </h1>
+
+
+
+        <div class="inbox-checkbox-triggered">
+
+            <div class="btn-group checkbox">
+                <div class="btn btn-default ">
+                    <label style="margin-bottom:-1px;">
+                        <input class="checkbox style-2" type="checkbox" />
+                        <span></span>
+                    </label>
+                            <a class="dropdown-toggle" href="javascript:void(0);" data-toggle="dropdown">
+                                <i class="fa fa-caret-down"></i>
+                            </a>
+                            <ul class="dropdown-menu">
+    <li><a href="javascript:void(0);">Action</a></li>
+    <li><a href="javascript:void(0);">Another action</a></li>
+    <li><a href="javascript:void(0);">Something else here</a></li>
+    <li class="divider"></li>
+    <li><a href="javascript:void(0);">Separated link</a></li>
+</ul>
+</div>
+</div>
+            <div class="btn-group">
+                <a href="javascript:void(0);" rel="tooltip" title="" data-placement="bottom" data-original-title="Delete" class="deletebutton btn btn-default"><strong><i class="fa fa-trash-o fa-lg"></i></strong></a>
+            </div>
+
+            <div class="btn-group">
+                <a href="javascript:void(0);" rel="tooltip" title="" data-placement="bottom" data-original-title="Delete" class="deletebutton btn btn-default"><strong><i class="fa fa-envelope fa-lg"></i></strong></a>
+            </div>
+
+                <div class="btn-group hidden-desktop visible-tablet">
+                    <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                        Inbox <i class="fa fa-caret-down"></i>
+                    </button>
+                    <ul class="dropdown-menu pull-left">
+                        <li>
+                            <a href="javascript:void(0);" class="inbox-load">All messages (@Model.Total) <i class="fa fa-check"></i></a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);">Incoming</a>
+                        </li>
+                        <li><a href="javascript:void(0);">Outgoing</a></li>
+                        <li><a href="javascript:void(0);">Starred</a></li>
+                        <li class="divider"></li>
+                        <li><a href="javascript:void(0);">Queued</a></li>
+                        <li><a href="javascript:void(0);">Sent</a></li>
+                        <li><a href="javascript:void(0);">Delivered</a></li>
+                        <li><a href="javascript:void(0);">Cancelled</a></li>
+                        <li><a href="javascript:void(0);">Failed</a></li>
+                        <li><a href="javascript:void(0);">Retrying</a></li>
+                        <li><a href="javascript:void(0);">Not Delivered</a></li>
+                        <li class="divider"></li>
+                        <li><a href="javascript:void(0);">SMS</a></li>
+                        <li><a href="javascript:void(0);">Call</a></li>
+                        <li><a href="javascript:void(0);">USSD</a></li>
+                    </ul>
+
+                </div>
+
+
+
+
+                <div class="btn-group">
+                    <a href="javascript:void(0);" class="btn btn-default"><strong><i class="fa fa-chevron-left"></i></strong></a>
+                    <a href="javascript:void(0);" class="btn btn-default"><span class="pull-right"><strong>1-30</strong> of <strong>@Model.Total</strong></span></a>
+                    <a href="javascript:void(0);" class="btn btn-default"><strong><i class="fa fa-chevron-right"></i></strong></a>
+                </div>
+
+
+            </div>
+    </div>
+
+    <div id="inbox-content" class="inbox-body no-content-padding" style="min-height:@String.Concat((((IList<GroupModel>)@Model.ExtraData).Count() * 50).ToString(), "px;")">
+
+        <div class="inbox-side-bar">
+                <ul class="inbox-menu-lg">
+                    <li class="group-list-li active">
+                        <a href="javascript:void(0);">All contacts<span class="badge pull-right inbox-badge margin-right-13">@Model.Total</span></a>
+                    </li>
+                    @foreach (GroupModel group in (IList<GroupModel>)@Model.ExtraData)
+                    {
+                        <li class="group-list-li">
+                            <a class="group-name" id="@group.TelerivetID" href="javascript:void(0);">@group.Name<span class="badge pull-right inbox-badge margin-right-13">@group.NumMembers</span></a>
+                        </li>
+                    }
+                </ul>
+                <div class="air air-bottom inbox-space">
+                    3.5GB of <strong>10GB</strong><a href="javascript:void(0);" rel="tooltip" title="" data-placement="top" data-original-title="Empty Spam" class="pull-right txt-color-darken"><i class="fa fa-trash-o fa-lg"></i></a>
+                    <div class="progress progress-micro">
+                        <div class="progress-bar progress-primary" style="width: 34%;"></div>
+                    </div>
+                </div>
+            </div>
+
+        <div style="opacity: 1;" class="table-wrap custom-scroll animated fast fadeInRight @string.Concat((supportRtl)?" k-rtl":"")">
+            <div id="simgate-grid"></div>
+        </div>
+        
+        <div class="inbox-footer">
+            <div class="row">
+                <div class="col-xs-6 col-sm-1">
+                    <div class="txt-color-white hidden-desktop visible-mobile">
+                        3.5GB of <strong>10GB</strong>
+                        <div class="progress progress-micro">
+                            <div class="progress-bar progress-primary" style="width: 34%;"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-6 col-sm-11 text-right">
+                    <div class="txt-color-white inline-block">
+                        <i class="txt-color-blueLight hidden-mobile">Last account activity <i class="fa fa-clock-o"></i> 52 mins ago |</i> Displaying <strong>44 of 259</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<input type="hidden" id="current-group-id" value="" />
+
+@section PageScripts
+{
+
+    <style> 
+    #simgate-grid .k-grid-content
+{
+    min-height: 300px;
+}
+    </style>
+<script>
+    $(document).ready(function () {
+        $("#simgate-grid").kendoGrid(
+            {
+            dataSource: {
+                type: "json",
+                transport: {
+                    read: {
+                        async: true,
+                        url: "@Html.Raw(Url.Action("Contacts", "SimGate"))",
+                        type: "POST",
+                        dataType: "json",
+                        data: additionalData
+                    }
+                },
+                schema: {
+                    data: "Data",
+                    total: "Total",
+                    errors: "Errors"
+                },
+                error: function(e) {
+                    display_kendoui_grid_error(e);
+                    this.cancelChanges();
+                },
+                pageSize: @(gridPageSize),
+                serverPaging: true,
+                serverFiltering: true,
+                serverSorting: true
+            },
+            pageable: {
+                refresh: true,
+                buttonCount: 5
+            },
+            editable: {
+                confirmation: false,
+                mode: "inline"
+            },
+            scrollable: true,
+            columns: [
+            @*{
+                field: "TelerivetID",
+                title: "@T("TelerivetID")"
+            },{
+                field: "ProjectId",
+                title: "@T("ProjectId")"
+            },{
+                field: "Vars",
+                title: "@T("Vars")"
+            }
+                *@ 
+            {
+                field: "Id",
+                headerTemplate: "<input id='mastercheckbox' type='checkbox'/>",
+                headerAttributes: { style: "text-align:center" },
+                attributes: { style: "text-align:center" },
+                template: "<input type='checkbox' value='#=Id#' class='checkboxGroups'/>",
+                width: 50
+            }, {
+                field: "Id",
+                title: "ID",
+                width: 50
+            },
+
+            {
+                field: "Name",
+                title: "@T("Name")"
+            },{
+                field: "PhoneNumber",
+                title: "@T("PhoneNumber")"
+            },{
+                field: "GroupIds",
+                title: "@T("Groups")"
+            }
+            
+            //,{field: "IncomingMessageCount",title: "@T("Incoming")"}
+            //,{field: "OutgoingMessageCount",title: "@T("Outgoing")"}
+            //,{field: "LastIncomingMessageTime",title: "@T("Last Heard From")"}
+            //,{field: "LastOutgoingMessageTime",title: "@T("Last Contacted")"}
+            //,{field: "TimeCreated",title: "@T("Time Created")"}
+            //,{field: "SendBlocked",title: "@T("Blocked")"}
+            
+            @*,{
+                field: "LastMessageTime",
+                title: "@T("LastMessageTime")"
+            },{
+                field: "LastMessageId",
+                title: "@T("LastMessageId")"
+            },{
+                field: "DefaultRouteId",
+                title: "@T("DefaultRouteId")"
+            },{
+                field: "MessageCount",
+                title: "@T("MessageCount")"
+            }*@
+            ]
+        });
+    });
+</script>
+<script type="text/javascript">
+$(document).ready(function() {
+    $('.group-name').click(function() {
+        $(".group-list-li").removeClass("active");
+
+        $(this).parent().addClass("active");
+
+        $('#current-group-id').val($(this).attr("id"));
+        var grid = $('#simgate-grid').data('kendoGrid');
+        grid.dataSource.page(1);
+        return false;
+    });
+    
+});
+
+function additionalData() {
+    var data = {
+        GroupID: $('#current-group-id').val(),
+    };
+    addAntiForgeryToken(data);
+    return data;
+}
+</script>
+
+}

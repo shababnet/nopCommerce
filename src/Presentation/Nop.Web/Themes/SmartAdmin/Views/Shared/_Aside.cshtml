@@ -3,7 +3,7 @@
     @{ Html.RenderPartial("_CurrentUser"); }
     <nav>
         <ul>
-            <li class="@Html.RouteIf("index", "active")"><a href="@Url.Action("index", "home")" title="Dashboard"><i class="fa fa-lg fa-fw fa-home"></i> <span class="menu-item-parent">Dashboard</span></a></li>
+            @*<li class="@Html.RouteIf("index", "active")"><a href="@Url.Action("index", "home")" title="Dashboard"><i class="fa fa-lg fa-fw fa-home"></i> <span class="menu-item-parent">Dashboard</span></a></li>*@
             <li class="@Html.RouteIf("SimGate", "Index", "active")"><a href="@Url.Action("Index", "SimGate")" title="Dashboard"><i class="fa fa-lg fa-fw fa-home"></i> <span class="menu-item-parent">Dashboard</span></a></li>
             <li class="@Html.RouteIf("SimGate", "Messages", "active")">
                 <a href="@Url.Action("Messages", "SimGate")" title="Dashboard"><i class="fa fa-lg fa-fw fa-envelope"></i> <span class="menu-item-parent">Messages</span></a>
@@ -12,7 +12,7 @@
                 <a href="@Url.Action("Contacts", "SimGate")" title="Dashboard"><i class="fa fa-lg fa-fw fa-users"></i> <span class="menu-item-parent">Contacts</span></a>
             </li>
             <li class="@Html.RouteIf("SimGate", "Phones", "active")">
-                <a href="@Url.Action("Phones", "SimGate")" title="Dashboard"><i class="fa fa-lg fa-fw fa-mobile-phone"></i> <span class="menu-item-parent">Phones</span></a>
+                <a href="@Url.Action("Phones", "SimGate")" title="Dashboard"><i class="fa fa-lg fa-fw fa-phone"></i> <span class="menu-item-parent">Phones</span></a>
             </li>
         </ul>
     </nav>

@@ -281,4 +281,81 @@ namespace Nop.Services.SimGateApp.Telerivet
     }
 
 
+
+    public partial class Telerivet_Messages_By_DayService : ITelerivet_Messages_By_DayService
+    {
+        private readonly IRepository<Telerivet_Messages_By_Day> _itemRepository;
+        public Telerivet_Messages_By_DayService(IRepository<Telerivet_Messages_By_Day> itemRepository)
+        {
+            this._itemRepository = itemRepository;
+        }
+        public void Delete(Telerivet_Messages_By_Day item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IPagedList<Telerivet_Messages_By_Day> GetAll(int pageIndex = 0, int pageSize = int.MaxValue)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IList<Telerivet_Messages_By_Day> GetAllByProjectId(string projectId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Telerivet_Messages_By_Day GetById(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Telerivet_Messages_By_Day GetByTelerivetID(string telerivetID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Insert(Telerivet_Messages_By_Day item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Update(Telerivet_Messages_By_Day item)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        public void InsertOrUpdate(Telerivet_Messages_By_Day item)
+        {
+
+            var query = _itemRepository.Table;
+
+            Telerivet_Messages_By_Day dataBaseItem = query.Where(m => m.ProjectId == item.ProjectId && m.Year == item.Year && m.Month == item.Month && m.Day == item.Day).SingleOrDefault<Telerivet_Messages_By_Day>();
+            if (dataBaseItem == null)
+            {
+                _itemRepository.Insert(item);
+
+            }
+            else
+            {
+                dataBaseItem.Incoming = item.Incoming;
+                dataBaseItem.Outgoing = item.Outgoing;
+                dataBaseItem.Total = item.Total;
+                _itemRepository.Update(dataBaseItem);
+            }
+
+            // query.Where(m => m. == item.ProjectId  && i.Year == item.Year  i.Month == item.Month && i.Day == item.Day);
+        }
+
+        public IList<Telerivet_Messages_By_Day> GetCountByProjectId(string projectId, int count)
+        {
+            var query = _itemRepository.Table;
+            query = query.Where(m => m.ProjectId == projectId);
+            query = query.OrderByDescending(m => m.TimeCreated).Take(count);
+
+            return query.ToList();
+
+        }
+    }
+
 }

@@ -15,7 +15,7 @@ namespace Nop.Web.Controllers
             if (!_workContext.CurrentCustomer.IsRegistered())
                 return new HttpUnauthorizedResult();
 
-            return View();
+            return RedirectToAction("Index","SimGate");
         }
     }
 }

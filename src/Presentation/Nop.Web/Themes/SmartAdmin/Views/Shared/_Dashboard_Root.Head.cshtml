@@ -7,6 +7,8 @@
     var displayMiniProfiler = EngineContext.Current.Resolve<Nop.Core.Domain.StoreInformationSettings>().DisplayMiniProfilerInPublicStore;
     var supportRtl = EngineContext.Current.Resolve<IWorkContext>().WorkingLanguage.Rtl;
     var currentThemeName = EngineContext.Current.Resolve<IThemeContext>().WorkingThemeName;
+    var kendoVersion = "2014.1.318";
+
 
 
 
@@ -26,6 +28,11 @@
 
 
 
+    Html.AppendCssFileParts(string.Format("~/Content/kendo/{0}/kendo.rtl.min.css", kendoVersion));
+    Html.AppendCssFileParts(string.Format("~/Content/kendo/{0}/kendo.default.min.css", kendoVersion));
+    Html.AppendCssFileParts(string.Format("~/Content/kendo/{0}/kendo.common.min.css", kendoVersion));
+
+    Html.AppendScriptParts(ResourceLocation.Foot, string.Format("~/Scripts/kendo/{0}/kendo.web.min.js", kendoVersion));
 
 
 

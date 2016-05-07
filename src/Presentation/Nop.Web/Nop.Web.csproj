@@ -408,6 +408,8 @@
     <Compile Include="SimGateApp\Controllers\HomeController.cs" />
     <Compile Include="SimGateApp\Class\HtmlHelperExtensions.cs" />
     <Compile Include="SimGateApp\Extensions\CustomerExtensions.cs" />
+    <Compile Include="SimGateApp\Infrastructure\DependencyRegistrar.cs" />
+    <Compile Include="SimGateApp\Infrastructure\SimGateRouteProvider.cs" />
     <Compile Include="SimGateApp\Models\BaseTelerivetModel.cs" />
     <Compile Include="SimGateApp\Models\PhoneModel.cs" />
     <Compile Include="SimGateApp\Models\ProjectListModel.cs" />
@@ -2199,11 +2201,14 @@
     <Content Include="Themes\SmartAdmin\Content\fonts\summernote.eot" />
     <Content Include="Themes\SmartAdmin\Content\fonts\summernote.ttf" />
     <Content Include="Themes\SmartAdmin\Content\fonts\summernote.woff" />
+    <Content Include="Themes\SmartAdmin\Views\SimGate\Phones.cshtml" />
+    <Content Include="Themes\SmartAdmin\Views\SimGate\Contacts.cshtml" />
+    <Content Include="Themes\SmartAdmin\Views\SimGate\Index.cshtml" />
+    <Content Include="Themes\SmartAdmin\Views\SimGate\Routes.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\Roxy_Fileman\tmp\" />
     <Folder Include="Plugins\bin\" />
-    <Folder Include="SimGateApp\Infrastructure\" />
     <Folder Include="Themes\SmartAdmin\Content\fonts\font-awesome\" />
     <Folder Include="Themes\SmartAdmin\Content\fonts\fontawesome4.2\" />
     <Folder Include="Themes\SmartAdmin\Content\fonts\fontawesome4.5\" />

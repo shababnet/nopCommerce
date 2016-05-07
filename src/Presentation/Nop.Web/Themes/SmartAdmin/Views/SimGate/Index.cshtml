@@ -1,0 +1,254 @@
+﻿@using Nop.Web.Models.SimGate
+@using Nop.Web.Framework.Kendoui;
+@model DataSourceResult
+@{
+    Layout = "~/Views/Shared/_ColumnsOne.cshtml";
+}
+
+@section Breadcrumb
+{
+    <span class="ribbon-button-alignment"><span class="btn btn-ribbon"><i class="fa-fw fa fa-user"></i></span></span>
+    <ol class="breadcrumb">
+        <li>@T("Account.MyAccount")</li>
+        <li>@T("Account.CustomerAddresses.AddNew")</li>
+    </ol>
+}
+
+<div class="row">
+    <div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+        <h1 class="page-title txt-color-blueDark"><i class="fa-fw fa fa-home"></i> Dashboard <span>> My Dashboard</span></h1>
+    </div>
+    <div class="col-xs-12 col-sm-5 col-md-5 col-lg-8">
+        <ul id="sparks" class="">
+            <li class="sparks-info">
+                <h5> My Income <span class="txt-color-blue">$47,171</span></h5>
+                <div class="sparkline txt-color-blue hidden-mobile hidden-md hidden-sm">
+                    1300, 1877, 2500, 2577, 2000, 2100, 3000, 2700, 3631, 2471, 2700, 3631, 2471
+                </div>
+            </li>
+            <li class="sparks-info">
+                <h5> Site Traffic <span class="txt-color-purple"><i class="fa fa-arrow-circle-up"></i>&nbsp;45%</span></h5>
+                <div class="sparkline txt-color-purple hidden-mobile hidden-md hidden-sm">
+                    110,150,300,130,400,240,220,310,220,300, 270, 210
+                </div>
+            </li>
+            <li class="sparks-info">
+                <h5> Site Orders <span class="txt-color-greenDark"><i class="fa fa-shopping-cart"></i>&nbsp;2447</span></h5>
+                <div class="sparkline txt-color-greenDark hidden-mobile hidden-md hidden-sm">
+                    110,150,300,130,400,240,220,310,220,300, 270, 210
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<section id="widget-grid" class="">
+    <div class="row">
+        <article class="col-sm-12 col-md-12 col-lg-12">
+            <div class="jarviswidget" id="wid-simgate-id-0" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
+                <header><span class="widget-icon">  <i class="fa fa-envelope"></i> </span><h2><strong>Messages</strong></h2></header>
+                <div>
+                    <div class="widget-body">
+                        <article class="col-sm-12 col-md-12 col-lg-5">
+                            <table cellpadding="10" cellspacing="10" style="border-collapse:separate; border-spacing:10px;">
+                                <tr>
+                                    <td><a href="javascript:void(0);" class="btn btn-default btn-lg btn-block"> <strong id="totalIncomingMessages">0</strong></a></td>
+                                    <td><strong> received today</strong></td>
+                                </tr>
+                                <tr>
+                                    <td><a href="javascript:void(0);" class="btn btn-default btn-lg btn-block"> <strong id="totalOutgoingMessages">0</strong></a></td>
+                                    <td><strong> sent today</strong></td>
+                                </tr>
+                            </table>
+                            <hr />
+                            <button type="button" class="btn btn-default btn-sm btn-block">Block level small button</button>
+                            <button type="button" class="btn btn-default btn-sm btn-block">Block level small button</button>
+                            <button type="button" class="btn btn-default btn-sm btn-block">Block level small button</button>
+                            <br />
+                        </article>
+                        <article class="col-sm-12 col-md-12 col-lg-7">
+                            <div id="site-stats" class="chart has-legend"></div>
+                        </article>
+                    </div>
+                </div>
+            </div>
+        </article>
+    </div>
+    <div class="row">
+        <article class="col-sm-12 col-md-12 col-lg-6">
+            <div class="jarviswidget" id="wid-simgate-id-1" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
+                <header><span class="widget-icon"> <i class="fa fa-users"></i> </span><h2><strong>Contacts</strong></h2></header>
+                <div>
+                    <div class="widget-body">
+                        <article class="col-sm-12 col-md-12 col-lg-12">
+                            <table cellpadding="10" cellspacing="10" style="border-collapse:separate; border-spacing:10px;">
+                                <tr>
+                                    <td><a href="javascript:void(0);" class="btn btn-default btn-lg btn-block"> <strong id="totalActiveContactToday">0</strong></a></td>
+                                    <td><strong> active today</strong></td>
+                                </tr>
+                                <tr>
+                                    <td><a href="javascript:void(0);" class="btn btn-default btn-lg btn-block"> <strong id="totalProjectContacts">0</strong></a></td>
+                                    <td><strong> total contacts</strong></td>
+                                </tr>
+                            </table>
+                            <hr />
+                            <button type="button" class="btn btn-default btn-sm btn-block">Block level small button</button>
+                            <button type="button" class="btn btn-default btn-sm btn-block">Block level small button</button>
+                            <button type="button" class="btn btn-default btn-sm btn-block">Block level small button</button>
+                            <br />
+                        </article>
+                    </div>
+                </div>
+            </div>
+        </article>
+        <article class="col-sm-12 col-md-12 col-lg-6">
+            <div class="jarviswidget" id="wid-simgate-id-2" data-widget-colorbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false" data-widget-deletebutton="false" data-widget-fullscreenbutton="false">
+                <header><span class="widget-icon"> <i class="fa fa-phone"></i> </span><h2><strong>Phones</strong></h2></header>
+                <div>
+                    <div class="widget-body">
+                        <article class="col-sm-12 col-md-12 col-lg-12">
+                            <table cellpadding="10" cellspacing="10" style="border-collapse:separate; border-spacing:10px;">
+                                <tr>
+                                    <td><a href="javascript:void(0);" class="btn btn-circle btn-lg btn-warning"></a></td>
+                                    <td class="text-nowrap"><h3><strong>50849019</strong> Android</h3></td>
+                                </tr>
+                                <tr>
+                                    <td><a href="javascript:void(0);" class="btn btn-circle btn-lg btn-success"></a></td>
+                                    <td class="text-nowrap"><h3><strong>65536033</strong> Android</h3></td>
+                                </tr>
+
+                                <tr>
+                                    <td><a href="javascript:void(0);" class="btn btn-circle btn-lg btn-default"></a></td>
+                                    <td class="text-nowrap"><h3><strong>50849019</strong> Android</h3></td>
+                                </tr>
+                            </table>
+                            <br />
+                            <br />
+                        </article>
+                    </div>
+                </div>
+            </div>
+
+        </article>
+    </div>
+</section>
+
+
+@section PageScripts
+{
+    <!-- PAGE RELATED PLUGIN(S) -->
+<!-- Flot Chart Plugin: Flot Engine, Flot Resizer, Flot Tooltip -->
+<script src="~/Themes/SmartAdmin/Content/Scripts/plugin/flot/jquery.flot.cust.min.js"></script>
+<script src="~/Themes/SmartAdmin/Content/Scripts/plugin/flot/jquery.flot.resize.min.js"></script>
+<script src="~/Themes/SmartAdmin/Content/Scripts/plugin/flot/jquery.flot.fillbetween.min.js"></script>
+<script src="~/Themes/SmartAdmin/Content/Scripts/plugin/flot/jquery.flot.orderBar.min.js"></script>
+<script src="~/Themes/SmartAdmin/Content/Scripts/plugin/flot/jquery.flot.pie.min.js"></script>
+<script src="~/Themes/SmartAdmin/Content/Scripts/plugin/flot/jquery.flot.time.min.js"></script>
+<script src="~/Themes/SmartAdmin/Content/Scripts/plugin/flot/jquery.flot.tooltip.min.js"></script>
+
+
+<script type="text/javascript">
+    /* chart colors default */
+    var $chrt_border_color = "#efefef";
+    var $chrt_grid_color = "#DDD"
+    var $chrt_main = "#E24913";
+    /* red       */
+    var $chrt_second = "#6595b4";
+    /* blue      */
+    var $chrt_third = "#FF9F01";
+    /* orange    */
+    var $chrt_fourth = "#7e9d3a";
+    /* green     */
+    var $chrt_fifth = "#BD362F";
+    /* dark red  */
+    var $chrt_mono = "#000";
+
+
+
+    function formatter(unix_timestamp) {
+        // Create a new JavaScript Date object based on the timestamp
+        // multiplied by 1000 so that the argument is in milliseconds, not seconds.
+        var date = new Date(unix_timestamp * 1000);
+        // Hours part from the timestamp
+        var hours = date.getHours();
+        // Minutes part from the timestamp
+        var minutes = "0" + date.getMinutes();
+        // Seconds part from the timestamp
+        var seconds = "0" + date.getSeconds();
+
+        // Will display time in 10:30:23 format
+        var formattedTime = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
+
+        return formattedTime;
+    }
+    $(document).ready(function () {
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("DashbordData", "SimGate")',
+            data: "{}",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (msg) {
+                $("#totalIncomingMessages").html(msg.totalIncomingMessages);
+                $("#totalOutgoingMessages").html(msg.totalOutgoingMessages);
+                $("#totalActiveContactToday").html(msg.totalActiveContactToday);
+                $("#totalProjectContacts").html(msg.totalProjectContacts);
+                if ($("#site-stats").length) {
+
+                    $.plot($("#site-stats"), msg.Data, {
+
+                        legend: {
+                            show: true,
+                            margin: 10,
+                            backgroundOpacity: 0.9
+                        },
+                        series: {
+                            lines: {
+                                show: true,
+                                lineWidth: 1,
+                                fill: true,
+                                fillColor: {
+                                    colors: [{
+                                        opacity: 0.1
+                                    }, {
+                                        opacity: 0.15
+                                    }]
+                                }
+                            },
+                            points: {
+                                show: true
+                            },
+                            shadowSize: 0
+                        },
+                        grid: {
+                            hoverable: true,
+                            clickable: true,
+                            tickColor: $chrt_border_color,
+                            borderWidth: 0,
+                            borderColor: $chrt_border_color,
+                        },
+                        tooltip: true,
+                        tooltipOpts: {
+                            content: "%s for <b>%x:00 hrs</b> was %y",
+                            dateFormat: "%y-%0m-%0d",
+                            defaultTheme: true
+                        },
+                        colors: [$chrt_main, $chrt_second],
+                        xaxis: {
+                            ticks: JSON.parse(msg.ticks),
+                            tickFormatter: formatter,
+
+                        },
+                    }
+);
+                }
+            }
+        });
+    });
+</script>
+}
+
+
+
+
+

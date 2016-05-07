@@ -200,4 +200,27 @@ namespace Nop.Core.SimGateApp.Domain.Telerivet
         public int ServiceStates { get; set; }
     }
 
+
+
+
+    public partial class Telerivet_Messages_By_Day : BaseEntity
+    {
+        public Telerivet_Messages_By_Day()
+        {
+        }
+        public string ProjectId { get; set; }
+
+        public System.Nullable<long> TimeCreated { get; set; }
+
+        public int Year { get; set; }
+        public int Month { get; set; }
+        public int Day { get; set; }
+
+
+        public int Incoming { get; set; }
+        public int Outgoing { get; set; }
+        public int Total { get; set; }
+
+    }
+
 }

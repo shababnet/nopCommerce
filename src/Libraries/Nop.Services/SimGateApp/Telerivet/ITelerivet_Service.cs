@@ -112,4 +112,26 @@ namespace Nop.Services.SimGateApp.Telerivet
     }
 
 
+
+    public partial interface ITelerivet_Messages_By_DayService
+    {
+        IPagedList<Telerivet_Messages_By_Day> GetAll(int pageIndex = 0, int pageSize = int.MaxValue);
+
+        IList<Telerivet_Messages_By_Day> GetAllByProjectId(string projectId);
+
+        Telerivet_Messages_By_Day GetById(int id);
+
+        Telerivet_Messages_By_Day GetByTelerivetID(string telerivetID);
+
+        void Insert(Telerivet_Messages_By_Day item);
+
+        void Update(Telerivet_Messages_By_Day item);
+
+        void Delete(Telerivet_Messages_By_Day item);
+
+        void InsertOrUpdate(Telerivet_Messages_By_Day item);
+
+        IList<Telerivet_Messages_By_Day> GetCountByProjectId(string projectId, int count);
+    }
+
 }

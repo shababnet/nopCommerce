@@ -10,6 +10,16 @@
         @RenderSection("Breadcrumb")
     }
 }
+
+
+@if (IsSectionDefined("PageScripts"))
+{
+    @section PageScripts {
+        @RenderSection("PageScripts")
+    }
+}
+
+
 <div id="content">
     @Html.Widget("main_column_before")
     @RenderBody()

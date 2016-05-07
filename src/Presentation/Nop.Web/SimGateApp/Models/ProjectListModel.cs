@@ -18,4 +18,13 @@ namespace Nop.Web.Models.SimGate
         public IList<SelectListItem> AvailableProjects { get; set; }
         public string CurrentProjectName { get; set; }
     }
+
+
+    public partial class ContactsListModel : BaseNopModel
+    {
+        public string GroupID { get; set; }
+        public string SearchProjectId { get; set; }
+        public IList<SelectListItem> AvailableProjects { get; set; }
+        public string CurrentProjectName { get; set; }
+    }
 }

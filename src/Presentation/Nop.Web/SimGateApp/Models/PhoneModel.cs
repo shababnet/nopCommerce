@@ -23,6 +23,7 @@ namespace Nop.Web.Models.SimGate
         public int? SendLimit { get; set; }
         public bool? SendPaused { get; set; }
         public string InternetType { get; set; }
-
+        public DateTime LastActiveDateTime { get; set; }
+        public double? LastActiveSince { get;  set; }
     }
 }
