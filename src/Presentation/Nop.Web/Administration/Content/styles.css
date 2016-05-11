@@ -63,7 +63,7 @@ table.adminContent {
     border-color: #d2d6de !important;
 }
 
-.k-grid tbody td>.k-button {
+.k-button {
     display: inline-block;
     padding: 6px 12px;
     margin-bottom: 0;
@@ -88,10 +88,31 @@ table.adminContent {
     border-color: #ddd;
 }
 
+.k-button:hover, .k-button:focus, .k-button.k-state-focused {
+    background-color: #e7e7e7;
+    background-image: none;
+    color: #333;
+    border-color: #adadad;
+    text-decoration: none;
+}
+
+.k-button:active {
+    color: #333;
+    background-color: #e7e7e7;
+    border-color: #adadad;
+}
+
+.k-button:focus:active:not(.k-state-disabled):not([disabled]) {
+    box-shadow: none;
+    -webkit-box-shadow: none;
+}
+
+
 .k-picker-wrap.k-state-default, 
 .k-numeric-wrap.k-state-default {
     border-radius: 0;
     border: none;
+    height: 34px;
 }
 
 .k-picker-wrap.k-state-default>.k-select,
@@ -267,7 +288,6 @@ table td .form-group {
 }
 
 .nav>li>a>img {
-    max-height: 16px;
     margin-right: 8px;
     vertical-align: baseline;
 }
@@ -332,4 +352,78 @@ input[type=file].form-control {
 .form-group > div > a {
     display: inline-block;
     padding-top: 7px;
+}
+
+.k-autocomplete, .k-combobox, .k-datepicker, 
+.k-timepicker, .k-datetimepicker, .k-colorpicker, 
+.k-numerictextbox, .k-dropdown, .k-selectbox, 
+.k-textbox, .k-datetimepicker {
+    width: 200px !important;
+    max-width: 100%;
+}
+
+.k-window-titlebar {
+    height: 2em;
+}
+
+.navbar-custom-menu>.navbar-nav>li {
+    height: 50px;
+}
+
+.main-header {
+    max-height: 150px;
+}
+
+.content-header>h1 {
+    margin-bottom: 10px;
+}
+
+.content-header .btn {
+    margin-bottom: 5px;
+}
+
+.mce-container {
+    max-width: 100%;
+}
+
+@media (max-width: 1200px) {
+    .form-horizontal img.ico-help {
+         display: none;
+    }
+
+    .main-header .navbar-custom-menu {
+        float: none;
+    }
+
+    .main-header .navbar-custom-menu > .navbar-nav {
+        float: none;
+    }
+
+    .form-control {
+        margin-bottom: 3px;
+    }
+
+    .k-autocomplete, .k-combobox, .k-datepicker, .k-timepicker, .k-datetimepicker, 
+    .k-colorpicker, .k-numerictextbox, .k-dropdown, .k-selectbox, .k-textbox, .k-datetimepicker {
+        margin-bottom: 3px;
+    }
+}
+
+@media (max-width: 992px) {
+    .form-horizontal .control-label {
+        float: none;
+        margin-bottom: 5px;
+        width: 100%;
+        text-align: left;
+    }
+
+    .form-group input[type=checkbox] {
+        margin-top: 2px;
+    }
+}
+
+@media (max-width: 767px) {
+    .main-sidebar, .left-side {
+    padding-top: 155px;
+}
 }
