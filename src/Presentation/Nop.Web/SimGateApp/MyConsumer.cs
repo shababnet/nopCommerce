@@ -23,14 +23,12 @@ namespace Nop.Web.SimGateApp
 
         public void HandleEvent(EntityUpdated<Customer> eventMessage)
         {
-            Customer customer = eventMessage.Entity;
-            string customerTelerivetProjectID = customer.GetAttribute<string>(SystemCustomerAttributeNames.TelerivetProjectID);
-            if (customer.Active && customerTelerivetProjectID == null)
-            {
-                _genericAttributeService.SaveAttribute(customer, SystemCustomerAttributeNames.TelerivetProjectID, "PJaa0b3bd060afa118");
-            }
-
-
+            //Customer customer = eventMessage.Entity;
+            //string customerTelerivetProjectID = customer.GetAttribute<string>(SystemCustomerAttributeNames.TelerivetProjectID);
+            //if (customer.Active && customerTelerivetProjectID == null)
+            //{
+            //    _genericAttributeService.SaveAttribute(customer, SystemCustomerAttributeNames.TelerivetProjectID, "PJaa0b3bd060afa118");
+            //}
             // stuff to be done when a customer is updated
         }
     }

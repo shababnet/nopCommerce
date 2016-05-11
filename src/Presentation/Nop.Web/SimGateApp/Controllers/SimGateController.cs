@@ -115,22 +115,11 @@ namespace Nop.Web.Controllers
             //var dateTime = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 0, 0, 0, DateTimeKind.Local);
             //var epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
             //var unixDateTime = (dateTime.ToUniversalTime() - epoch).TotalSeconds;
-
             //Project project = _telerivetAPI.InitProjectById(telerivetProjectID);
 
-            //int totalIncomingMessages = await project.QueryMessages(Util.Options("direction", "incoming", "time_created[min]", unixDateTime)).CountAsync();
-            //int totalOutgoingMessages = await project.QueryMessages(Util.Options("direction", "outgoing", "time_created[min]", unixDateTime)).CountAsync();
 
-            //int totalActiveContactToday = await project.QueryContacts(Util.Options("last_message_time[min]", unixDateTime)).CountAsync();
-            //int totalProjectContacts = await project.QueryContacts().CountAsync();
-
-
-            //IList<Telerivet_Messages_By_Day> messagesStuts = _messages_By_Day.GetCountByProjectId(project.Id, 14);
-            //messagesStuts.Reverse();
-
-            // List<Message> fmessage = await project.QueryMessages(Util.Options("sort_dir", "asc")).AllAsync();
-            //var startDay = new DateTime(2016, 4, 13, 0, 0, 0, DateTimeKind.Local);
-            //for (int i = 0; i < 50; i++)
+            //var startDay = new DateTime(2016, 5, 7, 0, 0, 0, DateTimeKind.Local);
+            //for (int i = 0; i < 4; i++)
             //{
             //    var currentDate = startDay.AddDays(i);
             //    var nextDate = currentDate.AddDays(1);
@@ -149,6 +138,21 @@ namespace Nop.Web.Controllers
             //    messageByDay.Total = IncomingMessages + OutgoingMessages;
             //    _messages_By_Day.InsertOrUpdate(messageByDay);
             //}
+
+
+
+            //int totalIncomingMessages = await project.QueryMessages(Util.Options("direction", "incoming", "time_created[min]", unixDateTime)).CountAsync();
+            //int totalOutgoingMessages = await project.QueryMessages(Util.Options("direction", "outgoing", "time_created[min]", unixDateTime)).CountAsync();
+
+            //int totalActiveContactToday = await project.QueryContacts(Util.Options("last_message_time[min]", unixDateTime)).CountAsync();
+            //int totalProjectContacts = await project.QueryContacts().CountAsync();
+
+
+            //IList<Telerivet_Messages_By_Day> messagesStuts = _messages_By_Day.GetCountByProjectId(project.Id, 14);
+            //messagesStuts.Reverse();
+
+            // List<Message> fmessage = await project.QueryMessages(Util.Options("sort_dir", "asc")).AllAsync();
+
             //int offset = (1 - 1) * 30;
 
 
