@@ -21,6 +21,8 @@ namespace Nop.Web.SimGate.Infrastructure
         {
             //services
             builder.RegisterType<Telerivet_Messages_By_DayService>().As<ITelerivet_Messages_By_DayService>().InstancePerLifetimeScope();
+            builder.RegisterType<Telerivet_ProjectService>().As<ITelerivet_ProjectService>().InstancePerLifetimeScope();
+
         }
 
         /// <summary>

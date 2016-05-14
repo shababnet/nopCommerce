@@ -115,7 +115,10 @@ namespace Nop.Services.SimGateApp.Telerivet
 
         public IPagedList<Telerivet_Project> GetAll(int pageIndex = 0, int pageSize = int.MaxValue)
         {
-            throw new NotImplementedException();
+            var query = _itemRepository.Table;
+            var items = new PagedList<Telerivet_Project>(query, pageIndex, pageSize);
+            return items;
+
         }
 
         public IList<Telerivet_Project> GetAllByProjectId(string projectId)
@@ -142,6 +145,41 @@ namespace Nop.Services.SimGateApp.Telerivet
         {
             throw new NotImplementedException();
         }
+
+
+
+        public void InsertOrUpdate(Telerivet_Project item)
+        {
+
+            var query = _itemRepository.Table;
+
+            Telerivet_Project dataBaseItem = query.Where(m => m.TelerivetID == item.TelerivetID).SingleOrDefault<Telerivet_Project>();
+            if (dataBaseItem == null)
+            {
+                _itemRepository.Insert(item);
+
+            }
+            else
+            {
+                dataBaseItem.Contacts = item.Contacts;
+                dataBaseItem.DataTables = item.DataTables;
+                dataBaseItem.Groups = item.Groups;
+                dataBaseItem.Labels = item.Labels;
+                dataBaseItem.Messages = item.Messages;
+                dataBaseItem.Name = item.Name;
+                dataBaseItem.Phones = item.Phones;
+                dataBaseItem.Receipts = item.Receipts;
+                dataBaseItem.Routes = item.Routes;
+                dataBaseItem.ScheduledMessages = item.ScheduledMessages;
+                dataBaseItem.Services = item.Services;
+                dataBaseItem.TimezoneId = item.TimezoneId;
+                dataBaseItem.UserID = item.UserID;
+                _itemRepository.Update(dataBaseItem);
+            }
+
+            // query.Where(m => m. == item.ProjectId  && i.Year == item.Year  i.Month == item.Month && i.Day == item.Day);
+        }
+
     }
 
     public partial class Telerivet_PhoneService : ITelerivet_PhoneService

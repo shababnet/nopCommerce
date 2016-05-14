@@ -58,6 +58,8 @@ namespace Nop.Services.SimGateApp.Telerivet
         void Update(Telerivet_Project item);
 
         void Delete(Telerivet_Project item);
+        void InsertOrUpdate(Telerivet_Project item);
+
     }
 
     public partial interface ITelerivet_PhoneService

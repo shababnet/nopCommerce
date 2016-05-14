@@ -19,6 +19,8 @@ using System.Linq;
 using Nop.Services.Catalog;
 using Nop.Admin.Models.SimGate;
 using Nop.Admin.Models.Catalog;
+using Nop.Services.SimGateApp.Telerivet;
+using Nop.Core.SimGateApp.Domain.Telerivet;
 
 namespace Nop.Admin.Controllers
 {
@@ -39,34 +41,38 @@ namespace Nop.Admin.Controllers
         private readonly TelerivetAPI _telerivetAPI;
         private String apiKey = "cF04TPqu3oFzetwgU03aPKuXeVFSlfbL";
 
+        private readonly ITelerivet_ProjectService _projectService;
 
         #endregion
 
         #region Ctor
 
         public SimGateController(IStoreContext storeContext,
-
             IOrderReportService orderReportService,
             IProductService productService,
             IPriceFormatter priceFormatter,
 
+            ITelerivet_ProjectService ProjectService,
 
-            CommonSettings commonSettings, 
+
+        CommonSettings commonSettings, 
             ISettingService settingService,
             IWorkContext workContext,
             ICacheManager cacheManager)
         {
-            this._storeContext = storeContext;
-            this._commonSettings = commonSettings;
-            this._settingService = settingService;
-            this._workContext = workContext;
-            this._cacheManager= new MemoryCacheManager();
+            _storeContext = storeContext;
+            _commonSettings = commonSettings;
+            _settingService = settingService;
+            _workContext = workContext;
+            _cacheManager = new MemoryCacheManager();
 
-            this._orderReportService = orderReportService;
-            this._productService = productService;
-            this._priceFormatter = priceFormatter;
+            _orderReportService = orderReportService;
+            _productService = productService;
+            _priceFormatter = priceFormatter;
 
-            this._telerivetAPI = new TelerivetAPI(apiKey);
+            _projectService = ProjectService;
+
+            _telerivetAPI = new TelerivetAPI(apiKey);
 
 
 
@@ -119,10 +125,7 @@ namespace Nop.Admin.Controllers
         {
             return View();
         }
-        public async Task<ActionResult> Projects()
-        {
-            return View(await PrepaerProjectListModel());
-        }
+
         public async Task<ActionResult> Phones()
         {
             return View(await PrepaerProjectListModel());
@@ -191,82 +194,6 @@ namespace Nop.Admin.Controllers
         }
 
 
-        [HttpPost]
-        public async Task<ActionResult> Projects(DataSourceRequest command, ProjectListModel model)
-        {
-            SetCurrentProject(model);
-
-            TelerivetAPI tr = new TelerivetAPI(apiKey);
-            APICursor<Project> cursor = tr.QueryProjects();
-            List<Project> projects = await cursor.AllAsync();
-
-            List<ProjectModel> projectsData = new List<ProjectModel>();
-
-            int QueryPhones = 0;
-            int QueryContacts = 0;
-
-            int QueryMessages = 0;
-            int QueryReceipts = 0;
-            int QueryRoutes = 0;
-
-            //int QueryScheduledMessages = 0;
-            //int QueryServices = 0;
-            //int QueryDataTables = 0;
-            //int QueryGroups = 0;
-            //int QueryLabels = 0;
-
-            foreach (Project project in projects)
-            {
-                // int QueryPhones = await project.QueryPhones().CountAsync();
-                // int QueryContacts = await project.QueryContacts().CountAsync();
-                // int QueryDataTables = await project.QueryDataTables().CountAsync();
-                // int QueryGroups = await project.QueryGroups().CountAsync();
-                // int QueryLabels = await project.QueryLabels().CountAsync();
-                // int QueryMessages = await project.QueryMessages().CountAsync();
-                // int QueryReceipts = await project.QueryReceipts().CountAsync();
-                // int QueryRoutes = await project.QueryRoutes().CountAsync();
-                // int QueryScheduledMessages = await project.QueryScheduledMessages().CountAsync();
-                // int QueryServices = await project.QueryServices().CountAsync();
-
-                projectsData.Add(new ProjectModel
-                {
-                    Name = project.Name,
-                    TimeZone = project.TimezoneId,
-                    Contacts = QueryContacts,
-                    Phones = QueryPhones,
-                    Messages = QueryMessages,
-                    Routes = QueryRoutes,
-                    Receipts = QueryReceipts,
-                    Active = true,
-                    UserID = 1
-                });
-
-            }
-
-            //var gridModel = GetBestsellersBriefReportModel(command.Page - 1,command.PageSize, 1);
-            var gridModel = new DataSourceResult
-            {
-                Data = projectsData.Select(x =>
-               {
-                   var m = new ProjectModel
-                   {
-                       Name = x.Name,
-                       TimeZone = x.TimeZone,
-                       Contacts = x.Contacts,
-                       Phones = x.Phones,
-                       Messages = x.Messages,
-                       Routes = x.Routes,
-                       Receipts = x.Receipts,
-                       Active = true,
-                       UserID = 1
-                   };
-                   return m;
-               }),
-                Total = projects.Count
-            };
-
-            return Json(gridModel);
-        }
 
         [HttpPost]
         public async Task<ActionResult> Routes(DataSourceRequest command, ProjectListModel model)
@@ -426,5 +353,201 @@ namespace Nop.Admin.Controllers
             return Json(gridModel);
         }
         #endregion
+
+        #region Projects
+        public async Task<ActionResult> Projects()
+        {
+            return View(await PrepaerProjectListModel());
+        }
+
+        [HttpPost]
+        public ActionResult Projects(DataSourceRequest command, ProjectListModel model)
+        {
+            SetCurrentProject(model);
+            var localProjects = _projectService.GetAll();
+            var gridModel = new DataSourceResult
+            {
+                Data = localProjects.Select(x =>
+                {
+                    var m = new ProjectModel
+                    {
+                        Id = x.Id,
+                        Name = x.Name,
+                        TimeZone = x.TimezoneId,
+                        Contacts = x.Contacts,
+                        Phones = x.Phones,
+                        Messages = x.Messages,
+                        Routes = x.Routes,
+                        Receipts = x.Receipts,
+                        Active = x.Active,
+                        UserID = 0,
+                        
+                    };
+                    return m;
+                }),
+                Total = localProjects.TotalCount
+            };
+            return Json(gridModel);
+        }
+
+
+
+        [HttpPost]
+        public async Task<ActionResult> UpdateProjects(DataSourceRequest command, ProjectListModel model)
+        {
+            TelerivetAPI tr = new TelerivetAPI(apiKey);
+            APICursor<Project> cursor = tr.QueryProjects();
+            List<Project> projects = await cursor.AllAsync();
+            foreach (Project project in projects)
+            {
+                Telerivet_Project remoteProject = new Telerivet_Project()
+                {
+                    TimezoneId = project.TimezoneId,
+                    Name = project.Name,
+                    TelerivetID = project.Id,
+                    Active = true,
+                    UserID = null,
+
+                    Contacts = await project.QueryContacts().CountAsync(),
+                    DataTables = await project.QueryDataTables().CountAsync(),
+                    Groups = await project.QueryGroups().CountAsync(),
+                    Labels = await project.QueryLabels().CountAsync(),
+                    Messages = await project.QueryMessages().CountAsync(),
+                    Phones = await project.QueryPhones().CountAsync(),
+                    Receipts = await project.QueryReceipts().CountAsync(),
+                    Routes = await project.QueryRoutes().CountAsync(),
+                    ScheduledMessages = await project.QueryScheduledMessages().CountAsync(),
+                    Services = await project.QueryServices().CountAsync(),
+
+                };
+                _projectService.InsertOrUpdate(remoteProject);
+
+            }
+
+            var gridModel = new
+            {
+                status = true,
+            };
+            return Json(gridModel);
+        }
+
+
+
+
+        public ActionResult Edit_Project(int id)
+        {
+
+            var item = _projectService.GetById(id);
+            if (item == null)
+                return RedirectToAction("List");
+
+            var model = new ProjectModel();
+            PrepareCustomerModel(model, item, false);
+
+            return View(model);
+        }
+
+
+        [NonAction]
+        //protected virtual void PrepareCustomerModel(ProjectModel model, Telerivet_Project customer, bool excludeProperties)
+        //{
+        //    var allStores = _storeService.GetAllStores();
+        //    if (customer != null)
+        //    {
+        //        model.Id = customer.Id;
+        //        if (!excludeProperties)
+        //        {
+        //            model.Email = customer.Email;
+        //            model.Username = customer.Username;
+        //            model.VendorId = customer.VendorId;
+        //            model.AdminComment = customer.AdminComment;
+        //            model.IsTaxExempt = customer.IsTaxExempt;
+        //            model.Active = customer.Active;
+
+        //            var affiliate = _affiliateService.GetAffiliateById(customer.AffiliateId);
+        //            if (affiliate != null)
+        //            {
+        //                model.AffiliateId = affiliate.Id;
+        //                model.AffiliateName = affiliate.GetFullName();
+        //            }
+
+        //            model.TimeZoneId = customer.GetAttribute<string>(SystemCustomerAttributeNames.TimeZoneId);
+        //            model.VatNumber = customer.GetAttribute<string>(SystemCustomerAttributeNames.VatNumber);
+        //            model.VatNumberStatusNote = ((VatNumberStatus)customer.GetAttribute<int>(SystemCustomerAttributeNames.VatNumberStatusId))
+        //                .GetLocalizedEnum(_localizationService, _workContext);
+        //            model.CreatedOn = _dateTimeHelper.ConvertToUserTime(customer.CreatedOnUtc, DateTimeKind.Utc);
+        //            model.LastActivityDate = _dateTimeHelper.ConvertToUserTime(customer.LastActivityDateUtc, DateTimeKind.Utc);
+        //            model.LastIpAddress = customer.LastIpAddress;
+        //            model.LastVisitedPage = customer.GetAttribute<string>(SystemCustomerAttributeNames.LastVisitedPage);
+
+        //            model.SelectedCustomerRoleIds = customer.CustomerRoles.Select(cr => cr.Id).ToArray();
+
+
+
+        //            //form fields
+        //            model.FirstName = customer.GetAttribute<string>(SystemCustomerAttributeNames.FirstName);
+        //            model.LastName = customer.GetAttribute<string>(SystemCustomerAttributeNames.LastName);
+        //            model.Gender = customer.GetAttribute<string>(SystemCustomerAttributeNames.Gender);
+        //            model.DateOfBirth = customer.GetAttribute<DateTime?>(SystemCustomerAttributeNames.DateOfBirth);
+        //            model.Company = customer.GetAttribute<string>(SystemCustomerAttributeNames.Company);
+        //            model.StreetAddress = customer.GetAttribute<string>(SystemCustomerAttributeNames.StreetAddress);
+        //            model.StreetAddress2 = customer.GetAttribute<string>(SystemCustomerAttributeNames.StreetAddress2);
+        //            model.ZipPostalCode = customer.GetAttribute<string>(SystemCustomerAttributeNames.ZipPostalCode);
+        //            model.City = customer.GetAttribute<string>(SystemCustomerAttributeNames.City);
+        //            model.CountryId = customer.GetAttribute<int>(SystemCustomerAttributeNames.CountryId);
+        //            model.StateProvinceId = customer.GetAttribute<int>(SystemCustomerAttributeNames.StateProvinceId);
+        //            model.Phone = customer.GetAttribute<string>(SystemCustomerAttributeNames.Phone);
+        //            model.Fax = customer.GetAttribute<string>(SystemCustomerAttributeNames.Fax);
+        //        }
+        //    }
+
+        //    model.UsernamesEnabled = _customerSettings.UsernamesEnabled;
+        //    model.AllowUsersToChangeUsernames = _customerSettings.AllowUsersToChangeUsernames;
+        //    model.AllowCustomersToSetTimeZone = _dateTimeSettings.AllowCustomersToSetTimeZone;
+        //    foreach (var tzi in _dateTimeHelper.GetSystemTimeZones())
+        //        model.AvailableTimeZones.Add(new SelectListItem { Text = tzi.DisplayName, Value = tzi.Id, Selected = (tzi.Id == model.TimeZoneId) });
+        //    if (customer != null)
+        //    {
+        //        model.DisplayVatNumber = _taxSettings.EuVatEnabled;
+        //    }
+        //    else
+        //    {
+        //        model.DisplayVatNumber = false;
+        //    }
+
+        //    //vendors
+        //    PrepareVendorsModel(model);
+        //    //customer attributes
+        //    PrepareCustomerAttributeModel(model, customer);
+
+        //    model.GenderEnabled = _customerSettings.GenderEnabled;
+        //    model.DateOfBirthEnabled = _customerSettings.DateOfBirthEnabled;
+        //    model.CompanyEnabled = _customerSettings.CompanyEnabled;
+        //    model.StreetAddressEnabled = _customerSettings.StreetAddressEnabled;
+        //    model.StreetAddress2Enabled = _customerSettings.StreetAddress2Enabled;
+        //    model.ZipPostalCodeEnabled = _customerSettings.ZipPostalCodeEnabled;
+        //    model.CityEnabled = _customerSettings.CityEnabled;
+        //    model.CountryEnabled = _customerSettings.CountryEnabled;
+        //    model.StateProvinceEnabled = _customerSettings.StateProvinceEnabled;
+        //    model.PhoneEnabled = _customerSettings.PhoneEnabled;
+        //    model.FaxEnabled = _customerSettings.FaxEnabled;
+
+
+        //}
+
+
+
+        #endregion
+
+
+
+
+
+
+
+
+
+
+
     }
 }

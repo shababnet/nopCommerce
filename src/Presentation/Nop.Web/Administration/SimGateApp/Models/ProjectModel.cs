@@ -13,5 +13,6 @@ namespace Nop.Admin.Models.SimGate
         public int Routes { get; set; }
         public string TimeZone { get; set; }
         public int UserID { get; set; }
+        public int Id { get; set; }
     }
 }
