@@ -1,0 +1,23 @@
+﻿@using Nop.Admin.Models.SimGate
+@model ProjectModel
+
+@{
+    //page title
+    ViewBag.Title = T("Admin.Customers.CustomerRoles.EditCustomerRoleDetails").Text;
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="content-header clearfix">
+        <h1 class="pull-left">
+            @T("Admin.Customers.CustomerRoles.EditCustomerRoleDetails") - @Model.Name
+            <small>@Html.ActionLink("(" + T("Admin.Customers.CustomerRoles.BackToList") + ")", "List")</small>
+        </h1>
+        <div class="pull-right">
+            <input type="submit" name="save" class="btn btn-default" value="@T("Admin.Common.Save")" />
+            <input type="submit" name="save-continue" class="btn btn-default" value="@T("Admin.Common.SaveContinue")" />
+        </div>
+    </div>
+    @Html.Partial("_ProjectCreateOrUpdate", Model)
+}

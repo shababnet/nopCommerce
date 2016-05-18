@@ -80,7 +80,7 @@ namespace Nop.Core.SimGateApp.Domain.Telerivet
 
         public bool Active { get; set; }
 
-        public System.Nullable<System.Guid> UserID { get; set; }
+        public int UserID { get; set; }
 
         public int Phones { get; set; }
 
@@ -101,6 +101,7 @@ namespace Nop.Core.SimGateApp.Domain.Telerivet
         public int ScheduledMessages { get; set; }
 
         public int Services { get; set; }
+        public Dictionary<string, object> CustomProperties { get; set; }
     }
 
     public partial class Telerivet_Phone : BaseEntity

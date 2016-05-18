@@ -3,7 +3,7 @@
     Layout = "~/Administration/Views/Shared/_AdminLayout.cshtml";
     //page title
     ViewBag.Title = T("Admin.Dashboard").Text;
-    var gridPageSize = 5;
+    var gridPageSize = 25;
 }
 
 @Html.AntiForgeryToken()
@@ -143,7 +143,7 @@
                 field: "Id",
                 title: "@T("Admin.Common.Edit")",
                 width: 50,
-        template: '<a href="Edit/#=Id#">@T("Admin.Common.Edit")</a>'
+        template: '<a href="Project_Edit/#=Id#">@T("Admin.Common.Edit")</a>'
     }]
         });
     });
@@ -161,20 +161,12 @@ $(document).ready(function() {
         grid.dataSource.page(1);
     });
 
-
-
-
-
     $('#update-projects').click(function() {
-
         $('#myModal').modal(
             {
                 backdrop :'static',
                 keyboard :false,
-
-                
             });
-
 
         $.ajax({
             type: "POST",
@@ -185,24 +177,11 @@ $(document).ready(function() {
                 $('#myModal').modal('toggle');
                 var grid = $('#simgate-grid').data('kendoGrid');
                 grid.dataSource.page(1);
-
             }
         });
 
-
-
-
-
-
-
         return false;
     });
-
-
-
-
-
-
 });
 
 function additionalData() {

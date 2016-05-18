@@ -1,9 +1,17 @@
 ﻿using Nop.Web.Framework.Mvc;
+using System.Collections.Generic;
+using System.Web.Mvc;
 
 namespace Nop.Admin.Models.SimGate
 {
     public partial class ProjectModel : BaseNopModel
     {
+
+        public ProjectModel()
+        {
+            this.AvailableCustomers = new List<SelectListItem>();
+
+        }
         public bool Active { get; set; }
         public int Contacts { get; set; }
         public int Messages { get; set; }
@@ -14,5 +22,9 @@ namespace Nop.Admin.Models.SimGate
         public string TimeZone { get; set; }
         public int UserID { get; set; }
         public int Id { get; set; }
+
+
+        public IList<SelectListItem> AvailableCustomers { get; set; }
+
     }
 }

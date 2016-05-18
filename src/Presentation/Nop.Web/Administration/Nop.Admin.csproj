@@ -1076,6 +1076,8 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Views\SimGate\_SimGateHeader.cshtml" />
+    <Content Include="Views\SimGate\Project_Edit.cshtml" />
+    <Content Include="Views\SimGate\_ProjectCreateOrUpdate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Product\AddAttributeCombinationPopup.cshtml" />

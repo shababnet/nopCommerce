@@ -128,7 +128,10 @@ namespace Nop.Services.SimGateApp.Telerivet
 
         public Telerivet_Project GetById(int id)
         {
-            throw new NotImplementedException();
+            if (id == 0)
+                return null;
+
+            return _itemRepository.GetById(id);
         }
 
         public Telerivet_Project GetByTelerivetID(string telerivetID)

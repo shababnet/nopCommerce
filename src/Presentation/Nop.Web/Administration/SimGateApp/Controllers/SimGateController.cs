@@ -21,6 +21,8 @@ using Nop.Admin.Models.SimGate;
 using Nop.Admin.Models.Catalog;
 using Nop.Services.SimGateApp.Telerivet;
 using Nop.Core.SimGateApp.Domain.Telerivet;
+using Nop.Services.Customers;
+using Nop.Services.Localization;
 
 namespace Nop.Admin.Controllers
 {
@@ -37,6 +39,10 @@ namespace Nop.Admin.Controllers
         private readonly IProductService _productService;
         private readonly IPriceFormatter _priceFormatter;
 
+        private readonly ILocalizationService _localizationService;
+        private readonly ICustomerService _customerService;
+
+
 
         private readonly TelerivetAPI _telerivetAPI;
         private String apiKey = "cF04TPqu3oFzetwgU03aPKuXeVFSlfbL";
@@ -52,6 +58,9 @@ namespace Nop.Admin.Controllers
             IProductService productService,
             IPriceFormatter priceFormatter,
 
+            ILocalizationService localizationService,
+            ICustomerService customerService,
+
             ITelerivet_ProjectService ProjectService,
 
 
@@ -60,6 +69,8 @@ namespace Nop.Admin.Controllers
             IWorkContext workContext,
             ICacheManager cacheManager)
         {
+            _localizationService = localizationService;
+            _customerService = customerService;
             _storeContext = storeContext;
             _commonSettings = commonSettings;
             _settingService = settingService;
@@ -406,7 +417,7 @@ namespace Nop.Admin.Controllers
                     Name = project.Name,
                     TelerivetID = project.Id,
                     Active = true,
-                    UserID = null,
+                    UserID = 0,
 
                     Contacts = await project.QueryContacts().CountAsync(),
                     DataTables = await project.QueryDataTables().CountAsync(),
@@ -434,7 +445,7 @@ namespace Nop.Admin.Controllers
 
 
 
-        public ActionResult Edit_Project(int id)
+        public ActionResult Project_Edit(int id)
         {
 
             var item = _projectService.GetById(id);
@@ -442,98 +453,46 @@ namespace Nop.Admin.Controllers
                 return RedirectToAction("List");
 
             var model = new ProjectModel();
-            PrepareCustomerModel(model, item, false);
+            PrepareProjectModel(model, item);
 
             return View(model);
         }
 
-
         [NonAction]
-        //protected virtual void PrepareCustomerModel(ProjectModel model, Telerivet_Project customer, bool excludeProperties)
-        //{
-        //    var allStores = _storeService.GetAllStores();
-        //    if (customer != null)
-        //    {
-        //        model.Id = customer.Id;
-        //        if (!excludeProperties)
-        //        {
-        //            model.Email = customer.Email;
-        //            model.Username = customer.Username;
-        //            model.VendorId = customer.VendorId;
-        //            model.AdminComment = customer.AdminComment;
-        //            model.IsTaxExempt = customer.IsTaxExempt;
-        //            model.Active = customer.Active;
+        protected virtual void PrepareProjectModel(ProjectModel model, Telerivet_Project project)
+        {
+            if (project != null)
+            {
+                model.Id = project.Id;
 
-        //            var affiliate = _affiliateService.GetAffiliateById(customer.AffiliateId);
-        //            if (affiliate != null)
-        //            {
-        //                model.AffiliateId = affiliate.Id;
-        //                model.AffiliateName = affiliate.GetFullName();
-        //            }
-
-        //            model.TimeZoneId = customer.GetAttribute<string>(SystemCustomerAttributeNames.TimeZoneId);
-        //            model.VatNumber = customer.GetAttribute<string>(SystemCustomerAttributeNames.VatNumber);
-        //            model.VatNumberStatusNote = ((VatNumberStatus)customer.GetAttribute<int>(SystemCustomerAttributeNames.VatNumberStatusId))
-        //                .GetLocalizedEnum(_localizationService, _workContext);
-        //            model.CreatedOn = _dateTimeHelper.ConvertToUserTime(customer.CreatedOnUtc, DateTimeKind.Utc);
-        //            model.LastActivityDate = _dateTimeHelper.ConvertToUserTime(customer.LastActivityDateUtc, DateTimeKind.Utc);
-        //            model.LastIpAddress = customer.LastIpAddress;
-        //            model.LastVisitedPage = customer.GetAttribute<string>(SystemCustomerAttributeNames.LastVisitedPage);
-
-        //            model.SelectedCustomerRoleIds = customer.CustomerRoles.Select(cr => cr.Id).ToArray();
+                model.Active = project.Active;
+                model.Contacts = project.Contacts;
+                model.Messages = project.Messages;
+                model.Name = project.Name;
+                model.Phones = project.Phones;
+                model.Receipts = project.Receipts;
+                model.Routes = project.Routes;
+                model.TimeZone = project.TimezoneId;
+                model.UserID = project.UserID;
 
 
 
-        //            //form fields
-        //            model.FirstName = customer.GetAttribute<string>(SystemCustomerAttributeNames.FirstName);
-        //            model.LastName = customer.GetAttribute<string>(SystemCustomerAttributeNames.LastName);
-        //            model.Gender = customer.GetAttribute<string>(SystemCustomerAttributeNames.Gender);
-        //            model.DateOfBirth = customer.GetAttribute<DateTime?>(SystemCustomerAttributeNames.DateOfBirth);
-        //            model.Company = customer.GetAttribute<string>(SystemCustomerAttributeNames.Company);
-        //            model.StreetAddress = customer.GetAttribute<string>(SystemCustomerAttributeNames.StreetAddress);
-        //            model.StreetAddress2 = customer.GetAttribute<string>(SystemCustomerAttributeNames.StreetAddress2);
-        //            model.ZipPostalCode = customer.GetAttribute<string>(SystemCustomerAttributeNames.ZipPostalCode);
-        //            model.City = customer.GetAttribute<string>(SystemCustomerAttributeNames.City);
-        //            model.CountryId = customer.GetAttribute<int>(SystemCustomerAttributeNames.CountryId);
-        //            model.StateProvinceId = customer.GetAttribute<int>(SystemCustomerAttributeNames.StateProvinceId);
-        //            model.Phone = customer.GetAttribute<string>(SystemCustomerAttributeNames.Phone);
-        //            model.Fax = customer.GetAttribute<string>(SystemCustomerAttributeNames.Fax);
-        //        }
-        //    }
 
-        //    model.UsernamesEnabled = _customerSettings.UsernamesEnabled;
-        //    model.AllowUsersToChangeUsernames = _customerSettings.AllowUsersToChangeUsernames;
-        //    model.AllowCustomersToSetTimeZone = _dateTimeSettings.AllowCustomersToSetTimeZone;
-        //    foreach (var tzi in _dateTimeHelper.GetSystemTimeZones())
-        //        model.AvailableTimeZones.Add(new SelectListItem { Text = tzi.DisplayName, Value = tzi.Id, Selected = (tzi.Id == model.TimeZoneId) });
-        //    if (customer != null)
-        //    {
-        //        model.DisplayVatNumber = _taxSettings.EuVatEnabled;
-        //    }
-        //    else
-        //    {
-        //        model.DisplayVatNumber = false;
-        //    }
-
-        //    //vendors
-        //    PrepareVendorsModel(model);
-        //    //customer attributes
-        //    PrepareCustomerAttributeModel(model, customer);
-
-        //    model.GenderEnabled = _customerSettings.GenderEnabled;
-        //    model.DateOfBirthEnabled = _customerSettings.DateOfBirthEnabled;
-        //    model.CompanyEnabled = _customerSettings.CompanyEnabled;
-        //    model.StreetAddressEnabled = _customerSettings.StreetAddressEnabled;
-        //    model.StreetAddress2Enabled = _customerSettings.StreetAddress2Enabled;
-        //    model.ZipPostalCodeEnabled = _customerSettings.ZipPostalCodeEnabled;
-        //    model.CityEnabled = _customerSettings.CityEnabled;
-        //    model.CountryEnabled = _customerSettings.CountryEnabled;
-        //    model.StateProvinceEnabled = _customerSettings.StateProvinceEnabled;
-        //    model.PhoneEnabled = _customerSettings.PhoneEnabled;
-        //    model.FaxEnabled = _customerSettings.FaxEnabled;
+                model.AvailableCustomers.Add(new SelectListItem { Text = _localizationService.GetResource("Admin.Address.SelectCountry"), Value = "0" });
+                foreach (var c in _customerService.GetAllCustomers())
+                {
+                    model.AvailableCustomers.Add(new SelectListItem
+                    {
+                        Text = c.Username,
+                        Value = c.Id.ToString(),
+                        Selected = c.Id == model.UserID
+                    });
+                }
 
 
-        //}
+
+            }
+        }
 
 
 
