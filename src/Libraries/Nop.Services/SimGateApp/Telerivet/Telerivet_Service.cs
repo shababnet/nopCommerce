@@ -141,12 +141,12 @@ namespace Nop.Services.SimGateApp.Telerivet
 
         public void Insert(Telerivet_Project item)
         {
-            throw new NotImplementedException();
+            _itemRepository.Insert(item);
         }
 
         public void Update(Telerivet_Project item)
         {
-            throw new NotImplementedException();
+            _itemRepository.Update(item);
         }
 
 

@@ -22,6 +22,7 @@ namespace Nop.Admin.Models.SimGate
         public string TimeZone { get; set; }
         public int UserID { get; set; }
         public int Id { get; set; }
+        public string TelerivetID { get; set; }
 
 
         public IList<SelectListItem> AvailableCustomers { get; set; }

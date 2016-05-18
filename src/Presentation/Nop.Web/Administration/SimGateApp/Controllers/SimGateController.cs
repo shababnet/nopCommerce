@@ -23,6 +23,9 @@ using Nop.Services.SimGateApp.Telerivet;
 using Nop.Core.SimGateApp.Domain.Telerivet;
 using Nop.Services.Customers;
 using Nop.Services.Localization;
+using Nop.Core.Domain.Customers;
+using Nop.Web.Framework.Controllers;
+using Nop.Services.Common;
 
 namespace Nop.Admin.Controllers
 {
@@ -41,6 +44,7 @@ namespace Nop.Admin.Controllers
 
         private readonly ILocalizationService _localizationService;
         private readonly ICustomerService _customerService;
+        private readonly IGenericAttributeService _genericAttributeService;
 
 
 
@@ -60,6 +64,7 @@ namespace Nop.Admin.Controllers
 
             ILocalizationService localizationService,
             ICustomerService customerService,
+            IGenericAttributeService genericAttributeService,
 
             ITelerivet_ProjectService ProjectService,
 
@@ -71,6 +76,8 @@ namespace Nop.Admin.Controllers
         {
             _localizationService = localizationService;
             _customerService = customerService;
+            _genericAttributeService = genericAttributeService;
+
             _storeContext = storeContext;
             _commonSettings = commonSettings;
             _settingService = settingService;
@@ -391,7 +398,7 @@ namespace Nop.Admin.Controllers
                         Routes = x.Routes,
                         Receipts = x.Receipts,
                         Active = x.Active,
-                        UserID = 0,
+                        UserID = x.UserID,
                         
                     };
                     return m;
@@ -416,9 +423,8 @@ namespace Nop.Admin.Controllers
                     TimezoneId = project.TimezoneId,
                     Name = project.Name,
                     TelerivetID = project.Id,
-                    Active = true,
-                    UserID = 0,
-
+                    //Active = true,
+                    //UserID = 0,
                     Contacts = await project.QueryContacts().CountAsync(),
                     DataTables = await project.QueryDataTables().CountAsync(),
                     Groups = await project.QueryGroups().CountAsync(),
@@ -450,7 +456,7 @@ namespace Nop.Admin.Controllers
 
             var item = _projectService.GetById(id);
             if (item == null)
-                return RedirectToAction("List");
+                return RedirectToAction("Projects");
 
             var model = new ProjectModel();
             PrepareProjectModel(model, item);
@@ -458,13 +464,65 @@ namespace Nop.Admin.Controllers
             return View(model);
         }
 
+
+        [HttpPost, ParameterBasedOnFormName("save-continue", "continueEditing")]
+        [FormValueRequired("save", "save-continue")]
+        [ValidateInput(false)]
+        public ActionResult Project_Edit(ProjectModel model, bool continueEditing, FormCollection form)
+        {
+            var project = _projectService.GetById(model.Id);
+            if (project == null)
+                return RedirectToAction("Projects");
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+
+                    var customer = _customerService.GetCustomerById(model.UserID);
+                    if (customer != null)
+                    {
+                        _genericAttributeService.SaveAttribute(customer, SystemCustomerAttributeNames.TelerivetProjectID, model.TelerivetID);
+                    }
+
+                    project.UserID = customer.Id;
+                    _projectService.Update(project);
+
+                    if (continueEditing)
+                    {
+                        return RedirectToAction("Project_Edit", new { id = customer.Id });
+                    }
+                    return RedirectToAction("Projects");
+
+
+
+
+                }
+                catch (Exception exc)
+                {
+
+                    ErrorNotification(exc.Message, false);
+                }
+
+
+
+
+            }
+
+            //If we got this far, something failed, redisplay form
+            PrepareProjectModel(model, project);
+            return View(model);
+        }
+
+
+
         [NonAction]
         protected virtual void PrepareProjectModel(ProjectModel model, Telerivet_Project project)
         {
             if (project != null)
             {
                 model.Id = project.Id;
-
+                model.TelerivetID = project.TelerivetID;
                 model.Active = project.Active;
                 model.Contacts = project.Contacts;
                 model.Messages = project.Messages;
@@ -474,12 +532,10 @@ namespace Nop.Admin.Controllers
                 model.Routes = project.Routes;
                 model.TimeZone = project.TimezoneId;
                 model.UserID = project.UserID;
-
-
-
-
                 model.AvailableCustomers.Add(new SelectListItem { Text = _localizationService.GetResource("Admin.Address.SelectCountry"), Value = "0" });
-                foreach (var c in _customerService.GetAllCustomers())
+
+                var defaultRoleIds = new[] { _customerService.GetCustomerRoleBySystemName(SystemCustomerRoleNames.Registered).Id };
+                foreach (var c in _customerService.GetAllCustomers(customerRoleIds: defaultRoleIds))
                 {
                     model.AvailableCustomers.Add(new SelectListItem
                     {
@@ -488,9 +544,6 @@ namespace Nop.Admin.Controllers
                         Selected = c.Id == model.UserID
                     });
                 }
-
-
-
             }
         }
 
