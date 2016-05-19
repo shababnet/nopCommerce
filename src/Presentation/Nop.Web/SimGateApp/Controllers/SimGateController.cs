@@ -13,6 +13,8 @@ using Nop.Core.SimGateApp.Domain.Telerivet;
 using Nop.Services.SimGateApp.Telerivet;
 using Newtonsoft.Json;
 using System.Globalization;
+using Nop.Services.Common;
+using Nop.Core.Domain.Customers;
 
 namespace Nop.Web.Controllers
 {
@@ -46,9 +48,9 @@ namespace Nop.Web.Controllers
 
         public SimGateController(IWorkContext workContext, ITelerivet_Messages_By_DayService Messages_By_Day)
         {
-            this._workContext = workContext;
-            this._messages_By_Day = Messages_By_Day;
-            this._telerivetAPI = new TelerivetAPI(apiKey);
+            _workContext = workContext;
+            _messages_By_Day = Messages_By_Day;
+            _telerivetAPI = new TelerivetAPI(apiKey);
             MccMnc.Add("41904", "Viva");
             MccMnc.Add("41903", "Wataniya");
             MccMnc.Add("41902", "Zain KW");
@@ -57,6 +59,11 @@ namespace Nop.Web.Controllers
         [HttpPost]
         public async Task<ActionResult> DashbordData()
         {
+            if (!_workContext.CurrentCustomer.IsRegistered())
+                return new HttpUnauthorizedResult();
+
+            var customer = _workContext.CurrentCustomer;
+            telerivetProjectID = customer.GetAttribute<string>(SystemCustomerAttributeNames.TelerivetProjectID);
 
             Project project = _telerivetAPI.InitProjectById(telerivetProjectID);
 
@@ -111,6 +118,8 @@ namespace Nop.Web.Controllers
             if (!_workContext.CurrentCustomer.IsRegistered())
                 return new HttpUnauthorizedResult();
 
+            var customer = _workContext.CurrentCustomer;
+            telerivetProjectID = customer.GetAttribute<string>(SystemCustomerAttributeNames.TelerivetProjectID);
 
             //var dateTime = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 0, 0, 0, DateTimeKind.Local);
             //var epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
@@ -228,6 +237,9 @@ namespace Nop.Web.Controllers
             if (!_workContext.CurrentCustomer.IsRegistered())
                 return new HttpUnauthorizedResult();
 
+            var customer = _workContext.CurrentCustomer;
+            telerivetProjectID = customer.GetAttribute<string>(SystemCustomerAttributeNames.TelerivetProjectID);
+
             int offset = (1 - 1) * 30;
             Project project = _telerivetAPI.InitProjectById(telerivetProjectID);
             APICursor<Message> cursor = project.QueryMessages(Util.Options("page_size", 30, "offset", offset, "sort_dir", "desc"));
@@ -276,6 +288,9 @@ namespace Nop.Web.Controllers
         {
             if (!_workContext.CurrentCustomer.IsRegistered())
                 return new HttpUnauthorizedResult();
+
+            var customer = _workContext.CurrentCustomer;
+            telerivetProjectID = customer.GetAttribute<string>(SystemCustomerAttributeNames.TelerivetProjectID);
 
 
             var unixDateTime = (DateTime.Now.ToUniversalTime() - new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalSeconds;
@@ -330,6 +345,9 @@ namespace Nop.Web.Controllers
             if (!_workContext.CurrentCustomer.IsRegistered())
                 return new HttpUnauthorizedResult();
 
+            var customer = _workContext.CurrentCustomer;
+            telerivetProjectID = customer.GetAttribute<string>(SystemCustomerAttributeNames.TelerivetProjectID);
+
 
             int offset = (1 - 1) * 30;
             Project project = _telerivetAPI.InitProjectById(telerivetProjectID);
@@ -362,6 +380,9 @@ namespace Nop.Web.Controllers
         {
             if (!_workContext.CurrentCustomer.IsRegistered())
                 return new HttpUnauthorizedResult();
+
+            var customer = _workContext.CurrentCustomer;
+            telerivetProjectID = customer.GetAttribute<string>(SystemCustomerAttributeNames.TelerivetProjectID);
 
             Project project = _telerivetAPI.InitProjectById(telerivetProjectID);
             APICursor<Group> groupCursor = project.QueryGroups();
@@ -432,6 +453,12 @@ namespace Nop.Web.Controllers
         [HttpPost]
         public async Task<ActionResult> Phones(DataSourceRequest command, ProjectListModel model)
         {
+            if (!_workContext.CurrentCustomer.IsRegistered())
+                return new HttpUnauthorizedResult();
+
+            var customer = _workContext.CurrentCustomer;
+            telerivetProjectID = customer.GetAttribute<string>(SystemCustomerAttributeNames.TelerivetProjectID);
+
 
             Project project = _telerivetAPI.InitProjectById(telerivetProjectID);
             APICursor<Phone> cursor = project.QueryPhones();
@@ -478,6 +505,14 @@ namespace Nop.Web.Controllers
         [HttpPost]
         public async Task<ActionResult> Contacts(DataSourceRequest command, ContactsListModel model)
         {
+
+            if (!_workContext.CurrentCustomer.IsRegistered())
+                return new HttpUnauthorizedResult();
+
+            var customer = _workContext.CurrentCustomer;
+            telerivetProjectID = customer.GetAttribute<string>(SystemCustomerAttributeNames.TelerivetProjectID);
+
+
             APICursor<Contact> cursor;
 
             int offset = (command.Page - 1) * command.PageSize;
