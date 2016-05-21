@@ -110,9 +110,6 @@ namespace Nop.Web.Controllers
             return Json(gridModel);
         }
 
-
-
-
         public async Task<ActionResult> Index()
         {
             if (!_workContext.CurrentCustomer.IsRegistered())
@@ -230,7 +227,6 @@ namespace Nop.Web.Controllers
             return View();
         }
 
-
         // GET: SimGate/Messages
         public async Task<ActionResult> Messages()
         {
@@ -339,7 +335,6 @@ namespace Nop.Web.Controllers
             return View(gridModel);
         }
 
-
         public async Task<ActionResult> Routes()
         {
             if (!_workContext.CurrentCustomer.IsRegistered())
@@ -374,8 +369,7 @@ namespace Nop.Web.Controllers
         }
 
 
-
-
+        #region Contacts
         public async Task<ActionResult> Contacts()
         {
             if (!_workContext.CurrentCustomer.IsRegistered())
@@ -450,6 +444,123 @@ namespace Nop.Web.Controllers
         }
 
 
+
+        [HttpPost]
+        public async Task<ActionResult> Contacts(DataSourceRequest command, ContactsListModel model)
+        {
+
+            if (!_workContext.CurrentCustomer.IsRegistered())
+                return new HttpUnauthorizedResult();
+
+            var customer = _workContext.CurrentCustomer;
+            telerivetProjectID = customer.GetAttribute<string>(SystemCustomerAttributeNames.TelerivetProjectID);
+
+
+            APICursor<Contact> cursor;
+
+            int offset = (command.Page - 1) * command.PageSize;
+
+            Project project = _telerivetAPI.InitProjectById(telerivetProjectID);
+
+            JObject Options = new JObject();
+            Options.Add("page_size", command.PageSize);
+            Options.Add("offset", offset);
+            Options.Add("sort_dir", "asc");
+            Options.Add("sort", "phone_number");
+
+            if (!string.IsNullOrEmpty(model.GroupID))
+            {
+                Group group = project.InitGroupById(model.GroupID);
+                cursor = group.QueryContacts(Options);
+
+            }
+            else
+            {
+
+                cursor = project.QueryContacts(Options);
+
+            }
+
+
+
+            ////From Windows application
+            //MessageQueue messageQueue = new MessageQueue(@".\Private$\SomeTestName");
+            //System.Messaging.Message[] messages = messageQueue.GetAllMessages();
+            //foreach (System.Messaging.Message message in messages)
+            //{
+            //    //Do something with the message.
+            //}
+            //// after all processing, delete all the messages
+            //messageQueue.Purge();
+
+
+
+            // APICursor<Contact> cursor = project.QueryContacts(Options);
+
+            int total = await cursor.CountAsync();
+            List<Contact> contacts = await cursor.Limit(command.PageSize).AllAsync();
+
+            var gridModel = new DataSourceResult
+            {
+                Data = contacts.Select(contact =>
+                {
+                    var m = new ContactModel
+                    {
+                        Id = 1,
+                        TelerivetID = contact.Id,
+                        ProjectId = contact.ProjectId,
+                        Name = contact.Name,
+                        Vars = contact.Vars,
+                        PhoneNumber = contact.PhoneNumber,
+                        LastMessageTime = contact.LastMessageTime,
+                        LastMessageId = contact.LastMessageId,
+                        DefaultRouteId = contact.DefaultRouteId,
+                        GroupIds = contact.GroupIds,
+                        TimeCreated = contact.TimeCreated,
+                        MessageCount = contact.MessageCount,
+                        LastIncomingMessageTime = contact.LastIncomingMessageTime,
+                        LastOutgoingMessageTime = contact.LastOutgoingMessageTime,
+                        IncomingMessageCount = contact.IncomingMessageCount,
+                        OutgoingMessageCount = contact.OutgoingMessageCount,
+                        SendBlocked = contact.SendBlocked,
+                    };
+                    return m;
+                }),
+                Total = total,
+            };
+            return Json(gridModel);
+        }
+
+
+
+        public async Task<ActionResult> AddNewGroup(string GroupName) {
+
+            if (!_workContext.CurrentCustomer.IsRegistered())
+                return new HttpUnauthorizedResult();
+
+            var customer = _workContext.CurrentCustomer;
+            telerivetProjectID = customer.GetAttribute<string>(SystemCustomerAttributeNames.TelerivetProjectID);
+
+            Project project = _telerivetAPI.InitProjectById(telerivetProjectID);
+            Group telerivetGroup = await project.GetOrCreateGroupAsync(GroupName);
+
+
+
+            var gridModel = new
+            {
+                TelerivetID = telerivetGroup.Id,
+                Name = telerivetGroup.Name,
+                NumMembers = telerivetGroup.NumMembers,
+                TimeCreated = telerivetGroup.TimeCreated,
+                Dynamic = telerivetGroup.Dynamic,
+            };
+            return Json(gridModel);
+        }
+
+        #endregion Contacts
+
+
+
         [HttpPost]
         public async Task<ActionResult> Phones(DataSourceRequest command, ProjectListModel model)
         {
@@ -502,77 +613,6 @@ namespace Nop.Web.Controllers
 
 
 
-        [HttpPost]
-        public async Task<ActionResult> Contacts(DataSourceRequest command, ContactsListModel model)
-        {
-
-            if (!_workContext.CurrentCustomer.IsRegistered())
-                return new HttpUnauthorizedResult();
-
-            var customer = _workContext.CurrentCustomer;
-            telerivetProjectID = customer.GetAttribute<string>(SystemCustomerAttributeNames.TelerivetProjectID);
-
-
-            APICursor<Contact> cursor;
-
-            int offset = (command.Page - 1) * command.PageSize;
-
-            Project project = _telerivetAPI.InitProjectById(telerivetProjectID);
-
-            JObject Options = new JObject();
-            Options.Add("page_size", command.PageSize);
-            Options.Add("offset", offset);
-            Options.Add("sort_dir", "asc");
-            Options.Add("sort", "phone_number");
-
-        if (!string.IsNullOrEmpty(model.GroupID))
-            {
-                Group group = project.InitGroupById(model.GroupID);
-                cursor = group.QueryContacts(Options);
-
-            } else
-            {
-
-                 cursor = project.QueryContacts(Options);
-
-            }
-
-
-            // APICursor<Contact> cursor = project.QueryContacts(Options);
-
-            int total = await cursor.CountAsync();
-            List<Contact> contacts = await cursor.Limit(command.PageSize).AllAsync();
-
-            var gridModel = new DataSourceResult
-            {
-                Data = contacts.Select(contact =>
-                {
-                    var m = new ContactModel
-                    {
-                        Id = 1,
-                        TelerivetID = contact.Id,
-                        ProjectId = contact.ProjectId,
-                        Name = contact.Name,
-                        Vars = contact.Vars,
-                        PhoneNumber = contact.PhoneNumber,
-                        LastMessageTime = contact.LastMessageTime,
-                        LastMessageId = contact.LastMessageId,
-                        DefaultRouteId = contact.DefaultRouteId,
-                        GroupIds = contact.GroupIds,
-                        TimeCreated = contact.TimeCreated,
-                        MessageCount = contact.MessageCount,
-                        LastIncomingMessageTime = contact.LastIncomingMessageTime,
-                        LastOutgoingMessageTime = contact.LastOutgoingMessageTime,
-                        IncomingMessageCount = contact.IncomingMessageCount,
-                        OutgoingMessageCount = contact.OutgoingMessageCount,
-                        SendBlocked = contact.SendBlocked,
-                    };
-                    return m;
-                }),
-                Total = total,
-            };
-            return Json(gridModel);
-        }
 
     }
 }

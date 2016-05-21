@@ -84,8 +84,8 @@
         <td><strong>@item.Name</strong></td>
         <td><strong>@item.PhoneNumber</strong></td>
         <td><strong>@item.LastActiveDateTime</strong></td>
-        <td><div class='easy-pie-chart txt-color-darken easyPieChart' data-percent="@item.Battery" data-pie-size='45'><span class='percent percent-sign font-sm'>@item.Battery</span></div></td>
-        <td><strong><i class="@string.Concat("fa fa-fw ", (item.Charging == true) ? " fa-check-circle" : "fa-circle")"></i></strong></td>
+        <td><div class='@string.Concat("easy-pie-chart ", "easyPieChart ", (item.Battery >50 ) ? "txt-color-greenLight ":"txt-color-orange ")' data-percent="@item.Battery" data-pie-size='45'><span class='percent percent-sign font-sm'>@item.Battery</span></div></td>
+        <td><strong><i class="@string.Concat("fa fa-fw ", (item.Charging == true) ? " fa-check-circle txt-color-greenLight" : "fa-circle txt-color-teal")" style="font-size: xx-large;"></i></strong></td>
         <td><strong>@item.Mccmnc</strong></td>
         <td><strong>@item.InternetType</strong></td>
         <td><strong>@item.AppVersion</strong></td>

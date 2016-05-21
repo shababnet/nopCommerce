@@ -119,9 +119,13 @@
     <div id="inbox-content" class="inbox-body no-content-padding" style="min-height:@String.Concat((((IList<GroupModel>)@Model.ExtraData).Count() * 50).ToString(), "px;")">
 
         <div class="inbox-side-bar">
-                <ul class="inbox-menu-lg">
+            <div class="btn-group">
+               &nbsp;<a href="javascript:void(0);" class="btn btn-default btn-xs pull-left" style="margin-bottom:5px;"> <i class="fa fa-filter"></i> Filter</a>
+                &nbsp;<a href="javascript:void(0);" class="btn btn-default btn-xs pull-right" style="margin-bottom:5px;" id="btn-add-group"><i class="fa fa-plus-square"></i> Add Group</a>
+            </div>
+                <ul class="inbox-menu-lg" id="groups-list">
                     <li class="group-list-li active">
-                        <a href="javascript:void(0);">All contacts<span class="badge pull-right inbox-badge margin-right-13">@Model.Total</span></a>
+                        <a class="group-name" id="" href="javascript:void(0);">All contacts<span class="badge pull-right inbox-badge margin-right-13">@Model.Total</span></a>
                     </li>
                     @foreach (GroupModel group in (IList<GroupModel>)@Model.ExtraData)
                     {
@@ -162,6 +166,33 @@
     </div>
 
 <input type="hidden" id="current-group-id" value="" />
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Add Group</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="label txt-color-green">Inter Group Name</label>
+                            <input type="text" class="form-control" placeholder="Group Name" id="input-group-name" required />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" id="btn-save-group">Save</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
 
 @section PageScripts
 {
@@ -271,27 +302,95 @@
     });
 </script>
 <script type="text/javascript">
-$(document).ready(function() {
-    $('.group-name').click(function() {
-        $(".group-list-li").removeClass("active");
+    $(document).ready(function() {
+        $(document).on('click', '.group-name' , function() {
+            $(".group-list-li").removeClass("active");
+            $(this).parent().addClass("active");
+            $('#current-group-id').val($(this).attr("id"));
+            var grid = $('#simgate-grid').data('kendoGrid');
+            grid.dataSource.page(1);
+            return false;
+        });
 
-        $(this).parent().addClass("active");
+        $('#btn-save-group').click(function() {
+            $('#btn-save-group').addClass("disabled");
+            if($("#input-group-name").val().length == 0) {
+                $.SmartMessageBox({
+                    title : "Group Name Empty",
+                    content : "Please enter the Group Name.",
+                    buttons : '[OK]'
+                }, function(ButtonPressed) {
+                    if (ButtonPressed === "OK") {
+                        $('#btn-save-group').removeClass("disabled");
+                    }
+                });
+            } else if (!(/[a-zA-Z-\u0621-\u064A]/i.test($("#input-group-name").val()))){
 
-        $('#current-group-id').val($(this).attr("id"));
-        var grid = $('#simgate-grid').data('kendoGrid');
-        grid.dataSource.page(1);
-        return false;
+                $.SmartMessageBox({
+                    title : "Group Name Error !",
+                    content : "Group names must contain at least one non-numeric character.",
+                    buttons : '[OK]'
+                }, function(ButtonPressed) {
+                    if (ButtonPressed === "OK") {
+                        $('#btn-save-group').removeClass("disabled");
+                    }
+                });
+
+
+            } else {
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("AddNewGroup", "SimGate")",
+                    data: AddGroupAdditionalData(),
+                    dataType: "json",
+                    success: function (Data) {
+                        $('#myModal').modal('toggle');
+                        $('#btn-save-group').removeClass("disabled");
+                        $("#groups-list").append('<li class="group-list-li"><a class="group-name" id="'+Data.TelerivetID+'" href="javascript:void(0);">'+Data.Name+'<span class="badge pull-right inbox-badge margin-right-13">'+Data.NumMembers+'</span></a></li>');
+
+                        $.smallBox({
+                            title : "Add New Group",
+                            content : "<i class='fa fa-clock-o'></i> <i>Group Added Suscessfuly...</i>",
+                            color : "#659265",
+                            iconSmall : "fa fa-check fa-2x fadeInRight animated",
+                            timeout : 4000
+                        });
+
+                    },
+                    error: function (msg) {
+                        $('#btn-save-group').removeClass("disabled");
+                        $.smallBox({
+                            title : "Callback function",
+                            content : "<i class='fa fa-clock-o'></i> <i>" +  msg.error + "  You pressed No...</i>",
+                            color : "#C46A69",
+                            iconSmall : "fa fa-times fa-2x fadeInRight animated",
+                            timeout : 4000
+                        });
+
+                    }
+                });
+            }
+        });
+
+        $('#btn-add-group').click(function() {
+            $('#myModal').modal({ backdrop :'static', keyboard :false, });
+            return false;
+        });
     });
-    
-});
 
-function additionalData() {
-    var data = {
-        GroupID: $('#current-group-id').val(),
-    };
-    addAntiForgeryToken(data);
-    return data;
-}
+    function additionalData() {
+        var data = {
+            GroupID: $('#current-group-id').val(),
+            GroupID: $('#current-group-id').val(),
+        };
+        addAntiForgeryToken(data);
+        return data;
+    }
+
+    function AddGroupAdditionalData() {
+        var data = {GroupName: $('#input-group-name').val()};
+        addAntiForgeryToken(data);
+        return data;
+    }
 </script>
-
 }
