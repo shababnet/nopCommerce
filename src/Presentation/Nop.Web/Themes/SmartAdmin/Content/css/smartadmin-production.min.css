@@ -10647,6 +10647,17 @@ tr.highlight td,tr.unread.highlight td {
     background: #f4f4f4
 }
 
+
+.inbox-menu-lg li.active {
+border-color: aquamarine;
+    background-size: 0px;
+    border-style: solid;
+    border-radius: 5px;
+}
+
+
+
+
 .inbox-menu-lg li.active a {
     font-weight: 700;
     background: #F0F0F0;

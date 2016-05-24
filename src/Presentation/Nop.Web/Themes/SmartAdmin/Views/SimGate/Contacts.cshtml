@@ -131,7 +131,17 @@
                     {
                         <li class="group-list-li">
                             <a class="group-name" id="@group.TelerivetID" href="javascript:void(0);">@group.Name<span class="badge pull-right inbox-badge margin-right-13">@group.NumMembers</span></a>
+                            <div class="group-actions text-center" style="display:none;">
+                                <i class="btn btn-info fa-lg fa fa-user padding-5" style="margin:7px"></i>
+                                <i class="btn btn-info fa-lg fa fa-user padding-5" style="margin:7px"></i>
+                                <i class="btn btn-info fa-lg fa fa-user padding-5" style="margin:7px"></i>
+                                <i class="btn btn-info fa-lg fa fa-user padding-5" style="margin:7px"></i>
+                            </div>
                         </li>
+
+
+
+
                     }
                 </ul>
                 <div class="air air-bottom inbox-space">
@@ -305,7 +315,14 @@
     $(document).ready(function() {
         $(document).on('click', '.group-name' , function() {
             $(".group-list-li").removeClass("active");
+            $(".group-actions").hide();
+
+            
+
+
             $(this).parent().addClass("active");
+            $(this).parent().children(2).show();
+
             $('#current-group-id').val($(this).attr("id"));
             var grid = $('#simgate-grid').data('kendoGrid');
             grid.dataSource.page(1);
