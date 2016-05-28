@@ -90,6 +90,14 @@
       <HintPath>..\..\packages\MaxMind.GeoIP2.2.6.0\lib\net45\MaxMind.GeoIP2.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.Core, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.SignalR.Core.2.2.0\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.SystemWeb, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.SignalR.SystemWeb.2.2.0\lib\net45\Microsoft.AspNet.SignalR.SystemWeb.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.Data.Edm, Version=5.7.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.Data.Edm.5.7.0\lib\net40\Microsoft.Data.Edm.dll</HintPath>
       <Private>True</Private>
@@ -108,6 +116,10 @@
     </Reference>
     <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.Owin.Host.SystemWeb.3.0.1\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Owin.Security.2.1.0\lib\net45\Microsoft.Owin.Security.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Threading.Tasks">
@@ -402,20 +414,23 @@
     <Compile Include="Models\ShoppingCart\ShoppingCartModel.cs" />
     <Compile Include="Models\Topics\TopicModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SimGate\Class\Settings.cs" />
-    <Compile Include="SimGate\Class\StringExtensions.cs" />
-    <Compile Include="SimGate\Controllers\CommonController.cs" />
-    <Compile Include="SimGate\Controllers\SimGateController.cs" />
-    <Compile Include="SimGate\Controllers\HomeController.cs" />
-    <Compile Include="SimGate\Class\HtmlHelperExtensions.cs" />
-    <Compile Include="SimGate\Extensions\CustomerExtensions.cs" />
-    <Compile Include="SimGate\Infrastructure\DependencyRegistrar.cs" />
-    <Compile Include="SimGate\Infrastructure\SimGateRouteProvider.cs" />
-    <Compile Include="SimGate\Models\BaseTelerivetModel.cs" />
-    <Compile Include="SimGate\Models\PhoneModel.cs" />
-    <Compile Include="SimGate\Models\ProjectListModel.cs" />
-    <Compile Include="SimGate\Models\ProjectModel.cs" />
-    <Compile Include="SimGate\MyConsumer.cs" />
+    <Compile Include="SimGateApp\Class\Settings.cs" />
+    <Compile Include="SimGateApp\Class\StringExtensions.cs" />
+    <Compile Include="SimGateApp\Controllers\CommonController.cs" />
+    <Compile Include="SimGateApp\Controllers\NotificationsController.cs" />
+    <Compile Include="SimGateApp\Controllers\SimGateController.cs" />
+    <Compile Include="SimGateApp\Controllers\HomeController.cs" />
+    <Compile Include="SimGateApp\Class\HtmlHelperExtensions.cs" />
+    <Compile Include="SimGateApp\Extensions\CustomerExtensions.cs" />
+    <Compile Include="SimGateApp\Infrastructure\DependencyRegistrar.cs" />
+    <Compile Include="SimGateApp\Infrastructure\SimGateRouteProvider.cs" />
+    <Compile Include="SimGateApp\Models\BaseTelerivetModel.cs" />
+    <Compile Include="SimGateApp\Models\PhoneModel.cs" />
+    <Compile Include="SimGateApp\Models\ProjectListModel.cs" />
+    <Compile Include="SimGateApp\Models\ProjectModel.cs" />
+    <Compile Include="SimGateApp\MyConsumer.cs" />
+    <Compile Include="SimGateApp\SignalR\ChatHub.cs" />
+    <Compile Include="SimGateApp\SignalR\Startup.cs" />
     <Compile Include="Validators\Blogs\BlogPostValidator.cs" />
     <Compile Include="Validators\Boards\EditForumPostValidator.cs" />
     <Compile Include="Validators\Boards\EditForumTopicValidator.cs" />
@@ -1197,6 +1212,8 @@
     <Content Include="Scripts\jquery-ui-1.10.3.custom.min.js" />
     <Content Include="Scripts\jquery.magnific-popup.js" />
     <Content Include="Scripts\jquery.magnific-popup.min.js" />
+    <Content Include="Scripts\jquery.signalR-2.2.0.js" />
+    <Content Include="Scripts\jquery.signalR-2.2.0.min.js" />
     <Content Include="Scripts\jquery.tmpl.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\kendo\2014.1.318\cultures\kendo.culture.af-ZA.min.js" />
@@ -1693,7 +1710,7 @@
     <Content Include="Scripts\tagEditor\jquery.caret.min.js" />
     <Content Include="Scripts\tagEditor\jquery.tag-editor.js" />
     <Content Include="Scripts\tagEditor\jquery.tag-editor.min.js" />
-    <Content Include="SimGate\App_Data\Localization\ar\language_pack_ar.xml" />
+    <Content Include="SimGateApp\App_Data\Localization\ar\language_pack_ar.xml" />
     <Content Include="Themes\DefaultClean\Content\css\ie8.css" />
     <Content Include="Themes\DefaultClean\Content\css\styles.css" />
     <Content Include="Themes\DefaultClean\Content\css\styles.rtl.css" />
@@ -2214,7 +2231,7 @@
   <ItemGroup>
     <Folder Include="Content\Roxy_Fileman\tmp\" />
     <Folder Include="Plugins\bin\" />
-    <Folder Include="SimGate\sound\" />
+    <Folder Include="SimGateApp\sound\" />
     <Folder Include="Themes\SmartAdmin\Content\fonts\font-awesome\" />
     <Folder Include="Themes\SmartAdmin\Content\fonts\fontawesome4.2\" />
     <Folder Include="Themes\SmartAdmin\Content\fonts\fontawesome4.5\" />
@@ -2227,6 +2244,7 @@
     <Folder Include="Themes\SmartAdmin\Content\Scripts\smart-chat-ui\" />
     <Folder Include="Themes\SmartAdmin\Content\Scripts\smartwidgets\" />
     <Folder Include="Themes\SmartAdmin\Content\Scripts\speech\" />
+    <Folder Include="Views\Notifications\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Libraries\Nop.Core\Nop.Core.csproj">

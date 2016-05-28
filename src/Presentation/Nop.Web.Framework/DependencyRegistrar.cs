@@ -68,6 +68,8 @@ namespace Nop.Web.Framework
         /// <param name="config">Config</param>
         public virtual void Register(ContainerBuilder builder, ITypeFinder typeFinder, NopConfig config)
         {
+
+
             //HTTP context and other related stuff
             builder.Register(c => 
                 //register FakeHttpContext when HttpContext is not available

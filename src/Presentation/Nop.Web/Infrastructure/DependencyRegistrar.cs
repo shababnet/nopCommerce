@@ -6,6 +6,7 @@ using Nop.Core.Infrastructure;
 using Nop.Core.Infrastructure.DependencyManagement;
 using Nop.Web.Controllers;
 using Nop.Web.Infrastructure.Installation;
+using System.Reflection;
 
 namespace Nop.Web.Infrastructure
 {
@@ -22,6 +23,7 @@ namespace Nop.Web.Infrastructure
         /// <param name="config">Config</param>
         public virtual void Register(ContainerBuilder builder, ITypeFinder typeFinder, NopConfig config)
         {
+
             //we cache presentation models between requests
             builder.RegisterType<BlogController>()
                 .WithParameter(ResolvedParameter.ForNamed<ICacheManager>("nop_cache_static"));
